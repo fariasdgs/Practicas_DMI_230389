@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Arquitectura del proyecto · Aplicación de contador",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1320,
+      620
+    ],
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "Interfaz y estado local"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "app-entry",
+      "type": "frontend",
+      "label": "Inicio de la aplicación",
+      "sublabel": "main.dart · main → runApp → MyApp",
+      "pos": [
+        40,
+        100
+      ],
+      "size": [
+        300,
+        90
+      ]
+    },
+    {
+      "id": "counter-screen",
+      "type": "frontend",
+      "label": "Pantalla del contador",
+      "sublabel": "CounterFunctionsScreen · Scaffold",
+      "pos": [
+        510,
+        100
+      ],
+      "size": [
+        300,
+        90
+      ]
+    },
+    {
+      "id": "counter-actions",
+      "type": "frontend",
+      "label": "Acciones del usuario",
+      "sublabel": "CustomButton · Sumar, restar y reiniciar",
+      "pos": [
+        980,
+        100
+      ],
+      "size": [
+        300,
+        90
+      ]
+    },
+    {
+      "id": "counter-state",
+      "type": "frontend",
+      "label": "Estado del contador",
+      "sublabel": "clickCounter · Cambios con setState",
+      "pos": [
+        980,
+        400
+      ],
+      "size": [
+        300,
+        90
+      ]
+    },
+    {
+      "id": "counter-build",
+      "type": "frontend",
+      "label": "Reconstrucción de la interfaz",
+      "sublabel": "build · Lee el valor actualizado",
+      "pos": [
+        510,
+        400
+      ],
+      "size": [
+        300,
+        90
+      ]
+    },
+    {
+      "id": "counter-display",
+      "type": "frontend",
+      "label": "Resultado en pantalla",
+      "sublabel": "Número, color y texto Click / Clicks",
+      "pos": [
+        40,
+        400
+      ],
+      "size": [
+        300,
+        90
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "entry-screen",
+      "from": "app-entry",
+      "to": "counter-screen",
+      "label": "abre con home",
+      "variant": "emphasis"
+    },
+    {
+      "id": "screen-buttons",
+      "from": "counter-screen",
+      "to": "counter-actions",
+      "label": "crea 3 botones",
+      "variant": "emphasis"
+    },
+    {
+      "id": "buttons-state",
+      "from": "counter-actions",
+      "to": "counter-state",
+      "label": "ejecuta onPressed",
+      "variant": "emphasis",
+      "labelAt": [
+        1130,
+        285
+      ]
+    },
+    {
+      "id": "state-build",
+      "from": "counter-state",
+      "to": "counter-build",
+      "label": "solicita actualizar",
+      "variant": "emphasis"
+    },
+    {
+      "id": "build-display",
+      "from": "counter-build",
+      "to": "counter-display",
+      "label": "muestra el valor",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Configuración y recursos",
+      "items": [
+        "MaterialApp: tema morado, sin cinta de depuración.",
+        "pubspec.yaml: Flutter, iconos y fuente Montserrat.",
+        "Carpetas: Android, iOS, web, Windows, macOS y Linux."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Comportamiento del contador",
+      "items": [
+        "Inicia en 0; admite números negativos.",
+        "Positivo: verde · Cero: azul · Negativo: rojo.",
+        "La barra superior también permite reiniciar."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Alcance del código actual",
+      "items": [
+        "Estado en memoria; sin servidor ni base de datos.",
+        "counter_functions_screen.dart está vacío.",
+        "La prueba espera «Counter Screen»; la app muestra «Counter Functions»."
+      ]
+    }
+  ]
+}

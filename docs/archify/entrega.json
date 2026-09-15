@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/docs/archify/counter.architecture.json",
+  "output": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/docs/index.html",
+  "specification": {
+    "sha256": "d521263ac9df416648cfc2a2530880d62707d4015bacbb18a4b5cb537f756de1",
+    "bytes": 3757
+  },
+  "artifact": {
+    "sha256": "1d1d921e5980fa5c36b103023501afeb3ed03f0f731164d210ec8d79499218ae",
+    "bytes": 802472
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}
