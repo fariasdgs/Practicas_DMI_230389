@@ -2,6 +2,10 @@
 
 Proyecto de la práctica **Mi Primer Aplicación Móvil con Flutter**, desarrollado para la asignatura **Desarrollo Móvil Integral**.
 
+## Diagrama del proyecto
+
+[Ver el diagrama interactivo de Archify en GitHub Pages](https://fariasdgs.github.io/Practicas_DMI_230389/)
+
 ## Descripción
 
 La aplicación consiste en un contador interactivo que permite incrementar, disminuir y reiniciar un valor numérico. Cada acción actualiza la pantalla y el número cambia de color dependiendo de si es positivo, cero o negativo.
