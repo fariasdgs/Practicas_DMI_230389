@@ -10,19 +10,31 @@ class CounterFunctionsScreen extends StatefulWidget {
 class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
   int clickCounter = 0;
 
+  Color _getCounterColor(int value) {
+    if (value == 0) {
+      return Colors.blue;
+    } else if (value > 0) {
+      return Colors.green;
+    } else {
+      return Colors.red;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Counter Functions'),
+        title: const Text(
+          'Counter Functions',
+          style: TextStyle(fontFamily: 'Montserrat'),
+        ),
         actions: [
           IconButton(
-            icon: Icon(Icons.refresh_rounded),
+            icon: const Icon(Icons.refresh_rounded),
             onPressed: () {
               setState(() {
-                clickCounter = 0; // Reset the counter to zero
+                clickCounter = 0;
               });
-              // Handle info button press
             },
           ),
         ],
@@ -31,7 +43,8 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          FloatingActionButton(
+          CustomButton(
+            icon: Icons.plus_one,
             heroTag: 'increment',
             tooltip: 'Sumar uno',
             onPressed: () {
@@ -39,10 +52,10 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
                 clickCounter++;
               });
             },
-            child: const Icon(Icons.plus_one),
           ),
           const SizedBox(height: 10),
-          FloatingActionButton(
+          CustomButton(
+            icon: Icons.exposure_minus_1_outlined,
             heroTag: 'decrement',
             tooltip: 'Restar uno',
             onPressed: () {
@@ -50,7 +63,17 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
                 clickCounter--;
               });
             },
-            child: const Text('-1'),
+          ),
+          const SizedBox(height: 10),
+          CustomButton(
+            icon: Icons.refresh_rounded,
+            heroTag: 'reset',
+            tooltip: 'Reiniciar contador',
+            onPressed: () {
+              setState(() {
+                clickCounter = 0;
+              });
+            },
           ),
         ],
       ),
@@ -61,23 +84,48 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
             Text(
               '$clickCounter',
               style: TextStyle(
+                fontFamily: 'Montserrat',
                 fontSize: 160,
                 fontWeight: FontWeight.w100,
-                color: clickCounter > 0
-                    ? Colors.green
-                    : clickCounter == 0
-                    ? Colors.blue
-                    : Colors.red,
+                color: _getCounterColor(clickCounter),
               ),
             ),
 
             Text(
-              'Click${clickCounter == 1 ? 's' : ''}',
-              style: TextStyle(fontSize: 25),
+              'Click${clickCounter == 1 ? '' : 's'}',
+              style: const TextStyle(fontFamily: 'Montserrat', fontSize: 25),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onPressed;
+  final String heroTag;
+  final String tooltip;
+
+  const CustomButton({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    required this.heroTag,
+    required this.tooltip,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      heroTag: heroTag,
+      enableFeedback: true,
+      elevation: 20,
+      tooltip: tooltip,
+      shape: const StadiumBorder(),
+      onPressed: onPressed,
+      child: Icon(icon),
     );
   }
 }
