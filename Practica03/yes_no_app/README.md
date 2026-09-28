@@ -56,18 +56,18 @@ Desarrollar una aplicación de chat con Flutter y Dart que permita consumir una 
 
 ## Funcionalidades
 
-| Función | Comportamiento |
-| --- | --- |
-| Enviar mensajes | Permite enviar desde el botón o la acción de envío del teclado |
-| Detectar preguntas | Consulta la API cuando el texto termina en `?`, ignorando espacios al final |
-| Evitar mensajes vacíos | Ignora textos vacíos o que contienen únicamente espacios |
-| Responder automáticamente | Selecciona Sí, No o Tal Vez con probabilidades de 40%, 40% y 20% |
-| Mostrar GIF | Incluye en la burbuja la imagen animada de la categoría seleccionada |
-| Mostrar hora | Presenta la hora local de cada mensaje en formato `HH:mm` |
-| Actualizar el chat | Notifica a los widgets cuando cambia la lista de mensajes |
-| Desplazar la conversación | Mueve la lista hacia el último mensaje |
-| Controlar el teclado | Conserva el foco después de enviar y lo retira al tocar fuera del campo |
-| Manejar errores | Muestra un aviso si falla la consulta o no se puede cargar el GIF |
+| Función                   | Comportamiento                                                              |
+| ------------------------- | --------------------------------------------------------------------------- |
+| Enviar mensajes           | Permite enviar desde el botón o la acción de envío del teclado              |
+| Detectar preguntas        | Consulta la API cuando el texto termina en `?`, ignorando espacios al final |
+| Evitar mensajes vacíos    | Ignora textos vacíos o que contienen únicamente espacios                    |
+| Responder automáticamente | Selecciona Sí, No o Tal Vez con probabilidades de 40%, 40% y 20%            |
+| Mostrar GIF               | Incluye en la burbuja la imagen animada de la categoría seleccionada        |
+| Mostrar hora              | Presenta la hora local de cada mensaje en formato `HH:mm`                   |
+| Actualizar el chat        | Notifica a los widgets cuando cambia la lista de mensajes                   |
+| Desplazar la conversación | Mueve la lista hacia el último mensaje                                      |
+| Controlar el teclado      | Conserva el foco después de enviar y lo retira al tocar fuera del campo     |
+| Manejar errores           | Muestra un aviso si falla la consulta o no se puede cargar el GIF           |
 
 La conversación se mantiene **en memoria durante la ejecución**. No se guarda en una base de datos ni se recupera después de reiniciar la aplicación. Las respuestas son aleatorias y no interpretan el significado de la pregunta.
 
@@ -98,10 +98,10 @@ El cambio de ícono requiere detener y volver a ejecutar la aplicación; **hot r
 La lógica se encuentra en [get_yes_no_answer.dart](lib/config/helpers/get_yes_no_answer.dart). Se genera un número entero aleatorio de **0 a 99** mediante `Random.nextInt(100)`:
 
 | Valor generado | Respuesta | Probabilidad | Parámetro enviado a la API |
-| --- | --- | --- | --- |
-| 0–39 | Sí | 40% | `force=yes` |
-| 40–79 | No | 40% | `force=no` |
-| 80–99 | Tal Vez | 20% | `force=maybe` |
+| -------------- | --------- | ------------ | -------------------------- |
+| 0–39           | Sí        | 40%          | `force=yes`                |
+| 40–79          | No        | 40%          | `force=no`                 |
+| 80–99          | Tal Vez   | 20%          | `force=maybe`              |
 
 La aplicación elige primero la categoría y después solicita su GIF mediante el parámetro `force` de la [API yesno.wtf](https://yesno.wtf/). Por ejemplo:
 
@@ -137,17 +137,17 @@ Los mensajes que no terminan en `?` se muestran en el chat, pero no provocan una
 
 ## Tecnologías utilizadas
 
-| Tecnología | Uso en el proyecto |
-| --- | --- |
-| Flutter | Construcción de pantallas, formularios y burbujas |
-| Dart | Modelos, lógica de selección y operaciones asíncronas |
-| Material Design | Tema, componentes visuales e íconos de la interfaz |
-| `provider` | Acceso al estado y reconstrucción de widgets al recibir cambios |
-| `http` | Solicitudes a la API y clientes simulados en las pruebas |
-| `dart:convert` | Conversión del JSON recibido |
-| `dart:math` | Selección aleatoria de respuestas |
-| `flutter_launcher_icons` | Generación de íconos nativos |
-| `flutter_test` | Pruebas de lógica y de widgets |
+| Tecnología               | Uso en el proyecto                                              |
+| ------------------------ | --------------------------------------------------------------- |
+| Flutter                  | Construcción de pantallas, formularios y burbujas               |
+| Dart                     | Modelos, lógica de selección y operaciones asíncronas           |
+| Material Design          | Tema, componentes visuales e íconos de la interfaz              |
+| `provider`               | Acceso al estado y reconstrucción de widgets al recibir cambios |
+| `http`                   | Solicitudes a la API y clientes simulados en las pruebas        |
+| `dart:convert`           | Conversión del JSON recibido                                    |
+| `dart:math`              | Selección aleatoria de respuestas                               |
+| `flutter_launcher_icons` | Generación de íconos nativos                                    |
+| `flutter_test`           | Pruebas de lógica y de widgets                                  |
 
 Las versiones de las dependencias se declaran en [pubspec.yaml](pubspec.yaml).
 
@@ -190,17 +190,17 @@ Practica03/yes_no_app/
 └── README.md
 ```
 
-| Archivo o componente | Responsabilidad |
-| --- | --- |
-| `main.dart` | Inicia la app, registra `ChatProvider` y configura el tema y la pantalla inicial |
-| `AppTheme` | Define la apariencia y el esquema de colores |
-| `Message` | Representa texto, imagen opcional, remitente y hora del mensaje |
-| `ChatProvider` | Administra mensajes, respuestas, notificaciones y desplazamiento |
-| `GetYesNoAnswer` | Selecciona la respuesta y obtiene su GIF mediante HTTP |
-| `ChatScreen` | Construye la pantalla y escucha los cambios del provider |
-| `MyMessageBubble` y `HerMessageBubble` | Reciben los mensajes de cada participante y utilizan la burbuja compartida |
-| `MessageBubble` | Dibuja el texto, el GIF opcional y la hora según el remitente |
-| `MessageFieldBox` | Administra el campo de texto, el foco y el envío |
+| Archivo o componente                   | Responsabilidad                                                                  |
+| -------------------------------------- | -------------------------------------------------------------------------------- |
+| `main.dart`                            | Inicia la app, registra `ChatProvider` y configura el tema y la pantalla inicial |
+| `AppTheme`                             | Define la apariencia y el esquema de colores                                     |
+| `Message`                              | Representa texto, imagen opcional, remitente y hora del mensaje                  |
+| `ChatProvider`                         | Administra mensajes, respuestas, notificaciones y desplazamiento                 |
+| `GetYesNoAnswer`                       | Selecciona la respuesta y obtiene su GIF mediante HTTP                           |
+| `ChatScreen`                           | Construye la pantalla y escucha los cambios del provider                         |
+| `MyMessageBubble` y `HerMessageBubble` | Reciben los mensajes de cada participante y utilizan la burbuja compartida       |
+| `MessageBubble`                        | Dibuja el texto, el GIF opcional y la hora según el remitente                    |
+| `MessageFieldBox`                      | Administra el campo de texto, el foco y el envío                                 |
 
 ## Requisitos
 
@@ -247,11 +247,11 @@ flutter run -d chrome
 
 En la terminal donde corre Flutter:
 
-| Tecla | Acción |
-| --- | --- |
-| `r` | Hot reload: actualiza la interfaz y conserva el estado cuando es posible |
-| `R` | Hot restart: reinicia la app y la conversación |
-| `q` | Detiene la ejecución |
+| Tecla | Acción                                                                   |
+| ----- | ------------------------------------------------------------------------ |
+| `r`   | Hot reload: actualiza la interfaz y conserva el estado cuando es posible |
+| `R`   | Hot restart: reinicia la app y la conversación                           |
+| `q`   | Detiene la ejecución                                                     |
 
 ## Verificación
 
@@ -276,15 +276,15 @@ Las consultas HTTP de las pruebas se simulan para que los resultados no dependan
 
 ### Prueba manual en el simulador
 
-| Acción | Resultado esperado |
-| --- | --- |
-| Enviar `¿Hoy voy al gimnasio?` | Aparece el mensaje y después Sí, No o Tal Vez con su GIF |
-| Enviar `¿Voy a pasar la materia?` | Se realiza una nueva selección aleatoria |
-| Enviar `Hola` | Aparece el mensaje sin respuesta automática |
-| Enviar únicamente espacios | No se agrega un mensaje |
-| Revisar las burbujas | Cada mensaje muestra su hora abajo a la derecha |
-| Enviar varios mensajes | La conversación se desplaza hacia el último mensaje |
-| Ir al inicio del teléfono | Se observa el ícono personalizado de la app |
+| Acción                            | Resultado esperado                                       |
+| --------------------------------- | -------------------------------------------------------- |
+| Enviar `¿Hoy voy al gimnasio?`    | Aparece el mensaje y después Sí, No o Tal Vez con su GIF |
+| Enviar `¿Voy a pasar la materia?` | Se realiza una nueva selección aleatoria                 |
+| Enviar `Hola`                     | Aparece el mensaje sin respuesta automática              |
+| Enviar únicamente espacios        | No se agrega un mensaje                                  |
+| Revisar las burbujas              | Cada mensaje muestra su hora abajo a la derecha          |
+| Enviar varios mensajes            | La conversación se desplaza hacia el último mensaje      |
+| Ir al inicio del teléfono         | Se observa el ícono personalizado de la app              |
 
 Para comprobar la compilación de iOS sin firma, en una Mac con Xcode:
 
