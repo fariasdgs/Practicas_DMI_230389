@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "yes_no_app \u2014 iPhone 17 Pro",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/Practica03/yes_no_app",
+      "program": "${workspaceFolder}/Practica03/yes_no_app/lib/main.dart",
+      "flutterMode": "debug",
+      "env": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      }
+    }
+  ]
+}

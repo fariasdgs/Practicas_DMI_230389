@@ -77,7 +77,7 @@ Al disminuir el contador por debajo de cero, el número cambia a rojo. En esta c
 ## Estructura principal
 
 ```text
-hello_world_app/
+Practica02/hello_world_app/
 ├── lib/
 │   ├── main.dart
 │   └── presentation/screens/counter/
@@ -118,7 +118,7 @@ hello_world_app/
 Desde la raíz del repositorio, entra al proyecto e instala las dependencias:
 
 ```bash
-cd hello_world_app
+cd Practica02/hello_world_app
 flutter pub get
 ```
 
@@ -190,4 +190,4 @@ La licencia de Montserrat se incluye en [assets/fonts/OFL.txt](assets/fonts/OFL.
 
 ---
 
-[Volver al README principal del repositorio](../README.md)
+[Volver al README principal del repositorio](../../README.md)
