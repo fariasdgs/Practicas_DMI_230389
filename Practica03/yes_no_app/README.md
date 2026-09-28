@@ -2,6 +2,20 @@
 
 Proyecto de la **Práctica 03: Chat con API de Respuestas Automáticas**, desarrollado para la asignatura **Desarrollo Móvil Integral**.
 
+## Diagrama interactivo del proyecto
+
+[Explorar el modelo Archify de Yes, No, Maybe](docs/arquitectura.html)
+
+El modelo muestra el recorrido desde el envío de un mensaje hasta la respuesta con GIF y hora. Incluye tres vistas guiadas, selección de componentes, zoom, temas claro y oscuro, modo de presentación y exportación.
+
+Para verlo localmente, abre `docs/arquitectura.html` en tu navegador. Es un archivo autónomo: no necesita ejecutar Flutter ni consultar la API. Si lo visitas desde GitHub y ves código, descarga el HTML y ábrelo en el navegador.
+
+- [Guía para presentar el modelo](docs/archify/README.md).
+- [Vista previa del diagrama](docs/arquitectura.visual-check.2048x1320.dark.png).
+- [Especificación editable](docs/archify/chat.architecture.json).
+
+El contenido está en español; los controles del visor y su atributo HTML de idioma usan inglés por las opciones disponibles en Archify.
+
 ## Descripción
 
 La aplicación simula una conversación de chat en la que el usuario puede escribir mensajes y recibir respuestas automáticas cuando envía una pregunta terminada en **`?`**. Las respuestas posibles son **Sí**, **No** y **Tal Vez**, acompañadas de un GIF obtenido de la API de [yesno.wtf](https://yesno.wtf/).

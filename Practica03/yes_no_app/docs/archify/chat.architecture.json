@@ -1,0 +1,276 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Yes, No, Maybe · Del mensaje a la respuesta",
+    "quality_profile": "showcase",
+    "animation": "trace",
+    "viewBox": [
+      1360,
+      750
+    ],
+    "legend": {
+      "entries": {
+        "frontend": {
+          "label": "Aplicación Flutter · ejecución local"
+        },
+        "external": {
+          "label": "Servicio externo · internet"
+        }
+      }
+    },
+    "views": [
+      {
+        "id": "chat-writing",
+        "label": "1 · Mensaje y estado",
+        "focus": [
+          "chat-bootstrap",
+          "chat-compose",
+          "chat-state"
+        ],
+        "note": "El campo entrega texto al provider. Los mensajes vacíos se ignoran; sin ? no se consulta la API."
+      },
+      {
+        "id": "chat-answering",
+        "label": "2 · Probabilidad y API",
+        "focus": [
+          "chat-state",
+          "chat-lottery",
+          "chat-api",
+          "chat-decode"
+        ],
+        "note": "40% Sí, 40% No y 20% Tal Vez. force solicita el GIF de la categoría elegida."
+      },
+      {
+        "id": "chat-display",
+        "label": "3 · Respuesta y hora",
+        "focus": [
+          "chat-message",
+          "chat-render",
+          "chat-bubble"
+        ],
+        "note": "La hora se fija al crear Message. El provider notifica y desplaza la conversación al último mensaje."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "chat-bootstrap",
+      "type": "frontend",
+      "label": "Arranque de la app",
+      "sublabel": "MyApp · MultiProvider · AppTheme",
+      "pos": [
+        40,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-compose",
+      "type": "frontend",
+      "label": "Escribir y enviar",
+      "sublabel": "MessageFieldBox · botón o teclado",
+      "pos": [
+        530,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-state",
+      "type": "frontend",
+      "label": "Estado de la conversación",
+      "sublabel": "ChatProvider · messageList en memoria",
+      "pos": [
+        1020,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-lottery",
+      "type": "frontend",
+      "label": "Elegir la respuesta",
+      "sublabel": "Random.nextInt(100) · 40 / 40 / 20",
+      "pos": [
+        1020,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-api",
+      "type": "external",
+      "label": "API yesno.wtf",
+      "sublabel": "GET /api?force=yes | no | maybe",
+      "pos": [
+        530,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-decode",
+      "type": "frontend",
+      "label": "Validar y traducir",
+      "sublabel": "GetYesNoAnswer · JSON → español",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-message",
+      "type": "frontend",
+      "label": "Crear respuesta con hora",
+      "sublabel": "Message · text · imageUrl · sentAt",
+      "pos": [
+        40,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-render",
+      "type": "frontend",
+      "label": "Actualizar la pantalla",
+      "sublabel": "ChatScreen · context.watch",
+      "pos": [
+        530,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "chat-bubble",
+      "type": "frontend",
+      "label": "Mostrar la conversación",
+      "sublabel": "MessageBubble · texto + GIF + HH:mm",
+      "pos": [
+        1020,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "chat-step-1",
+      "from": "chat-bootstrap",
+      "to": "chat-compose",
+      "label": "abre el chat",
+      "variant": "emphasis"
+    },
+    {
+      "id": "chat-step-2",
+      "from": "chat-compose",
+      "to": "chat-state",
+      "label": "sendMessage",
+      "variant": "emphasis"
+    },
+    {
+      "id": "chat-step-3",
+      "from": "chat-state",
+      "to": "chat-lottery",
+      "label": "si termina en ?",
+      "variant": "emphasis",
+      "labelAt": [
+        1170,
+        243
+      ]
+    },
+    {
+      "id": "chat-step-4",
+      "from": "chat-lottery",
+      "to": "chat-api",
+      "label": "HTTPS · force",
+      "variant": "emphasis"
+    },
+    {
+      "id": "chat-step-5",
+      "from": "chat-api",
+      "to": "chat-decode",
+      "label": "JSON + URL del GIF",
+      "variant": "emphasis"
+    },
+    {
+      "id": "chat-step-6",
+      "from": "chat-decode",
+      "to": "chat-message",
+      "label": "crea Message",
+      "variant": "emphasis",
+      "labelAt": [
+        190,
+        493
+      ]
+    },
+    {
+      "id": "chat-step-7",
+      "from": "chat-message",
+      "to": "chat-render",
+      "label": "herReply + notifyListeners",
+      "variant": "emphasis"
+    },
+    {
+      "id": "chat-step-8",
+      "from": "chat-render",
+      "to": "chat-bubble",
+      "label": "reconstruye burbujas",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Reto 1 · Identidad propia",
+      "items": [
+        "Ícono de chat: palomita, cruz e interrogación.",
+        "assets/icon → flutter_launcher_icons."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Reto 2 · Probabilidades",
+      "items": [
+        "0–39: Sí · 40–79: No · 80–99: Tal Vez.",
+        "Probabilidad por pregunta; no cuotas por tanda."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Reto 3 · Tiempo y cuidado",
+      "items": [
+        "Hora local HH:mm fija dentro de cada burbuja.",
+        "Fallo de consulta: aviso; sin historial persistente."
+      ]
+    }
+  ]
+}

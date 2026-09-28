@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/Practica03/yes_no_app/docs/archify/chat.architecture.json",
+  "output": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/Practica03/yes_no_app/docs/arquitectura.html",
+  "specification": {
+    "sha256": "f4b79f7b20bd40625af816bb0bd4c59c427d7f4915cd1cc1a21e5d5c084de2b6",
+    "bytes": 5862
+  },
+  "artifact": {
+    "sha256": "d1c6c716d266cc9cf3312c471f18f7555a714fb4a35c1249c35d9904bbb71e31",
+    "bytes": 809827
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}
