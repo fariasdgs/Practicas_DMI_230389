@@ -2,13 +2,27 @@
 
 Proyecto de la **Práctica 03: Chat con API de Respuestas Automáticas**, desarrollado para la asignatura **Desarrollo Móvil Integral**.
 
+<p align="center">
+  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/">
+    <img src="https://img.shields.io/badge/ABRIR_MODELO_INTERACTIVO-ARCHIFY-6C63FF?style=for-the-badge" alt="Abrir modelo interactivo en GitHub Pages">
+  </a>
+</p>
+
+<p align="center">
+  <strong>Explora cómo funciona el chat, desde el mensaje hasta la respuesta.</strong><br>
+  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/">Ver presentación interactiva en GitHub Pages →</a><br>
+  Disponible en el navegador, sin instalar Flutter.
+</p>
+
+---
+
 ## Diagrama interactivo del proyecto
 
-[Explorar el modelo Archify de Yes, No, Maybe](docs/arquitectura.html)
+[**Abrir el modelo Archify en línea**](https://fariasdgs.github.io/Practicas_DMI_230389/)
 
 El modelo muestra el recorrido desde el envío de un mensaje hasta la respuesta con GIF y hora. Incluye tres vistas guiadas, selección de componentes, zoom, temas claro y oscuro, modo de presentación y exportación.
 
-Para verlo localmente, abre `docs/arquitectura.html` en tu navegador. Es un archivo autónomo: no necesita ejecutar Flutter ni consultar la API. Si lo visitas desde GitHub y ves código, descarga el HTML y ábrelo en el navegador.
+Usa el enlace principal para explorar el modelo directamente. También puedes abrir la [versión local](docs/arquitectura.html) en tu navegador; es un archivo autónomo que no necesita ejecutar Flutter ni consultar la API.
 
 - [Guía para presentar el modelo](docs/archify/README.md).
 - [Vista previa del diagrama](docs/arquitectura.visual-check.2048x1320.dark.png).
