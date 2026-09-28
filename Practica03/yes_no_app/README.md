@@ -135,6 +135,38 @@ Las burbujas tienen esquinas redondeadas, colores distintos para cada participan
 
 Los mensajes que no terminan en `?` se muestran en el chat, pero no provocan una respuesta automática.
 
+## Capturas de evidencia
+
+La aplicación ejecutándose en el simulador **iPhone 17 Pro con iOS 26.5**. Las capturas muestran la conversación con CBUM, las respuestas de la API, los GIF y las horas dentro de las burbujas.
+
+### 1. Respuesta Sí · GIF y hora del mensaje
+
+Se observa una respuesta **Sí** acompañada de su GIF y la hora **15:07**. Los mensajes del usuario aparecen a la derecha y las respuestas automáticas a la izquierda.
+
+<p align="center">
+  <img src="assets/screenshots/si.png" alt="Chat en iPhone 17 Pro con respuesta Sí, GIF y hora 15:07" width="380">
+</p>
+
+### 2. Respuesta No · Pregunta y respuesta automática
+
+Después de una pregunta terminada en `?`, la aplicación muestra **No**, su GIF correspondiente y la hora **15:05**. También se aprecian los mensajes iniciales y el campo de envío.
+
+<p align="center">
+  <img src="assets/screenshots/no.png" alt="Pregunta del usuario y respuesta No con GIF y hora 15:05" width="380">
+</p>
+
+### 3. Conversación · Burbujas y mensajes consecutivos
+
+La captura muestra varios mensajes de la conversación, una respuesta **Sí** con su GIF y el mensaje del usuario `maybe?`. Escribir esa palabra no fuerza una respuesta específica: la categoría se selecciona aleatoriamente.
+
+<p align="center">
+  <img src="assets/screenshots/maybe.png" alt="Conversación con respuesta Sí, horas y mensaje del usuario maybe?" width="380">
+</p>
+
+**Evidencia pendiente:** una captura donde se vea la respuesta **Tal Vez** con su GIF y una captura del ícono instalado en la pantalla de inicio. La imagen `maybe.png` no muestra una respuesta Tal Vez.
+
+Las capturas documentan la interfaz y las respuestas visibles. La distribución 40/40/20 se verifica con la lógica y las pruebas automáticas, no con la cantidad de respuestas de estas imágenes.
+
 ## Tecnologías utilizadas
 
 | Tecnología               | Uso en el proyecto                                              |
