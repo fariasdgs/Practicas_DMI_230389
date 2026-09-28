@@ -5,5 +5,8 @@ class Message {
   final String? imageUrl;
   final FromWho fromWho;
 
-  Message(this.text, this.imageUrl, this.fromWho);
+  final DateTime sentAt;
+
+  Message(this.text, this.imageUrl, this.fromWho, {DateTime? sentAt})
+    : sentAt = sentAt ?? DateTime.now();
 }
