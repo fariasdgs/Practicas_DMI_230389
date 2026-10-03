@@ -47,4 +47,40 @@ List<Map<String, dynamic>> videoPosts = [
     'likes': 342,
     'views': 3332,
   },
+  {
+    'name': 'Perringo Cantando',
+    'videoUrl': 'assets/videos/9.mp4',
+    'likes': 6700000,
+    'views': 6700000,
+  },
+  {
+    'name': 'R35 GTR',
+    'videoUrl': 'assets/videos/10.mp4',
+    'likes': 8932,
+    'views': 19320,
+  },
+  {
+    'name': 'SUPRAAAAAAAA',
+    'videoUrl': 'assets/videos/11.mp4',
+    'likes': 1000000,
+    'views': 1000000,
+  },
+  {
+    'name': 'Camioneta BMW de Fariasly',
+    'videoUrl': 'assets/videos/12.mp4',
+    'likes': 83610,
+    'views': 123200,
+  },
+  {
+    'name': 'Me cambiaste por que traigo bicicleta',
+    'videoUrl': 'assets/videos/13.mp4',
+    'likes': 217720,
+    'views': 623000,
+  },
+  {
+    'name': 'm340i',
+    'videoUrl': 'assets/videos/14.mp4',
+    'likes': 604412,
+    'views': 723000,
+  },
 ];

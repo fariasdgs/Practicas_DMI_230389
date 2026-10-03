@@ -5,11 +5,13 @@ import 'package:video_player/video_player.dart';
 class FullScreenPlayer extends StatefulWidget {
   final String videoUrl;
   final String caption;
+  final bool isActive;
 
   const FullScreenPlayer({
     super.key,
     required this.videoUrl,
     required this.caption,
+    this.isActive = true,
   });
 
   @override
@@ -30,11 +32,27 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
   Future<void> _initializeVideo() async {
     await controller.initialize();
     if (!mounted) return;
-    await controller.setVolume(0);
+    await controller.setVolume(1);
     if (!mounted) return;
     await controller.setLooping(true);
     if (!mounted) return;
-    await controller.play();
+    if (widget.isActive) {
+      await controller.play();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant FullScreenPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isActive == widget.isActive ||
+        !controller.value.isInitialized) {
+      return;
+    }
+    if (widget.isActive) {
+      controller.play();
+    } else {
+      controller.pause();
+    }
   }
 
   @override
@@ -64,6 +82,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
         }
         return GestureDetector(
           onTap: () {
+            if (!widget.isActive) return;
             if (controller.value.isPlaying) {
               controller.pause();
               return;
