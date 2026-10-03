@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Tikitoki · Del catálogo al video",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1360,
+      750
+    ]
+  },
+  "components": [
+    {
+      "id": "tiki-boot",
+      "type": "frontend",
+      "label": "Iniciar Tikitoki",
+      "sublabel": "MyApp · MultiProvider · tema oscuro",
+      "pos": [
+        40,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-state",
+      "type": "frontend",
+      "label": "Cargar el catálogo",
+      "sublabel": "DiscoverProvider · loadNextPage",
+      "pos": [
+        530,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-data",
+      "type": "frontend",
+      "label": "Convertir datos locales",
+      "sublabel": "videoPosts → LocalVideoModel → VideoPost",
+      "pos": [
+        1020,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-screen",
+      "type": "frontend",
+      "label": "Actualizar Discover",
+      "sublabel": "DiscoverScreen · context.watch",
+      "pos": [
+        1020,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-feed",
+      "type": "frontend",
+      "label": "Deslizar entre videos",
+      "sublabel": "VideoScrollableView · PageView vertical",
+      "pos": [
+        530,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-player",
+      "type": "frontend",
+      "label": "Preparar la reproducción",
+      "sublabel": "FullScreenPlayer · initializeVideo",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-media",
+      "type": "frontend",
+      "label": "Abrir el recurso MP4",
+      "sublabel": "VideoPlayerController.asset · assets/videos",
+      "pos": [
+        40,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-playback",
+      "type": "frontend",
+      "label": "Reproducir y pausar",
+      "sublabel": "VideoPlayer · toque · bucle · sin sonido",
+      "pos": [
+        530,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tiki-overlay",
+      "type": "frontend",
+      "label": "Presentar el contenido",
+      "sublabel": "VideoBackground · caption · VideoButtons",
+      "pos": [
+        1020,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "tiki-link-1",
+      "from": "tiki-boot",
+      "to": "tiki-state",
+      "label": "crea y carga",
+      "variant": "emphasis"
+    },
+    {
+      "id": "tiki-link-2",
+      "from": "tiki-state",
+      "to": "tiki-data",
+      "label": "mapea ocho registros",
+      "variant": "emphasis"
+    },
+    {
+      "id": "tiki-link-3",
+      "from": "tiki-data",
+      "to": "tiki-screen",
+      "label": "Provider notifica",
+      "variant": "emphasis",
+      "labelAt": [
+        1170,
+        243
+      ]
+    },
+    {
+      "id": "tiki-link-4",
+      "from": "tiki-screen",
+      "to": "tiki-feed",
+      "label": "entrega videos",
+      "variant": "emphasis"
+    },
+    {
+      "id": "tiki-link-5",
+      "from": "tiki-feed",
+      "to": "tiki-player",
+      "label": "crea reproductor",
+      "variant": "emphasis"
+    },
+    {
+      "id": "tiki-link-6",
+      "from": "tiki-player",
+      "to": "tiki-media",
+      "label": "initialize()",
+      "variant": "emphasis",
+      "labelAt": [
+        190,
+        493
+      ]
+    },
+    {
+      "id": "tiki-link-7",
+      "from": "tiki-media",
+      "to": "tiki-playback",
+      "label": "play() tras inicializar",
+      "variant": "emphasis"
+    },
+    {
+      "id": "tiki-link-8",
+      "from": "tiki-playback",
+      "to": "tiki-overlay",
+      "label": "superpone interfaz",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Estado y datos",
+      "items": [
+        "Ocho videos locales; lista en memoria.",
+        "Provider actualiza la pantalla al terminar."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Reproducción",
+      "items": [
+        "Inicialización única; carga y error visibles.",
+        "Toque: play / pause. dispose libera recursos."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Interfaz y recursos",
+      "items": [
+        "Gradiente inferior; métricas abreviadas.",
+        "Git LFS conserva los MP4 fuera de Git."
+      ]
+    }
+  ]
+}
