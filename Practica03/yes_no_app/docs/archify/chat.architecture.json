@@ -2,9 +2,8 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "Yes, No, Maybe · Del mensaje a la respuesta",
+    "title": "Práctica 03 · Arquitectura de Yes No App",
     "quality_profile": "showcase",
-    "animation": "trace",
     "viewBox": [
       1360,
       750
@@ -12,55 +11,22 @@
     "legend": {
       "entries": {
         "frontend": {
-          "label": "Aplicación Flutter · ejecución local"
+          "label": "Componentes locales · Flutter / Dart"
         },
         "external": {
           "label": "Servicio externo · internet"
         }
       }
-    },
-    "views": [
-      {
-        "id": "chat-writing",
-        "label": "1 · Mensaje y estado",
-        "focus": [
-          "chat-bootstrap",
-          "chat-compose",
-          "chat-state"
-        ],
-        "note": "El campo entrega texto al provider. Los mensajes vacíos se ignoran; sin ? no se consulta la API."
-      },
-      {
-        "id": "chat-answering",
-        "label": "2 · Probabilidad y API",
-        "focus": [
-          "chat-state",
-          "chat-lottery",
-          "chat-api",
-          "chat-decode"
-        ],
-        "note": "40% Sí, 40% No y 20% Tal Vez. force solicita el GIF de la categoría elegida."
-      },
-      {
-        "id": "chat-display",
-        "label": "3 · Respuesta y hora",
-        "focus": [
-          "chat-message",
-          "chat-render",
-          "chat-bubble"
-        ],
-        "note": "La hora se fija al crear Message. El provider notifica y desplaza la conversación al último mensaje."
-      }
-    ]
+    }
   },
   "components": [
     {
-      "id": "chat-bootstrap",
+      "id": "app-root",
       "type": "frontend",
-      "label": "Arranque de la app",
-      "sublabel": "MyApp · MultiProvider · AppTheme",
+      "label": "MyApp",
+      "sublabel": "MultiProvider · MaterialApp",
       "pos": [
-        40,
+        50,
         70
       ],
       "size": [
@@ -69,10 +35,10 @@
       ]
     },
     {
-      "id": "chat-compose",
+      "id": "app-theme",
       "type": "frontend",
-      "label": "Escribir y enviar",
-      "sublabel": "MessageFieldBox · botón o teclado",
+      "label": "AppTheme",
+      "sublabel": "ThemeData · Material 3",
       "pos": [
         530,
         70
@@ -83,26 +49,12 @@
       ]
     },
     {
-      "id": "chat-state",
+      "id": "chat-view",
       "type": "frontend",
-      "label": "Estado de la conversación",
-      "sublabel": "ChatProvider · messageList en memoria",
+      "label": "ChatScreen",
+      "sublabel": "MessageFieldBox · ListView.builder",
       "pos": [
-        1020,
-        70
-      ],
-      "size": [
-        300,
-        96
-      ]
-    },
-    {
-      "id": "chat-lottery",
-      "type": "frontend",
-      "label": "Elegir la respuesta",
-      "sublabel": "Random.nextInt(100) · 40 / 40 / 20",
-      "pos": [
-        1020,
+        50,
         320
       ],
       "size": [
@@ -111,68 +63,68 @@
       ]
     },
     {
-      "id": "chat-api",
+      "id": "chat-store",
+      "type": "frontend",
+      "label": "ChatProvider",
+      "sublabel": "ChangeNotifier · messageList",
+      "pos": [
+        530,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "answer-helper",
+      "type": "frontend",
+      "label": "GetYesNoAnswer",
+      "sublabel": "http · Random · jsonDecode",
+      "pos": [
+        1010,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "bubble-widgets",
+      "type": "frontend",
+      "label": "Burbujas del chat",
+      "sublabel": "My / Her → MessageBubble",
+      "pos": [
+        50,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "message-model",
+      "type": "frontend",
+      "label": "Message",
+      "sublabel": "text · imageUrl · fromWho · sentAt",
+      "pos": [
+        530,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "yesno-service",
       "type": "external",
       "label": "API yesno.wtf",
       "sublabel": "GET /api?force=yes | no | maybe",
       "pos": [
-        530,
-        320
-      ],
-      "size": [
-        300,
-        96
-      ]
-    },
-    {
-      "id": "chat-decode",
-      "type": "frontend",
-      "label": "Validar y traducir",
-      "sublabel": "GetYesNoAnswer · JSON → español",
-      "pos": [
-        40,
-        320
-      ],
-      "size": [
-        300,
-        96
-      ]
-    },
-    {
-      "id": "chat-message",
-      "type": "frontend",
-      "label": "Crear respuesta con hora",
-      "sublabel": "Message · text · imageUrl · sentAt",
-      "pos": [
-        40,
-        570
-      ],
-      "size": [
-        300,
-        96
-      ]
-    },
-    {
-      "id": "chat-render",
-      "type": "frontend",
-      "label": "Actualizar la pantalla",
-      "sublabel": "ChatScreen · context.watch",
-      "pos": [
-        530,
-        570
-      ],
-      "size": [
-        300,
-        96
-      ]
-    },
-    {
-      "id": "chat-bubble",
-      "type": "frontend",
-      "label": "Mostrar la conversación",
-      "sublabel": "MessageBubble · texto + GIF + HH:mm",
-      "pos": [
-        1020,
+        1010,
         570
       ],
       "size": [
@@ -183,93 +135,81 @@
   ],
   "connections": [
     {
-      "id": "chat-step-1",
-      "from": "chat-bootstrap",
-      "to": "chat-compose",
-      "label": "abre el chat",
-      "variant": "emphasis"
+      "id": "root-theme",
+      "from": "app-root",
+      "to": "app-theme",
+      "label": "configura tema"
     },
     {
-      "id": "chat-step-2",
-      "from": "chat-compose",
-      "to": "chat-state",
-      "label": "sendMessage",
-      "variant": "emphasis"
+      "id": "root-screen",
+      "from": "app-root",
+      "to": "chat-view",
+      "label": "home: ChatScreen",
+      "labelDy": 90
     },
     {
-      "id": "chat-step-3",
-      "from": "chat-state",
-      "to": "chat-lottery",
-      "label": "si termina en ?",
-      "variant": "emphasis",
-      "labelAt": [
-        1170,
-        243
-      ]
+      "id": "view-store",
+      "from": "chat-view",
+      "to": "chat-store",
+      "label": "sendMessage · watch"
     },
     {
-      "id": "chat-step-4",
-      "from": "chat-lottery",
-      "to": "chat-api",
-      "label": "HTTPS · force",
-      "variant": "emphasis"
+      "id": "store-helper",
+      "from": "chat-store",
+      "to": "answer-helper",
+      "label": "getAnswer() → Message"
     },
     {
-      "id": "chat-step-5",
-      "from": "chat-api",
-      "to": "chat-decode",
-      "label": "JSON + URL del GIF",
-      "variant": "emphasis"
+      "id": "view-bubbles",
+      "from": "chat-view",
+      "to": "bubble-widgets",
+      "label": "construye según FromWho",
+      "labelDy": 90
     },
     {
-      "id": "chat-step-6",
-      "from": "chat-decode",
-      "to": "chat-message",
-      "label": "crea Message",
-      "variant": "emphasis",
-      "labelAt": [
-        190,
-        493
-      ]
+      "id": "store-model",
+      "from": "chat-store",
+      "to": "message-model",
+      "label": "almacena List<Message>",
+      "labelDy": 90
     },
     {
-      "id": "chat-step-7",
-      "from": "chat-message",
-      "to": "chat-render",
-      "label": "herReply + notifyListeners",
-      "variant": "emphasis"
+      "id": "helper-api",
+      "from": "answer-helper",
+      "to": "yesno-service",
+      "label": "HTTPS · JSON",
+      "labelDy": 90
     },
     {
-      "id": "chat-step-8",
-      "from": "chat-render",
-      "to": "chat-bubble",
-      "label": "reconstruye burbujas",
-      "variant": "emphasis"
+      "id": "bubble-model",
+      "from": "bubble-widgets",
+      "to": "message-model",
+      "label": "lee texto, GIF y hora"
     }
   ],
   "cards": [
     {
       "dot": "violet",
-      "title": "Reto 1 · Identidad propia",
+      "title": "Presentación y estado",
       "items": [
-        "Ícono de chat: palomita, cruz e interrogación.",
-        "assets/icon → flutter_launcher_icons."
+        "MyApp registra ChatProvider con ChangeNotifierProvider.",
+        "ChatScreen envía texto, observa estado y usa el scroll."
       ]
     },
     {
       "dot": "emerald",
-      "title": "Reto 2 · Probabilidades",
+      "title": "Dominio e integración",
       "items": [
-        "0–39: Sí · 40–79: No · 80–99: Tal Vez.",
-        "Probabilidad por pregunta; no cuotas por tanda."
+        "Message conserva la hora; historial en memoria.",
+        "Helper retorna Message; provider maneja errores."
       ]
     },
     {
       "dot": "cyan",
-      "title": "Reto 3 · Tiempo y cuidado",
+      "title": "Consulta externa",
       "items": [
-        "Hora local HH:mm fija dentro de cada burbuja.",
-        "Fallo de consulta: aviso; sin historial persistente."
+        "Solo preguntas con ?; selección local 40/40/20.",
+        "HTTPS, validación JSON y timeout de 15 segundos."
       ]
     }
   ]

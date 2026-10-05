@@ -1,49 +1,29 @@
-# Modelo interactivo · Yes, No, Maybe
+# Arquitectura interactiva · Práctica 03
 
-[Abre el diagrama](../arquitectura.html) en Chrome, Safari u otro navegador. El HTML es autónomo y se puede copiar a otra computadora sin instalar Flutter. En GitHub, descarga el archivo antes de abrirlo si aparece como código fuente.
+[Abre el diagrama](../arquitectura.html) en un navegador. HTML autónomo generado con Archify a partir del código actual de `lib/`.
 
-## Recorrido para exponer
+## Componentes y relaciones
 
-1. **Mensaje y estado.** Explica que `MyApp` registra `ChatProvider`. El usuario escribe desde `MessageFieldBox`; `sendMessage` elimina espacios, descarta mensajes vacíos y guarda el mensaje en memoria. Un texto sin `?` aparece en pantalla, pero no consulta la API.
-2. **Probabilidad y API.** Si termina en `?`, `Random.nextInt(100)` selecciona Sí (0–39), No (40–79) o Tal Vez (80–99). `force` pide a yesno.wtf el GIF de esa categoría. Son probabilidades independientes, no cuotas exactas cada diez preguntas.
-3. **Respuesta y hora.** Se valida el JSON, se traduce la categoría al español y se crea `Message` con `sentAt`. `herReply` agrega la respuesta y llama a `notifyListeners`. `ChatScreen` escucha mediante `context.watch`; `MessageBubble` presenta texto, GIF y hora local fija. El provider desplaza el chat al último mensaje.
-4. **Cierra con los retos.** Las tres tarjetas inferiores resumen el ícono personalizado, la distribución 40/40/20 y la hora en las burbujas.
+- `MyApp` registra `ChatProvider` mediante `ChangeNotifierProvider`, configura `AppTheme` y abre `ChatScreen`.
+- `ChatScreen` contiene `MessageFieldBox` y la lista de mensajes. Envía texto mediante `sendMessage` y observa el estado con `context.watch<ChatProvider>()`.
+- `ChatProvider` mantiene `List<Message>` en memoria, notifica cambios y controla el desplazamiento. Solo consulta el helper si el texto termina en `?`; captura errores para mostrar un mensaje de fallo.
+- `GetYesNoAnswer` selecciona localmente yes/no/maybe con probabilidades 40/40/20, consulta por HTTPS la API yesno.wtf con `force`, valida el JSON y retorna un `Message`. Timeout: 15 segundos.
+- `Message` define texto, URL opcional de imagen, remitente y hora de envío.
+- `MyMessageBubble` y `HerMessageBubble` delegan en `MessageBubble`, que presenta texto, GIF opcional y hora HH:mm. El GIF se descarga con `Image.network` desde la URL recibida.
 
-El mapa enfatiza el recorrido de una pregunta respondida correctamente. La actualización inmediata del mensaje propio, los avisos por error y el desplazamiento se explican en las vistas y tarjetas; no son conexiones adicionales dibujadas. Todo el código salvo la API externa se ejecuta dentro de la app Flutter. No hay servidor propio ni base de datos.
+Las flechas muestran relaciones entre componentes, no una secuencia temporal. La inyección del provider y la devolución de la respuesta se explican en las tarjetas para conservar un mapa legible. El modelo y el helper se ejecutan dentro de Flutter; no hay servidor propio ni base de datos. La descarga del GIF y el avatar son detalles de presentación que no se dibujan como servicios independientes.
 
-## Controles útiles
+## Interacción
 
-- Selecciona uno de los tres capítulos superiores para resaltar esa parte del recorrido.
-- Haz clic en un componente para explorar sus relaciones.
-- Usa **Light / Dark** para cambiar de tema.
-- Usa **Live / Still** para activar o detener el recorrido animado.
-- Usa **Present** para el modo de presentación.
-- Usa los controles de zoom para leer los nombres del código en detalle.
-- **Export** ofrece formatos de imagen y SVG; la grabación WebM depende del soporte del navegador.
-- **Escape** permite salir de los paneles de exploración.
+Selecciona componentes para explorar relaciones; usa búsqueda, zoom, Light / Dark, Present y Export. El contenido está en español; la interfaz fija y el atributo HTML lang de esta versión de Archify usan inglés.
 
-La explicación está escrita en español. Esta versión de Archify ofrece su interfaz fija en inglés o chino; se conserva el inglés para los controles y el atributo `<html lang>`.
+## Entrega y evidencia
 
-## Relación con los archivos reales
+- [HTML interactivo](../arquitectura.html)
+- [Especificación editable](chat.architecture.json)
+- [Recibo de entrega y hashes SHA-256](entrega.json)
+- [Evidencia automatizada en Chrome](../arquitectura.visual-check.json)
+- [Capturas](../arquitectura.visual-check.html)
+- [Revisión visual](revision-visual.json)
 
-| Elemento del mapa | Código |
-| --- | --- |
-| Arranque de la app | [main.dart](../../lib/main.dart) |
-| Escribir y enviar | [message_field_box.dart](../../lib/presentation/widgets/shared/message_field_box.dart) |
-| Estado de la conversación | [chat_provider.dart](../../lib/presentation/providers/chat_provider.dart) |
-| Elegir, consultar y validar | [get_yes_no_answer.dart](../../lib/config/helpers/get_yes_no_answer.dart) |
-| Crear respuesta con hora | [message.dart](../../lib/domain/entities/message.dart) |
-| Actualizar la pantalla | [chat_screen.dart](../../lib/presentation/chat/chat_screen.dart) |
-| Mostrar la conversación | [message_bubble.dart](../../lib/presentation/widgets/chat/message_bubble.dart) |
-| Ícono personalizado | [app_icon.png](../../assets/icon/app_icon.png) |
-
-## Archivos de entrega
-
-- [HTML interactivo](../arquitectura.html).
-- [JSON editable](chat.architecture.json).
-- [Recibo de validación y entrega](entrega.json).
-- [Evidencia automatizada en navegador](../arquitectura.visual-check.json).
-- [Capturas en claro y oscuro](../arquitectura.visual-check.html).
-- [Registro de revisión visual](revision-visual.json).
-
-El resultado permanece dentro de `Practica03/yes_no_app`; el modelo anterior del contador no se reemplazó. El archivo es local y todavía no se ha publicado en GitHub Pages.
+Tipo: architecture. Validación showcase: 9/9, cero errores y advertencias. Navegador: aprobado en 1440×900, 1600×1000, 1920×1080 y 2048×1320, sin desbordamiento. Revisión de capturas: aprobada en tema claro grande y oscuro de laptop. Una ronda de corrección de etiquetas. Archivo local, sin publicación.
