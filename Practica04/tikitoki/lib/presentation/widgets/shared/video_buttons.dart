@@ -10,18 +10,19 @@ class VideoButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Column(
       children: [
         _CustomIconButton(
           value: video.likes,
           iconData: Icons.favorite,
-          iconColor: Colors.red,
+          iconColor: colors.secondary,
         ),
         const SizedBox(height: 20),
         _CustomIconButton(
           value: video.views,
           iconData: Icons.remove_red_eye_outlined,
-          iconColor: Colors.white,
+          iconColor: colors.primary,
         ),
         const SizedBox(height: 20),
         SpinPerfect(
@@ -30,6 +31,7 @@ class VideoButtons extends StatelessWidget {
           child: _CustomIconButton(
             value: 0,
             iconData: Icons.play_circle_outlined,
+            iconColor: colors.primary,
           ),
         ),
       ],
@@ -56,8 +58,7 @@ class _CustomIconButton extends StatelessWidget {
           onPressed: () {},
           icon: Icon(iconData, color: color, size: 30),
         ),
-        if (value > 0)
-          Text('${HumanFormats.humanReadbleNumber(value.toDouble())}'),
+        if (value > 0) Text(HumanFormats.humanReadbleNumber(value.toDouble())),
       ],
     );
   }

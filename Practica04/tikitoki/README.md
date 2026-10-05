@@ -17,6 +17,10 @@
   <a href="#instalación-y-ejecución">Ejecutar la app</a>
 </p>
 
+<p align="center">
+  <img src="assets/icon/app_icon.png" alt="Logo de Tikitoki: reproducción y T en cian y violeta" width="140">
+</p>
+
 Proyecto de la **Práctica 04: Tikitoki App**, desarrollado por **Al Farias Leyva · 230389** para la asignatura **Desarrollo Móvil Integral**.
 
 ## Modelo interactivo del proyecto
@@ -31,7 +35,31 @@ El modelo presenta el recorrido del catálogo local hasta la reproducción del v
 
 El contenido del modelo está en español. Los controles del visor y el atributo de idioma del HTML usan inglés por las opciones disponibles en Archify.
 
+## Identidad visual
+
+La app utiliza un estilo **tech minimalista**, con un logo que combina una **T** y el símbolo de reproducción. La fuente **Montserrat** está incluida localmente y los acentos cian y violeta destacan los indicadores sobre el video.
+
+| Elemento | Diseño |
+| --- | --- |
+| Fondo | Negro `#09090F` |
+| Color principal | Cian `#22D3EE` |
+| Color secundario | Violeta `#A78BFA` |
+| Texto sobre el video | Blanco con sombra para mantener la legibilidad |
+| Tipografía | Montserrat |
+
+El [logo original](assets/icon/app_icon.png) se creó con ImageGen; el [prompt](assets/icon/prompt.txt) documenta su diseño. La [licencia de Montserrat](assets/fonts/OFL.txt) se conserva junto a la fuente.
+
+Para regenerar los íconos desde la carpeta de la app:
+
+```bash
+dart run flutter_launcher_icons
+```
+
+La configuración está en [flutter_launcher_icons.yaml](flutter_launcher_icons.yaml). Para ver el nuevo ícono en el dispositivo, detén y vuelve a ejecutar la app; hot reload no reemplaza los íconos nativos. Si el sistema conserva el anterior, reinstala la app.
+
 ## Capturas de la aplicación
+
+Estas capturas corresponden a la apariencia anterior al cambio de logo, fuente y colores.
 
 Evidencias de Tikitoki ejecutándose en el **simulador iPhone 17 Pro con iOS 26.5**. Las imágenes muestran distintos videos del feed, las descripciones, el gradiente y los indicadores de likes y visualizaciones.
 
@@ -141,7 +169,9 @@ Practica04/tikitoki/
 │           └── video/                  # Reproductor y gradiente
 ├── assets/
 │   ├── videos/                         # Videos MP4 gestionados con Git LFS
-│   └── screenshots/                    # Capturas de evidencia
+│   ├── screenshots/                    # Capturas de evidencia
+│   ├── icon/                           # Logo original y prompt
+│   └── fonts/                          # Montserrat y licencia
 ├── docs/archify/                        # Fuente editable del modelo
 ├── pubspec.yaml
 └── README.md
