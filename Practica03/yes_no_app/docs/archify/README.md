@@ -27,3 +27,5 @@ Selecciona componentes para explorar relaciones; usa búsqueda, zoom, Light / Da
 - [Revisión visual](revision-visual.json)
 
 Tipo: architecture. Validación showcase: 9/9, cero errores y advertencias. Navegador: aprobado en 1440×900, 1600×1000, 1920×1080 y 2048×1320, sin desbordamiento. Revisión de capturas: aprobada en tema claro grande y oscuro de laptop. Una ronda de corrección de etiquetas. Archivo local, sin publicación.
+
+[Ver en GitHub Pages](https://fariasdgs.github.io/Practicas_DMI_230389/practica03/).

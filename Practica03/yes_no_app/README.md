@@ -3,14 +3,14 @@
 Proyecto de la **Práctica 03: Chat con API de Respuestas Automáticas**, desarrollado para la asignatura **Desarrollo Móvil Integral**.
 
 <p align="center">
-  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/">
+  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/practica03/">
     <img src="https://img.shields.io/badge/ABRIR_MODELO_INTERACTIVO-ARCHIFY-6C63FF?style=for-the-badge" alt="Abrir modelo interactivo en GitHub Pages">
   </a>
 </p>
 
 <p align="center">
-  <strong>Explora cómo funciona el chat, desde el mensaje hasta la respuesta.</strong><br>
-  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/">Ver presentación interactiva en GitHub Pages →</a><br>
+  <strong>Explora los componentes y relaciones de la arquitectura del chat.</strong><br>
+  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/practica03/">Ver presentación interactiva en GitHub Pages →</a><br>
   Disponible en el navegador, sin instalar Flutter.
 </p>
 
@@ -18,9 +18,9 @@ Proyecto de la **Práctica 03: Chat con API de Respuestas Automáticas**, desarr
 
 ## Diagrama interactivo del proyecto
 
-[**Abrir el modelo Archify en línea**](https://fariasdgs.github.io/Practicas_DMI_230389/)
+[**Abrir el modelo Archify en línea**](https://fariasdgs.github.io/Practicas_DMI_230389/practica03/)
 
-El modelo muestra el recorrido desde el envío de un mensaje hasta la respuesta con GIF y hora. Incluye tres vistas guiadas, selección de componentes, zoom, temas claro y oscuro, modo de presentación y exportación.
+El modelo muestra MyApp, AppTheme, ChatScreen, ChatProvider, Message, las burbujas y el helper que consulta yesno.wtf. Incluye selección de componentes, búsqueda, zoom, temas claro y oscuro, modo de presentación y exportación.
 
 Usa el enlace principal para explorar el modelo directamente. También puedes abrir la [versión local](docs/arquitectura.html) en tu navegador; es un archivo autónomo que no necesita ejecutar Flutter ni consultar la API.
 

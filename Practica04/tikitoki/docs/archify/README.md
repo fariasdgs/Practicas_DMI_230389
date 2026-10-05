@@ -32,4 +32,4 @@ Los hashes y tamaños del HTML y la especificación están en el recibo. La comp
 
 ## Publicación
 
-El HTML está en `docs/practica04/index.html`, separado del modelo que ya existe en `docs/index.html`. Su URL de Pages estará disponible cuando se publique desde la rama configurada para servir `docs/`. Los archivos nuevos permanecen locales hasta su publicación.
+El HTML está en `docs/practica04/index.html`, separado del modelo que ya existe en `docs/index.html`. Su URL de Pages se publica desde `main` y la carpeta `docs/`.
