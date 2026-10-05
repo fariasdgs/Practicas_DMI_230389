@@ -119,11 +119,46 @@ Construir una aplicación con Flutter y Dart que permita reproducir recursos mul
 - Superponer descripciones, gradientes e indicadores sobre el video.
 - Abreviar cantidades con `intl` y animar un ícono con `animate_do`.
 
+## Tematización automática y validación de videos
+
+La app usa la **fecha local del dispositivo** para elegir su apariencia. Mantiene Montserrat y texto blanco para conservar la legibilidad sobre los videos.
+
+| Fecha | Tema | Apariencia |
+| --- | --- | --- |
+| 1–31 de octubre | Halloween | Fondo oscuro, naranja y morado; distintivo Halloween |
+| 1–31 de diciembre | Navidad | Fondo verde oscuro, verde y rojo; distintivo Navidad |
+| Resto del año | Tech | Negro, cian y violeta |
+
+El tema se revisa al iniciar, al regresar a la app y al llegar a medianoche. No requiere conexión a internet. El distintivo aparece sobre el feed durante las temporadas.
+
+### Regla para cargar videos
+
+`DiscoverProvider` filtra las entidades **antes de entregarlas a la pantalla**, de modo que un video rechazado no crea un controlador ni abre su archivo MP4.
+
+| Condición | Resultado |
+| --- | --- |
+| `views < likes` | No aparece ni se carga el video |
+| `views == likes` | Se permite |
+| `views > likes` | Se permite |
+
+El catálogo actual contiene **14 registros**, de los cuales **11 son válidos**. Los videos `1.mp4`, `2.mp4` y `3.mp4` quedan fuera porque sus vistas son menores que sus likes. Los archivos originales se conservan. Si ningún registro pasa el filtro, la app muestra un aviso en lugar de un feed vacío.
+
+### Comprobación
+
+```bash
+flutter analyze
+flutter test
+```
+
+Las pruebas cubren los límites de octubre y diciembre, los cambios de paleta, la igualdad de cifras, el rechazo de videos inválidos y el aviso cuando todos los videos se descartan. Para comprobar la apariencia en el emulador, usa una fecha de octubre, diciembre u otro mes y vuelve a abrir la app.
+
 ## Funcionalidades actuales
 
 | Función | Comportamiento |
 | --- | --- |
-| Catálogo local | Carga 14 registros desde `videoPosts` |
+| Catálogo local | Lee 14 registros; actualmente muestra los 11 que pasan la validación |
+| Validación de cifras | Excluye videos con menos vistas que likes antes de crear el reproductor |
+| Tema por fecha | Halloween en octubre, Navidad en diciembre y tech el resto del año |
 | Navegación vertical | Permite cambiar de video mediante gestos de desplazamiento |
 | Reproducción automática | Inicia después de completar la inicialización |
 | Pausa y reproducción | Tocar el video alterna entre ambos estados |
@@ -142,7 +177,7 @@ Los botones laterales son visuales: sus acciones están vacías y las cifras pro
 
 1. `MyApp` configura `MultiProvider`, el tema y `DiscoverScreen`.
 2. Crea `DiscoverProvider` con `lazy: false` e invoca `loadNextPage()`.
-3. El provider convierte cada registro mediante `LocalVideoModel.fromJson()` y `toVideoPostEntity()`.
+3. El provider convierte cada registro mediante `LocalVideoModel.fromJson()` y `toVideoPostEntity()`, y conserva únicamente los que cumplen `views >= likes`.
 4. Agrega las entidades a `videos`, desactiva `initialLoading` y llama a `notifyListeners()`.
 5. `DiscoverScreen` observa el estado con `context.watch` y muestra `VideoScrollableView`.
 6. `PageView.builder` construye páginas verticales con el reproductor y los indicadores.
@@ -233,7 +268,7 @@ Después de recuperar o agregar recursos, detén completamente la app y vuelve a
 
 1. Abre la app y confirma que el primer video comienza con sonido.
 2. Toca el video para pausarlo y vuelve a tocarlo para reanudarlo.
-3. Desliza verticalmente y comprueba los 14 videos.
+3. Desliza verticalmente y comprueba los 11 videos válidos del catálogo actual. Los videos 1, 2 y 3 quedan excluidos por sus cifras.
 4. Confirma que el video anterior se pausa al cambiar de página.
 5. Revisa las descripciones, el gradiente y las cifras abreviadas.
 6. Comprueba que el ícono lateral gira y que cada video se repite al terminar.
@@ -246,7 +281,7 @@ flutter analyze
 
 ## Alcance y pendientes
 
-La práctica principal contempla tematización temporal de **Halloween y Navidad**. En el código actual está implementado el tema oscuro general; los temas estacionales quedan pendientes.
+Los temas de **Halloween y Navidad** y la validación de vistas y likes ya están implementados. El ícono instalado conserva la identidad de Tikitoki; la tematización estacional cambia la interfaz dentro de la app.
 
 `loadNextPage()` carga el catálogo local completo; todavía no implementa paginación remota. La interacción real de los botones de likes y el registro de visualizaciones quedan para las siguientes etapas.
 

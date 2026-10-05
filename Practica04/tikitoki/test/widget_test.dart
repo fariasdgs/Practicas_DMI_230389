@@ -1,30 +1,30 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:tikitoki/main.dart';
+import 'package:provider/provider.dart';
+import 'package:tikitoki/presentation/providers/discover_provider.dart';
+import 'package:tikitoki/presentation/screen/discover/discover_screen.dart';
+import 'package:tikitoki/presentation/widgets/video/fullscreen_player.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+  testWidgets(
+    'Si todos los videos fallan el filtro, muestra un aviso sin reproductor',
+    (tester) async {
+      final provider = DiscoverProvider(
+        source: [
+          {'name': 'Inválido', 'videoUrl': 'bad.mp4', 'likes': 2, 'views': 1},
+        ],
+      );
+      addTearDown(provider.dispose);
+      await provider.loadNextPage();
+      await tester.pumpWidget(
+        ChangeNotifierProvider.value(
+          value: provider,
+          child: const MaterialApp(home: DiscoverScreen()),
+        ),
+      );
+      expect(find.textContaining('No hay videos disponibles'), findsOneWidget);
+      expect(find.byType(FullScreenPlayer), findsNothing);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+    },
+  );
 }
