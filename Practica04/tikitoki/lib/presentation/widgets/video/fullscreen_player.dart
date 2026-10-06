@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:tikitoki/presentation/widgets/video/video_background.dart';
 import 'package:video_player/video_player.dart';
@@ -21,6 +23,34 @@ class FullScreenPlayer extends StatefulWidget {
 class _FullScreenPlayerState extends State<FullScreenPlayer> {
   late VideoPlayerController controller;
   late final Future<void> initializeVideo;
+  Timer? playbackIconTimer;
+  IconData? playbackIcon;
+  bool isMuted = false;
+
+  void _togglePlayback() {
+    if (!widget.isActive) return;
+    playbackIconTimer?.cancel();
+    final isPlaying = controller.value.isPlaying;
+    if (isPlaying) {
+      controller.pause();
+    } else {
+      controller.play();
+    }
+    setState(() {
+      playbackIcon = isPlaying ? Icons.pause : Icons.play_arrow;
+    });
+    if (!isPlaying) {
+      playbackIconTimer = Timer(const Duration(milliseconds: 600), () {
+        if (!mounted) return;
+        setState(() => playbackIcon = null);
+      });
+    }
+  }
+
+  void _toggleAudio() {
+    setState(() => isMuted = !isMuted);
+    controller.setVolume(isMuted ? 0 : 1);
+  }
 
   @override
   void initState() {
@@ -53,10 +83,13 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
     } else {
       controller.pause();
     }
+    playbackIconTimer?.cancel();
+    playbackIcon = null;
   }
 
   @override
   void dispose() {
+    playbackIconTimer?.cancel();
     controller.dispose();
     super.dispose();
   }
@@ -81,14 +114,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
           return const Center(child: CircularProgressIndicator(strokeWidth: 2));
         }
         return GestureDetector(
-          onTap: () {
-            if (!widget.isActive) return;
-            if (controller.value.isPlaying) {
-              controller.pause();
-              return;
-            }
-            controller.play();
-          },
+          onTap: _togglePlayback,
           child: AspectRatio(
             aspectRatio: controller.value.aspectRatio,
             child: Stack(
@@ -97,6 +123,38 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
 
                 //gradient
                 VideoBackground(stops: const [0.8, 1.0]),
+
+                if (playbackIcon != null)
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: Center(
+                        child: Icon(
+                          playbackIcon,
+                          size: 80,
+                          color: Colors.white,
+                          shadows: const [
+                            Shadow(color: Colors.black54, blurRadius: 12),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                Positioned(
+                  top: 0,
+                  right: 12,
+                  child: SafeArea(
+                    child: IconButton(
+                      onPressed: _toggleAudio,
+                      tooltip: isMuted ? 'Activar audio' : 'Silenciar audio',
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.black45,
+                        foregroundColor: Colors.white,
+                      ),
+                      icon: Icon(isMuted ? Icons.volume_off : Icons.volume_up),
+                    ),
+                  ),
+                ),
 
                 //text
                 Positioned(
