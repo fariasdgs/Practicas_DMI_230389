@@ -94,10 +94,17 @@ void main() {
         },
       ],
       remoteRepository: RemoteVideoRepository(
-        pexelsKey: '',
         pixabayKey: '',
         client: MockClient((request) async {
           requests++;
+          if (request.url.host == 'archive.org') {
+            return http.Response(
+              jsonEncode({
+                'response': {'docs': []},
+              }),
+              200,
+            );
+          }
           return http.Response(
             jsonEncode(
               request.url.path == '/search'
@@ -148,7 +155,7 @@ void main() {
     }
     expect(find.text('Video espacial'), findsOneWidget);
     expect(find.text('Mi video local'), findsNothing);
-    expect(find.textContaining('Pexels: falta configurar'), findsOneWidget);
+    expect(find.textContaining('Pixabay: falta configurar'), findsOneWidget);
     expect(platform.sources[1]!.sourceType, DataSourceType.network);
     expect(platform.playing, {1});
     await tester.tap(find.text('PARA TI'));

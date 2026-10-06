@@ -18,11 +18,3 @@ Periodo: Septiembre - Diciembre 2026
 | 2.  | [Mi Primer Aplicación Móvil con Flutter](Practica02/hello_world_app/) | Codificar la app móvil en el framework de Flutter manejando Stateless y Stateful Widgets                                            | 20          | 🟢 Concluida |
 | 3.  | [Yes No App](Practica03/yes_no_app/)                                  | Crear una app que responda preguntas con respuestas automáticas Yes/No/Maybe                                                        | 30          | 🟢 Concluida |
 | 4.  | [Tikitoki App](Practica04/tikitoki/)                                  | El alumno creará una app de reproducción de videos verticales con el uso de Provider y tematización temporal de Halloween y Navidad | 30          | 🟢 Concluida |
-
-## Diagramas interactivos · Archify
-
-- [Práctica 03 · Yes No App](https://fariasdgs.github.io/Practicas_DMI_230389/practica03/)
-- [Práctica 04 · Tikitoki](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/)
-- [Práctica 02 · Contador](https://fariasdgs.github.io/Practicas_DMI_230389/practica02/)
-
-GitHub Pages publica la carpeta `docs/` de `main`. La portada también muestra la arquitectura actual de la práctica 03.

@@ -13,13 +13,11 @@ class RemoteVideoResult {
 
 class RemoteVideoRepository {
   final http.Client _client;
-  final String pexelsKey;
   final String pixabayKey;
   final SharedPreferencesAsync _cache;
 
   RemoteVideoRepository({
     http.Client? client,
-    this.pexelsKey = const String.fromEnvironment('PEXELS_API_KEY'),
     this.pixabayKey = const String.fromEnvironment('PIXABAY_API_KEY'),
     SharedPreferencesAsync? cache,
   }) : _client = client ?? http.Client(),
@@ -55,7 +53,7 @@ class RemoteVideoRepository {
     }
 
     final results = await Future.wait([
-      fetch('Pexels', _pexels, configured: pexelsKey.trim().isNotEmpty),
+      fetch('Internet Archive', _archive),
       fetch('Pixabay', _pixabay, configured: pixabayKey.trim().isNotEmpty),
       fetch('NASA', _nasa),
     ]);
@@ -98,42 +96,72 @@ class RemoteVideoRepository {
 
   int _count(dynamic value) => value is num && value >= 0 ? value.toInt() : 0;
 
-  Future<List<VideoPost>> _pexels() async {
+  Future<List<VideoPost>> _archive() async {
     final data = await _get(
-      Uri.https('api.pexels.com', '/v1/videos/search', {
-        'query': 'nature',
-        'orientation': 'portrait',
-        'per_page': '6',
+      Uri.https('archive.org', '/advancedsearch.php', {
+        'q':
+            'mediatype:movies AND creator:"Blender Foundation" AND '
+            '(title:Caminandes OR title:Spring OR title:"Big Buck Bunny") AND licenseurl:*',
+        'output': 'json',
+        'rows': '6',
+        'fl[]': 'identifier',
       }),
-      headers: {'Authorization': pexelsKey},
     );
-    final videos = <VideoPost>[];
-    for (final item in _items(data['videos'])) {
-      final files = _items(item['video_files'])
-          .where(
-            (file) =>
-                file['file_type'] == 'video/mp4' && _playable(file['link']),
-          )
-          .toList();
-      if (files.isEmpty || item['id'] == null) continue;
-      files.sort((a, b) => _count(a['height']).compareTo(_count(b['height'])));
-      final suitable = files
-          .where((file) => _count(file['height']) <= 1280)
-          .toList();
-      final file = suitable.isEmpty ? files.first : suitable.last;
-      final user = item['user'] is Map ? item['user'] as Map : {};
-      videos.add(
-        VideoPost(
-          id: 'pexels:${item['id']}',
-          caption: 'Naturaleza · ${user['name'] ?? 'Pexels'}',
-          videoUrl: file['link'] as String,
-          sourceName: 'Pexels',
-          sourceUrl: item['url'] as String?,
-          author: user['name'] as String?,
-        ),
-      );
-    }
-    return videos;
+    final response = data['response'];
+    if (response is! Map) return [];
+    final videos = await Future.wait(
+      _items(response['docs']).take(6).map((item) async {
+        try {
+          final id = item['identifier'] as String;
+          final record = await _get(Uri.https('archive.org', '/metadata/$id'));
+          if (record['is_dark'] == true) return null;
+          final metadata = record['metadata'] as Map;
+          final license = Uri.tryParse('${metadata['licenseurl'] ?? ''}');
+          if (license == null ||
+              license.host != 'creativecommons.org' ||
+              !(license.path.startsWith('/licenses/by/') ||
+                  license.path.startsWith('/licenses/by-sa/'))) {
+            return null;
+          }
+          final files = _items(record['files']).where((file) {
+            final name = file['name'];
+            final size = int.tryParse('${file['size']}') ?? 0;
+            return name is String &&
+                name.toLowerCase().endsWith('.mp4') &&
+                file['private'] != 'true' &&
+                file['private'] != true &&
+                size > 0 &&
+                size <= 250000000;
+          }).toList();
+          if (files.isEmpty) return null;
+          files.sort(
+            (a, b) =>
+                int.parse('${a['size']}').compareTo(int.parse('${b['size']}')),
+          );
+          final name = files.first['name'] as String;
+          final creator = metadata['creator'];
+          final author = creator is List
+              ? creator.join(', ')
+              : '${creator ?? 'Blender Foundation'}';
+          return VideoPost(
+            id: 'archive:$id',
+            caption: '${metadata['title'] ?? 'Corto de animación'}',
+            videoUrl: Uri(
+              scheme: 'https',
+              host: 'archive.org',
+              pathSegments: ['download', id, ...name.split('/')],
+            ).toString(),
+            sourceName: 'Internet Archive',
+            sourceUrl: Uri.https('archive.org', '/details/$id').toString(),
+            author:
+                '$author · ${license.path.startsWith('/licenses/by-sa/') ? 'CC BY-SA' : 'CC BY'}',
+          );
+        } catch (_) {
+          return null;
+        }
+      }),
+    );
+    return videos.whereType<VideoPost>().toList();
   }
 
   Future<List<VideoPost>> _pixabay() async {

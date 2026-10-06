@@ -245,23 +245,23 @@ Practica04/tikitoki/
 
 ### PARA TI y DESCUBRIR
 
-**PARA TI** contiene los videos locales actuales. **DESCUBRIR** consulta Pexels, Pixabay y NASA al seleccionar la pestaña; alterna las fuentes disponibles y permite reintentar si alguna falla. Al cambiar de sección, se pausa el video que queda oculto. Los créditos debajo de la descripción enlazan al origen de cada video.
+**PARA TI** contiene los videos locales actuales. **DESCUBRIR** consulta Pixabay, NASA e Internet Archive al seleccionar la pestaña; alterna las fuentes disponibles y permite reintentar si alguna falla. Al cambiar de sección, se pausa el video que queda oculto. Los créditos debajo de la descripción enlazan al origen de cada video.
 
-NASA funciona sin clave. Para activar las otras fuentes, solicita tus claves en [Pexels](https://www.pexels.com/api/) y [Pixabay](https://pixabay.com/api/docs/). Desde la carpeta de la app:
+NASA e Internet Archive funcionan sin clave. Para activar Pixabay, solicita tu clave en [Pixabay](https://pixabay.com/api/docs/). Desde la carpeta de la app:
 
 ```bash
 cp config/api_keys.example.json config/api_keys.json
 ```
 
-Completa los valores `PEXELS_API_KEY` y `PIXABAY_API_KEY` en `config/api_keys.json` y ejecuta:
+Completa el valor `PIXABAY_API_KEY` en `config/api_keys.json` y ejecuta:
 
 ```bash
 flutter run --dart-define-from-file=config/api_keys.json
 ```
 
-El archivo con las claves está excluido de Git. Si todavía no tienes claves, puedes ejecutar `flutter run`: DESCUBRIR usará NASA y avisará qué fuentes faltan por configurar. Después de cambiar las claves, detén y vuelve a ejecutar la app.
+El archivo con las claves está excluido de Git. Si todavía no tienes claves, puedes ejecutar `flutter run`: DESCUBRIR usará NASA e Internet Archive y avisará qué fuentes faltan por configurar. Después de cambiar las claves, detén y vuelve a ejecutar la app.
 
-Pixabay conserva sus respuestas en almacenamiento local durante 24 horas, según su [documentación](https://pixabay.com/api/docs/). Los likes se guardan localmente por fuente e identificador, sin modificar las métricas de las APIs. Pexels y NASA no proporcionan likes ni vistas en estas respuestas; sus contadores parten de cero. La validación de vistas y likes del catálogo local sigue aplicándose a PARA TI.
+Pixabay conserva sus respuestas en almacenamiento local durante 24 horas, según su [documentación](https://pixabay.com/api/docs/). Los likes se guardan localmente por fuente e identificador, sin modificar las métricas de las APIs. NASA e Internet Archive no proporcionan likes ni vistas en estas respuestas; sus contadores parten de cero. La validación de vistas y likes del catálogo local sigue aplicándose a PARA TI.
 
 Esta configuración es para la práctica: las claves incluidas mediante `dart-define` forman parte de la aplicación compilada; para una publicación con claves privadas se necesitaría un servidor intermediario. Los videos horizontales se muestran completos con espacio oscuro alrededor.
 

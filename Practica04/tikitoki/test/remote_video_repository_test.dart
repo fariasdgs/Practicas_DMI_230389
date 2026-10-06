@@ -8,7 +8,11 @@ import 'package:shared_preferences_platform_interface/shared_preferences_async_p
 import 'package:tikitoki/infraestructure/repositories/remote_video_repository.dart';
 import 'package:tikitoki/presentation/providers/discover_provider.dart';
 
-http.Response jsonResponse(Object data) => http.Response(jsonEncode(data), 200);
+http.Response jsonResponse(Object data) => http.Response(
+  jsonEncode(data),
+  200,
+  headers: {'content-type': 'application/json; charset=utf-8'},
+);
 
 void main() {
   setUp(() {
@@ -19,36 +23,32 @@ void main() {
   test('Adapta tres fuentes, elige MP4, alterna y conserva créditos', () async {
     var pixabayCalls = 0;
     final repo = RemoteVideoRepository(
-      pexelsKey: 'test-pexels',
       pixabayKey: 'test-pixabay',
       client: MockClient((request) async {
-        if (request.url.host == 'api.pexels.com') {
-          expect(request.headers['Authorization'], 'test-pexels');
-          expect(request.url.queryParameters['orientation'], 'portrait');
-          return jsonResponse({
-            'videos': [
-              {
-                'id': 1,
-                'url': 'https://www.pexels.com/video/1/',
-                'user': {'name': 'Autor'},
-                'video_files': [
-                  {
-                    'height': 2160,
-                    'file_type': 'video/mp4',
-                    'link': 'https://cdn.test/4k.mp4',
-                  },
-                  {
-                    'height': 720,
-                    'file_type': 'video/mp4',
-                    'link': 'https://cdn.test/720.mp4',
-                  },
-                  {
-                    'height': 1080,
-                    'file_type': 'video/webm',
-                    'link': 'https://cdn.test/file.webm',
-                  },
+        if (request.url.host == 'archive.org') {
+          if (request.url.path == '/advancedsearch.php') {
+            return jsonResponse({
+              'response': {
+                'docs': [
+                  {'identifier': 'short'},
+                  {'identifier': 'unsupported'},
                 ],
               },
+            });
+          }
+          return jsonResponse({
+            'metadata': {
+              'title': 'Animación',
+              'creator': ['Blender Foundation'],
+              'licenseurl': request.url.path.endsWith('/unsupported')
+                  ? 'https://example.com/unknown'
+                  : 'http://creativecommons.org/licenses/by/3.0/',
+            },
+            'files': [
+              {'name': 'movie big.mp4', 'size': '500000000'},
+              {'name': 'movie small.mp4', 'size': '10000000'},
+              {'name': 'thumb.jpg', 'size': '200'},
+              {'name': 'private.mp4', 'size': '1000', 'private': 'true'},
             ],
           });
         }
@@ -110,11 +110,14 @@ void main() {
     addTearDown(repo.dispose);
     final result = await repo.load();
     expect(result.videos.map((v) => v.storageId), [
-      'pexels:1',
+      'archive:short',
       'pixabay:1',
       'nasa:space-one',
     ]);
-    expect(result.videos.first.videoUrl, 'https://cdn.test/720.mp4');
+    expect(
+      result.videos.first.videoUrl,
+      'https://archive.org/download/short/movie%20small.mp4',
+    );
     expect(
       result.videos.last.videoUrl,
       'https://images-assets.nasa.gov/video/space-one~medium.mp4',
@@ -135,9 +138,9 @@ void main() {
 
   test('Fallas y claves ausentes no ocultan videos de otra fuente', () async {
     final repo = RemoteVideoRepository(
-      pexelsKey: '',
       pixabayKey: 'key-not-to-display',
       client: MockClient((request) async {
+        if (request.url.host == 'archive.org') return http.Response('', 503);
         if (request.url.host == 'pixabay.com') {
           return http.Response('key-not-to-display', 401);
         }
@@ -175,9 +178,13 @@ void main() {
     () async {
       var revision = 1;
       RemoteVideoRepository repository() => RemoteVideoRepository(
-        pexelsKey: '',
         pixabayKey: '',
         client: MockClient((request) async {
+          if (request.url.host == 'archive.org') {
+            return jsonResponse({
+              'response': {'docs': []},
+            });
+          }
           if (request.url.path == '/search') {
             return jsonResponse({
               'collection': {

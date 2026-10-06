@@ -116,7 +116,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           const Icon(Icons.travel_explore, size: 48),
                           const SizedBox(height: 12),
                           const Text(
-                            'Descubre videos de Pexels, Pixabay y NASA.',
+                            'Descubre videos de Pixabay, NASA e Internet Archive.',
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 8),
