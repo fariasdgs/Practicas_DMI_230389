@@ -6,8 +6,12 @@ class VideoBackground extends StatelessWidget {
 
   const VideoBackground({
     super.key,
-    this.colors = const [Colors.transparent, Colors.black87],
-    this.stops = const [0.0, 1.0],
+    this.colors = const [
+      Colors.transparent,
+      Color(0x99000000),
+      Color(0xE6000000),
+    ],
+    this.stops = const [0.55, 0.8, 1.0],
   });
 
   @override

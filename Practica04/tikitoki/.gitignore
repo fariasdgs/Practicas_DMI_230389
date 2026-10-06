@@ -1,4 +1,5 @@
 # Miscellaneous
+/config/api_keys.json
 *.class
 *.log
 *.pyc

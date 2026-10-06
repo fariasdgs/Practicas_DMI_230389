@@ -1,18 +1,18 @@
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: assets/icon/app_icon.png
+  image_path: assets/icon/app_icon_halloween.png
   remove_alpha_ios: true
-  background_color_ios: '#09090F'
+  background_color_ios: '#100B18'
   web:
     generate: true
-    image_path: assets/icon/app_icon.png
-    background_color: '#09090F'
-    theme_color: '#22D3EE'
+    image_path: assets/icon/app_icon_halloween.png
+    background_color: '#100B18'
+    theme_color: '#FF9F43'
   windows:
     generate: true
-    image_path: assets/icon/app_icon.png
+    image_path: assets/icon/app_icon_halloween.png
     icon_size: 256
   macos:
     generate: true
-    image_path: assets/icon/app_icon.png
+    image_path: assets/icon/app_icon_halloween.png
