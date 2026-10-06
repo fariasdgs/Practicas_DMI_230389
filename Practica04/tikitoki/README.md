@@ -245,25 +245,25 @@ Practica04/tikitoki/
 
 ### PARA TI y DESCUBRIR
 
-**PARA TI** contiene los videos locales actuales. **DESCUBRIR** consulta Pixabay, NASA e Internet Archive al seleccionar la pestaña; alterna las fuentes disponibles y permite reintentar si alguna falla. Al cambiar de sección, se pausa el video que queda oculto. Los créditos debajo de la descripción enlazan al origen de cada video.
+**PARA TI** contiene los videos locales actuales. **DESCUBRIR** consulta YouTube, Pixabay y NASA al seleccionar la pestaña; alterna las fuentes disponibles y permite reintentar si alguna falla. Al cambiar de sección, se pausa el video que queda oculto. Los créditos debajo de la descripción enlazan al origen de cada video.
 
-NASA e Internet Archive funcionan sin clave. Para activar Pixabay, solicita tu clave en [Pixabay](https://pixabay.com/api/docs/). Desde la carpeta de la app:
+NASA funciona sin clave. YouTube muestra dos videos de ejemplo sin clave mediante el reproductor IFrame. Para buscar automáticamente, habilita YouTube Data API v3 en Google Cloud y configura `YOUTUBE_API_KEY`. Para activar Pixabay, solicita tu clave en [Pixabay](https://pixabay.com/api/docs/). Desde la carpeta de la app:
 
 ```bash
 cp config/api_keys.example.json config/api_keys.json
 ```
 
-Completa el valor `PIXABAY_API_KEY` en `config/api_keys.json` y ejecuta:
+Completa los valores `PIXABAY_API_KEY` y, opcionalmente, `YOUTUBE_API_KEY` en `config/api_keys.json` y ejecuta:
 
 ```bash
 flutter run --dart-define-from-file=config/api_keys.json
 ```
 
-El archivo con las claves está excluido de Git. Si todavía no tienes claves, puedes ejecutar `flutter run`: DESCUBRIR usará NASA e Internet Archive y avisará qué fuentes faltan por configurar. Después de cambiar las claves, detén y vuelve a ejecutar la app.
+El archivo con las claves está excluido de Git. Si todavía no tienes claves, puedes ejecutar `flutter run`: DESCUBRIR usará NASA y los ejemplos de YouTube y avisará qué fuentes faltan por configurar. Después de cambiar las claves, detén y vuelve a ejecutar la app.
 
-Pixabay conserva sus respuestas en almacenamiento local durante 24 horas, según su [documentación](https://pixabay.com/api/docs/). Los likes se guardan localmente por fuente e identificador, sin modificar las métricas de las APIs. NASA e Internet Archive no proporcionan likes ni vistas en estas respuestas; sus contadores parten de cero. La validación de vistas y likes del catálogo local sigue aplicándose a PARA TI.
+Pixabay conserva sus respuestas en almacenamiento local durante 24 horas, según su [documentación](https://pixabay.com/api/docs/). Los likes se guardan localmente por fuente e identificador, sin modificar las métricas de las APIs. NASA y la búsqueda de YouTube no proporcionan likes ni vistas en estas respuestas; sus contadores parten de cero. La validación de vistas y likes del catálogo local sigue aplicándose a PARA TI.
 
-Esta configuración es para la práctica: las claves incluidas mediante `dart-define` forman parte de la aplicación compilada; para una publicación con claves privadas se necesitaría un servidor intermediario. Los videos horizontales se muestran completos con espacio oscuro alrededor.
+Esta configuración es para la práctica: las claves incluidas mediante `dart-define` forman parte de la aplicación compilada; para una publicación con claves privadas se necesitaría un servidor intermediario. Los videos horizontales se muestran completos con espacio oscuro alrededor. YouTube usa su reproductor con controles visibles; título, crédito y likes locales aparecen fuera del reproductor. Toca play para iniciar y desliza fuera del reproductor para cambiar de video. Al cambiar de página o pestaña, se desmonta el iframe para detener el audio. Algunos videos no permiten reproducción integrada: usa «Ver en YouTube» en ese caso. El reproductor integrado está disponible en Android, iOS, macOS y web.
 
 Requiere Flutter, Dart compatible con `^3.13.2`, Git LFS y un emulador o dispositivo configurado. Para Android se necesita Android SDK; para iOS, macOS con Xcode.
 

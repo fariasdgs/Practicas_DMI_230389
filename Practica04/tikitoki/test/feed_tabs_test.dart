@@ -94,16 +94,12 @@ void main() {
         },
       ],
       remoteRepository: RemoteVideoRepository(
+        youtubeKey: 'test-youtube',
         pixabayKey: '',
         client: MockClient((request) async {
           requests++;
-          if (request.url.host == 'archive.org') {
-            return http.Response(
-              jsonEncode({
-                'response': {'docs': []},
-              }),
-              200,
-            );
+          if (request.url.host == 'www.googleapis.com') {
+            return http.Response(jsonEncode({'items': []}), 200);
           }
           return http.Response(
             jsonEncode(

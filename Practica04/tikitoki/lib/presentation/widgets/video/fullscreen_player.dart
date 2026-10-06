@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tikitoki/config/theme/app_theme.dart';
 import 'package:tikitoki/presentation/widgets/video/video_background.dart';
 import 'package:video_player/video_player.dart';
+import 'package:tikitoki/presentation/widgets/shared/brand_loading.dart';
+import 'package:tikitoki/presentation/widgets/shared/video_description.dart';
 
 class FullScreenPlayer extends StatefulWidget {
   final String videoUrl;
@@ -12,6 +14,7 @@ class FullScreenPlayer extends StatefulWidget {
   final AppSeason season;
   final bool isNetwork;
   final String? attribution;
+  final String? author;
   final VoidCallback? onAttributionTap;
 
   const FullScreenPlayer({
@@ -22,6 +25,7 @@ class FullScreenPlayer extends StatefulWidget {
     this.season = AppSeason.tech,
     this.isNetwork = false,
     this.attribution,
+    this.author,
     this.onAttributionTap,
   });
 
@@ -122,7 +126,7 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
           );
         }
         if (snapshot.connectionState != ConnectionState.done) {
-          return const Center(child: CircularProgressIndicator(strokeWidth: 2));
+          return BrandLoading(season: widget.season);
         }
         return GestureDetector(
           onTap: _togglePlayback,
@@ -176,87 +180,21 @@ class _FullScreenPlayerState extends State<FullScreenPlayer> {
               Positioned(
                 bottom: 50,
                 left: 20,
-                child: _VideoCaption(
-                  caption: widget.caption,
-                  season: widget.season,
-                  attribution: widget.attribution,
-                  onAttributionTap: widget.onAttributionTap,
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width - 110,
+                  child: VideoDescription(
+                    caption: widget.caption,
+                    season: widget.season,
+                    source: widget.attribution,
+                    author: widget.author,
+                    onSourceTap: widget.onAttributionTap,
+                  ),
                 ),
               ),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-class _VideoCaption extends StatelessWidget {
-  final String caption;
-  final AppSeason season;
-  final String? attribution;
-  final VoidCallback? onAttributionTap;
-
-  const _VideoCaption({
-    required this.caption,
-    required this.season,
-    this.attribution,
-    this.onAttributionTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final theme = Theme.of(context);
-    final titleStyle = theme.textTheme.titleLarge;
-
-    return SizedBox(
-      width: size.width * 0.6,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (season == AppSeason.halloween) ...[
-            IgnorePointer(
-              child: ExcludeSemantics(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.black45,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.5),
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    child: Text('🎃  👻', style: TextStyle(fontSize: 16)),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-          ],
-          Text(caption, maxLines: 2, style: titleStyle),
-          if (attribution != null)
-            TextButton(
-              onPressed: onAttributionTap,
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.white,
-                padding: EdgeInsets.zero,
-                alignment: Alignment.centerLeft,
-              ),
-              child: Text(
-                'Video de $attribution ↗',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 12,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-        ],
-      ),
     );
   }
 }

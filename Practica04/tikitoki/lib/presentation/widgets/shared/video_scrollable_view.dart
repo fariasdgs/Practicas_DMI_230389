@@ -4,6 +4,7 @@ import 'package:tikitoki/config/theme/app_theme.dart';
 import 'package:tikitoki/domain/entities/video_post.dart';
 import 'package:tikitoki/presentation/widgets/shared/video_buttons.dart';
 import 'package:tikitoki/presentation/widgets/video/fullscreen_player.dart';
+import 'package:tikitoki/presentation/widgets/video/youtube_video_player.dart';
 
 class VideoScrollableView extends StatefulWidget {
   final List<VideoPost> videos;
@@ -33,6 +34,17 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
       onPageChanged: (index) => setState(() => currentIndex = index),
       itemBuilder: (context, index) {
         final videoPost = widget.videos[index];
+        if (videoPost.youtubeId != null) {
+          // Desmontar el iframe oculto detiene su audio y libera la vista web.
+          if (!widget.isActive || index != currentIndex) {
+            return const SizedBox.expand();
+          }
+          return YoutubeVideoPlayer(
+            key: ValueKey(videoPost.storageId),
+            video: videoPost,
+            season: widget.season,
+          );
+        }
 
         return Stack(
           children: [
@@ -45,9 +57,8 @@ class _VideoScrollableViewState extends State<VideoScrollableView> {
                 isActive: widget.isActive && index == currentIndex,
                 season: widget.season,
                 isNetwork: videoPost.isNetwork,
-                attribution: videoPost.sourceName == null
-                    ? null
-                    : '${videoPost.sourceName} · ${videoPost.author ?? videoPost.sourceName}',
+                attribution: videoPost.sourceName,
+                author: videoPost.author,
                 onAttributionTap: videoPost.sourceUrl == null
                     ? null
                     : () async {

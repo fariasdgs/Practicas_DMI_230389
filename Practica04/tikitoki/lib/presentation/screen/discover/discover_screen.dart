@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikitoki/presentation/widgets/shared/brand_loading.dart';
 import 'package:provider/provider.dart';
 import 'package:tikitoki/config/theme/app_theme.dart';
 import 'package:tikitoki/presentation/providers/discover_provider.dart';
@@ -6,8 +7,13 @@ import 'package:tikitoki/presentation/widgets/shared/video_scrollable_view.dart'
 
 class DiscoverScreen extends StatefulWidget {
   final AppSeason season;
+  final bool playbackEnabled;
 
-  const DiscoverScreen({super.key, this.season = AppSeason.tech});
+  const DiscoverScreen({
+    super.key,
+    this.season = AppSeason.tech,
+    this.playbackEnabled = true,
+  });
 
   @override
   State<DiscoverScreen> createState() => _DiscoverScreenState();
@@ -86,7 +92,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               index: discovering ? 1 : 0,
               children: [
                 if (provider.initialLoading)
-                  const Center(child: CircularProgressIndicator(strokeWidth: 2))
+                  BrandLoading(
+                    season: widget.season,
+                    label: 'Preparando tu feed',
+                  )
                 else if (provider.videos.isEmpty)
                   const Center(
                     child: Padding(
@@ -102,10 +111,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     key: const ValueKey('local-feed'),
                     videos: provider.videos,
                     season: widget.season,
-                    isActive: !discovering,
+                    isActive: widget.playbackEnabled && !discovering,
                   ),
                 if (provider.remoteLoading)
-                  const Center(child: CircularProgressIndicator(strokeWidth: 2))
+                  BrandLoading(
+                    season: widget.season,
+                    label: 'Preparando tu feed',
+                  )
                 else if (provider.remoteVideos.isEmpty)
                   Center(
                     child: Padding(
@@ -116,7 +128,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           const Icon(Icons.travel_explore, size: 48),
                           const SizedBox(height: 12),
                           const Text(
-                            'Descubre videos de Pixabay, NASA e Internet Archive.',
+                            'Descubre videos de YouTube, Pixabay y NASA.',
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 8),
@@ -139,7 +151,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     key: ValueKey('remote-feed-$remoteFeedVersion'),
                     videos: provider.remoteVideos,
                     season: widget.season,
-                    isActive: discovering,
+                    isActive: widget.playbackEnabled && discovering,
                   ),
               ],
             ),
@@ -166,8 +178,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 5),
-            Container(
-              width: 24,
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              width: selected ? 32 : 12,
               height: 3,
               decoration: BoxDecoration(
                 color: selected ? colors.primary : Colors.transparent,

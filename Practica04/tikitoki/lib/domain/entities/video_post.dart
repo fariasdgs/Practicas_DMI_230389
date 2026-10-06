@@ -7,6 +7,7 @@ class VideoPost {
   final String? sourceName;
   final String? sourceUrl;
   final String? author;
+  final String? youtubeId;
 
   String get storageId => id ?? videoUrl;
   bool get isNetwork => Uri.tryParse(videoUrl)?.scheme == 'https';
@@ -20,5 +21,6 @@ class VideoPost {
     this.sourceName,
     this.sourceUrl,
     this.author,
+    this.youtubeId,
   });
 }

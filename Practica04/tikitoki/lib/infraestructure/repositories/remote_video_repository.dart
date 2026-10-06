@@ -14,11 +14,13 @@ class RemoteVideoResult {
 class RemoteVideoRepository {
   final http.Client _client;
   final String pixabayKey;
+  final String youtubeKey;
   final SharedPreferencesAsync _cache;
 
   RemoteVideoRepository({
     http.Client? client,
     this.pixabayKey = const String.fromEnvironment('PIXABAY_API_KEY'),
+    this.youtubeKey = const String.fromEnvironment('YOUTUBE_API_KEY'),
     SharedPreferencesAsync? cache,
   }) : _client = client ?? http.Client(),
        _cache = cache ?? SharedPreferencesAsync();
@@ -53,7 +55,7 @@ class RemoteVideoRepository {
     }
 
     final results = await Future.wait([
-      fetch('Internet Archive', _archive),
+      fetch('YouTube', _youtube),
       fetch('Pixabay', _pixabay, configured: pixabayKey.trim().isNotEmpty),
       fetch('NASA', _nasa),
     ]);
@@ -96,72 +98,63 @@ class RemoteVideoRepository {
 
   int _count(dynamic value) => value is num && value >= 0 ? value.toInt() : 0;
 
-  Future<List<VideoPost>> _archive() async {
+  Future<List<VideoPost>> _youtube() async {
+    if (youtubeKey.trim().isEmpty) {
+      return [
+        VideoPost(
+          id: 'youtube:M7lc1UVf-VE',
+          youtubeId: 'M7lc1UVf-VE',
+          caption: 'YouTube · Ejemplo del reproductor',
+          videoUrl: 'https://www.youtube.com/watch?v=M7lc1UVf-VE',
+          sourceName: 'YouTube',
+          sourceUrl: 'https://www.youtube.com/watch?v=M7lc1UVf-VE',
+        ),
+        VideoPost(
+          id: 'youtube:aqz-KE-bpKQ',
+          youtubeId: 'aqz-KE-bpKQ',
+          caption: 'Big Buck Bunny',
+          author: 'Blender Foundation',
+          videoUrl: 'https://www.youtube.com/watch?v=aqz-KE-bpKQ',
+          sourceName: 'YouTube',
+          sourceUrl: 'https://www.youtube.com/watch?v=aqz-KE-bpKQ',
+        ),
+      ];
+    }
     final data = await _get(
-      Uri.https('archive.org', '/advancedsearch.php', {
-        'q':
-            'mediatype:movies AND creator:"Blender Foundation" AND '
-            '(title:Caminandes OR title:Spring OR title:"Big Buck Bunny") AND licenseurl:*',
-        'output': 'json',
-        'rows': '6',
-        'fl[]': 'identifier',
+      Uri.https('www.googleapis.com', '/youtube/v3/search', {
+        'key': youtubeKey,
+        'part': 'snippet',
+        'type': 'video',
+        'q': 'nature scenery',
+        'maxResults': '6',
+        'safeSearch': 'strict',
+        'videoEmbeddable': 'true',
+        'videoSyndicated': 'true',
       }),
     );
-    final response = data['response'];
-    if (response is! Map) return [];
-    final videos = await Future.wait(
-      _items(response['docs']).take(6).map((item) async {
-        try {
-          final id = item['identifier'] as String;
-          final record = await _get(Uri.https('archive.org', '/metadata/$id'));
-          if (record['is_dark'] == true) return null;
-          final metadata = record['metadata'] as Map;
-          final license = Uri.tryParse('${metadata['licenseurl'] ?? ''}');
-          if (license == null ||
-              license.host != 'creativecommons.org' ||
-              !(license.path.startsWith('/licenses/by/') ||
-                  license.path.startsWith('/licenses/by-sa/'))) {
-            return null;
-          }
-          final files = _items(record['files']).where((file) {
-            final name = file['name'];
-            final size = int.tryParse('${file['size']}') ?? 0;
-            return name is String &&
-                name.toLowerCase().endsWith('.mp4') &&
-                file['private'] != 'true' &&
-                file['private'] != true &&
-                size > 0 &&
-                size <= 250000000;
-          }).toList();
-          if (files.isEmpty) return null;
-          files.sort(
-            (a, b) =>
-                int.parse('${a['size']}').compareTo(int.parse('${b['size']}')),
-          );
-          final name = files.first['name'] as String;
-          final creator = metadata['creator'];
-          final author = creator is List
-              ? creator.join(', ')
-              : '${creator ?? 'Blender Foundation'}';
-          return VideoPost(
-            id: 'archive:$id',
-            caption: '${metadata['title'] ?? 'Corto de animación'}',
-            videoUrl: Uri(
-              scheme: 'https',
-              host: 'archive.org',
-              pathSegments: ['download', id, ...name.split('/')],
-            ).toString(),
-            sourceName: 'Internet Archive',
-            sourceUrl: Uri.https('archive.org', '/details/$id').toString(),
-            author:
-                '$author · ${license.path.startsWith('/licenses/by-sa/') ? 'CC BY-SA' : 'CC BY'}',
-          );
-        } catch (_) {
-          return null;
-        }
-      }),
-    );
-    return videos.whereType<VideoPost>().toList();
+    final videos = <VideoPost>[];
+    for (final item in _items(data['items'])) {
+      final identity = item['id'];
+      final snippet = item['snippet'];
+      if (identity is! Map || snippet is! Map) continue;
+      final id = identity['videoId'];
+      if (id is! String || !RegExp(r'^[a-zA-Z0-9_-]{11}$').hasMatch(id)) {
+        continue;
+      }
+      final url = Uri.https('www.youtube.com', '/watch', {'v': id}).toString();
+      videos.add(
+        VideoPost(
+          id: 'youtube:$id',
+          youtubeId: id,
+          caption: '${snippet['title'] ?? 'Video de YouTube'}',
+          videoUrl: url,
+          author: snippet['channelTitle'] as String?,
+          sourceName: 'YouTube',
+          sourceUrl: url,
+        ),
+      );
+    }
+    return videos;
   }
 
   Future<List<VideoPost>> _pixabay() async {

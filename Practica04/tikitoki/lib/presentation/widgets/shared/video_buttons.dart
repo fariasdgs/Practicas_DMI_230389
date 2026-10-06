@@ -83,9 +83,20 @@ class _CustomIconButton extends StatelessWidget {
         IconButton(
           onPressed: tooltip == null ? () {} : onPressed,
           tooltip: tooltip,
-          icon: Icon(iconData, color: color, size: 30),
+          style: IconButton.styleFrom(
+            backgroundColor: Colors.black.withValues(alpha: 0.3),
+            side: BorderSide(color: Colors.white.withValues(alpha: 0.12)),
+            fixedSize: const Size(48, 48),
+          ),
+          icon: Icon(iconData, color: color, size: 27),
         ),
-        if (value > 0) Text(HumanFormats.humanReadbleNumber(value.toDouble())),
+        if (value > 0) ...[
+          const SizedBox(height: 4),
+          Text(
+            HumanFormats.humanReadbleNumber(value.toDouble()),
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700),
+          ),
+        ],
       ],
     );
   }
