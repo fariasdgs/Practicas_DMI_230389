@@ -40,6 +40,20 @@ void main() {
       expect(reopenedAgain.likesFor(reopenedAgain.videos.first), 0);
     },
   );
+  test('Favoritos reúne solo los videos con like', () async {
+    final provider = DiscoverProvider(
+      source: [
+        {'name': 'Uno', 'videoUrl': 'one.mp4', 'likes': 0, 'views': 0},
+        {'name': 'Dos', 'videoUrl': 'two.mp4', 'likes': 10, 'views': 20},
+      ],
+    );
+    addTearDown(provider.dispose);
+    await provider.loadNextPage();
+    expect(provider.favorites, isEmpty);
+    await provider.toggleLike(provider.videos.last);
+    expect(provider.favorites.map((v) => v.videoUrl), ['two.mp4']);
+  });
+
   test(
     'Descarta vistas menores, conserva igualdad y orden, y notifica',
     () async {

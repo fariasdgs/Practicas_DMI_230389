@@ -30,6 +30,9 @@ class DiscoverProvider extends ChangeNotifier {
 
   bool isSavingLike(VideoPost video) => _savingLikes.contains(video.storageId);
 
+  List<VideoPost> get favorites =>
+      [...videos, ...remoteVideos].where(isLiked).toList();
+
   int likesFor(VideoPost video) => video.likes + (isLiked(video) ? 1 : 0);
 
   Future<void> toggleLike(VideoPost video) async {

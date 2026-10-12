@@ -21,6 +21,7 @@
   <img src="assets/icon/app_icon.png" alt="Logo de Tikitoki: reproducción y T en cian y violeta" width="140">
   <img src="assets/icon/app_icon_halloween.png" alt="Logo de Halloween de Tikitoki: reproducción y T en naranja y violeta con sombrero de bruja y murciélagos" width="140">
   <img src="assets/icon/app_icon_christmas.png" alt="Logo de Navidad de Tikitoki: reproducción y T en verde y rojo con gorro de Santa y copos de nieve" width="140">
+  <img src="assets/icon/app_icon_valentine.png" alt="Logo de San Valentín de Tikitoki: reproducción y T en rosa y rojo con lazo y corazones" width="140">
 </p>
 
 Proyecto de la **Práctica 04: Tikitoki App**, desarrollado por **Al Farias Leyva · 230389** para la asignatura **Desarrollo Móvil Integral**.
@@ -50,6 +51,8 @@ La app utiliza un estilo **tech minimalista**, con un logo que combina una **T**
 | Tipografía | Montserrat |
 
 El [logo original](assets/icon/app_icon.png) se creó con ImageGen; el [prompt](assets/icon/prompt.txt) documenta su diseño. La [licencia de Montserrat](assets/fonts/OFL.txt) se conserva junto a la fuente.
+
+La galería incluye las variantes de Halloween, Navidad y [San Valentín](assets/icon/app_icon_valentine.png). El logo de San Valentín conserva la T y el símbolo de reproducción, con un degradado rosa y rojo, un lazo y corazones sobre fondo oscuro. Se generó con ImageGen; su [prompt](assets/icon/prompt_valentine.txt) documenta el diseño para futuras variantes.
 
 Para regenerar los íconos desde la carpeta de la app:
 

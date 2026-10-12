@@ -20,13 +20,18 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  bool discovering = false;
+  static const _paraTi = 0;
+  static const _descubrir = 1;
+  static const _favoritos = 2;
+
+  int selectedTab = _paraTi;
   int remoteFeedVersion = 0;
 
-  void _selectTab(bool discover) {
-    if (discovering == discover) return;
-    setState(() => discovering = discover);
-    if (discover) context.read<DiscoverProvider>().loadRemoteVideos();
+  void _selectTab(int tab) {
+    if (selectedTab == tab) return;
+    setState(() => selectedTab = tab);
+    // Favoritos también necesita los videos remotos que tengan like.
+    if (tab != _paraTi) context.read<DiscoverProvider>().loadRemoteVideos();
   }
 
   Future<void> _retry() async {
@@ -49,24 +54,43 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 16),
                     child: Tooltip(
-                      message: widget.season == AppSeason.halloween
-                          ? 'Halloween'
-                          : 'Navidad',
-                      child: Text(
-                        widget.season == AppSeason.halloween ? '🎃' : '🎄',
-                      ),
+                      message: switch (widget.season) {
+                        AppSeason.valentine => 'San Valentín',
+                        AppSeason.halloween => 'Halloween',
+                        _ => 'Navidad',
+                      },
+                      child: Text(switch (widget.season) {
+                        AppSeason.valentine => '💘',
+                        AppSeason.halloween => '🎃',
+                        _ => '🎄',
+                      }),
                     ),
                   ),
                 Expanded(
-                  child: _tab('PARA TI', !discovering, () => _selectTab(false)),
+                  child: _tab(
+                    'PARA TI',
+                    selectedTab == _paraTi,
+                    () => _selectTab(_paraTi),
+                  ),
                 ),
                 Expanded(
-                  child: _tab('DESCUBRIR', discovering, () => _selectTab(true)),
+                  child: _tab(
+                    'DESCUBRIR',
+                    selectedTab == _descubrir,
+                    () => _selectTab(_descubrir),
+                  ),
+                ),
+                Expanded(
+                  child: _tab(
+                    'FAVORITOS',
+                    selectedTab == _favoritos,
+                    () => _selectTab(_favoritos),
+                  ),
                 ),
               ],
             ),
           ),
-          if (discovering && provider.remoteNotices.isNotEmpty)
+          if (selectedTab == _descubrir && provider.remoteNotices.isNotEmpty)
             Material(
               color: colors.surface,
               child: ListTile(
@@ -89,7 +113,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
           Expanded(
             child: IndexedStack(
-              index: discovering ? 1 : 0,
+              index: selectedTab,
               children: [
                 if (provider.initialLoading)
                   BrandLoading(
@@ -111,7 +135,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     key: const ValueKey('local-feed'),
                     videos: provider.videos,
                     season: widget.season,
-                    isActive: widget.playbackEnabled && !discovering,
+                    isActive: widget.playbackEnabled && selectedTab == _paraTi,
                   ),
                 if (provider.remoteLoading)
                   BrandLoading(
@@ -151,7 +175,38 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     key: ValueKey('remote-feed-$remoteFeedVersion'),
                     videos: provider.remoteVideos,
                     season: widget.season,
-                    isActive: widget.playbackEnabled && discovering,
+                    isActive:
+                        widget.playbackEnabled && selectedTab == _descubrir,
+                  ),
+                if (provider.favorites.isEmpty)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.favorite_border, size: 48),
+                          SizedBox(height: 12),
+                          Text(
+                            'Aún no tienes favoritos.',
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Da like a un video para guardarlo aquí.',
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                else
+                  VideoScrollableView(
+                    key: const ValueKey('favorites-feed'),
+                    videos: provider.favorites,
+                    season: widget.season,
+                    isActive:
+                        widget.playbackEnabled && selectedTab == _favoritos,
                   ),
               ],
             ),

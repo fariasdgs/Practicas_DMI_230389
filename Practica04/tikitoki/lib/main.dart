@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _scheduleDateCheck();
     final sound = switch (season) {
+      AppSeason.valentine => null,
       AppSeason.halloween => 'sounds/witches-laughing.mp3',
       AppSeason.christmas => 'sounds/ho-ho-ho-merry-christmas.mp3',
       AppSeason.tech => null,

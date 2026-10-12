@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum AppSeason { tech, halloween, christmas }
+enum AppSeason { tech, valentine, halloween, christmas }
 
 class AppTheme {
   static const background = Color(0xFF09090F);
@@ -8,6 +8,7 @@ class AppTheme {
   static const violet = Color(0xFFA78BFA);
 
   static AppSeason seasonFor(DateTime date) => switch (date.month) {
+    2 => AppSeason.valentine,
     10 => AppSeason.halloween,
     12 => AppSeason.christmas,
     _ => AppSeason.tech,
@@ -18,6 +19,11 @@ class AppTheme {
 
   ThemeData themeFor(AppSeason season) {
     final (primary, secondary, surface) = switch (season) {
+      AppSeason.valentine => (
+        const Color(0xFFFB7185),
+        const Color(0xFFF472B6),
+        const Color(0xFF14070D),
+      ),
       AppSeason.halloween => (
         const Color(0xFFFF9F43),
         const Color(0xFFC084FC),

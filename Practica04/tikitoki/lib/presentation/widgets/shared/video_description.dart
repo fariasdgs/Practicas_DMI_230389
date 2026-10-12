@@ -63,20 +63,19 @@ class VideoDescription extends StatelessWidget {
                       horizontal: 3,
                       vertical: 2,
                     ),
-                    child: Text(
-                      season == AppSeason.christmas ? '🎄  🎁  ✨' : '🎃  👻',
-                      style: const TextStyle(fontSize: 17),
-                    ),
+                    child: Text(switch (season) {
+                      AppSeason.valentine => '💘  💕',
+                      AppSeason.christmas => '🎄  🎁  ✨',
+                      _ => '🎃  👻',
+                    }, style: const TextStyle(fontSize: 17)),
                   ),
                 ),
               ),
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          caption,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
+        _ExpandableCaption(
+          caption: caption,
           style: theme.textTheme.titleLarge?.copyWith(
             fontSize: 17,
             height: 1.4,
@@ -101,6 +100,65 @@ class VideoDescription extends StatelessWidget {
           ),
         ],
       ],
+    );
+  }
+}
+
+class _ExpandableCaption extends StatefulWidget {
+  final String caption;
+  final TextStyle? style;
+  const _ExpandableCaption({required this.caption, this.style});
+
+  @override
+  State<_ExpandableCaption> createState() => _ExpandableCaptionState();
+}
+
+class _ExpandableCaptionState extends State<_ExpandableCaption> {
+  bool expanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final painter = TextPainter(
+          text: TextSpan(text: widget.caption, style: widget.style),
+          maxLines: 2,
+          textDirection: Directionality.of(context),
+          textScaler: MediaQuery.textScalerOf(context),
+        )..layout(maxWidth: constraints.maxWidth);
+        final isLong = painter.didExceedMaxLines;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.caption,
+              maxLines: expanded ? null : 2,
+              overflow: expanded ? null : TextOverflow.ellipsis,
+              style: widget.style,
+            ),
+            if (isLong)
+              TextButton(
+                onPressed: () => setState(() => expanded = !expanded),
+                style: TextButton.styleFrom(
+                  foregroundColor: colors.primary,
+                  backgroundColor: Colors.black26,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  minimumSize: const Size(0, 32),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: Text(
+                  expanded ? 'Ver menos' : 'Ver más',
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }

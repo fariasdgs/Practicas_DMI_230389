@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tikitoki/config/theme/app_theme.dart';
 
 String seasonalLogo(AppSeason season) => switch (season) {
+  AppSeason.valentine => 'assets/icon/app_icon_valentine.png',
   AppSeason.halloween => 'assets/icon/app_icon_halloween.png',
   AppSeason.christmas => 'assets/icon/app_icon_christmas.png',
   AppSeason.tech => 'assets/icon/app_icon.png',
@@ -68,6 +69,7 @@ class SeasonEntrance extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final subtitle = switch (season) {
+      AppSeason.valentine => 'Videos con mucho amor',
       AppSeason.halloween => 'Una temporada de pequeños sustos',
       AppSeason.christmas => 'Un momento para compartir magia',
       AppSeason.tech => 'Desliza. Reproduce. Explora.',
