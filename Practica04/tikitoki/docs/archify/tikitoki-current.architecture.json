@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Tikitoki · Arquitectura actual",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1360,
+      750
+    ]
+  },
+  "components": [
+    {
+      "id": "inicio",
+      "type": "frontend",
+      "label": "Inicio y tema",
+      "sublabel": "MyApp · MultiProvider · AppTheme",
+      "pos": [
+        40,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "pantalla",
+      "type": "frontend",
+      "label": "Pantalla y navegación",
+      "sublabel": "DiscoverScreen · PARA TI / DESCUBRIR",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "estado",
+      "type": "frontend",
+      "label": "Estado de los videos",
+      "sublabel": "DiscoverProvider · carga y likes",
+      "pos": [
+        530,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "local",
+      "type": "database",
+      "label": "Catálogo local",
+      "sublabel": "videoPosts · LocalVideoModel",
+      "pos": [
+        1020,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "remoto",
+      "type": "backend",
+      "label": "Repositorio remoto",
+      "sublabel": "RemoteVideoRepository · http.Client",
+      "pos": [
+        530,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "servicios",
+      "type": "external",
+      "label": "Servicios externos",
+      "sublabel": "YouTube · Pixabay · NASA",
+      "pos": [
+        1020,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "reproductores",
+      "type": "frontend",
+      "label": "Reproducción",
+      "sublabel": "FullScreenPlayer · YoutubeVideoPlayer",
+      "pos": [
+        530,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "feed",
+      "type": "frontend",
+      "label": "Feed vertical",
+      "sublabel": "VideoScrollableView · PageView",
+      "pos": [
+        40,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "preferencias",
+      "type": "database",
+      "label": "Persistencia local",
+      "sublabel": "SharedPreferences · likes y caché",
+      "pos": [
+        1020,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "inicio-pantalla",
+      "from": "inicio",
+      "to": "pantalla",
+      "label": "configura",
+      "labelAt": [
+        190,
+        243
+      ]
+    },
+    {
+      "id": "pantalla-estado",
+      "from": "pantalla",
+      "to": "estado",
+      "label": "observa y solicita"
+    },
+    {
+      "id": "estado-local",
+      "from": "estado",
+      "to": "local",
+      "label": "convierte y filtra"
+    },
+    {
+      "id": "remoto-servicios",
+      "from": "remoto",
+      "to": "servicios",
+      "label": "HTTPS / JSON"
+    },
+    {
+      "id": "pantalla-feed",
+      "from": "pantalla",
+      "to": "feed",
+      "label": "compone",
+      "labelAt": [
+        190,
+        493
+      ]
+    },
+    {
+      "id": "feed-reproductores",
+      "from": "feed",
+      "to": "reproductores",
+      "label": "elige MP4 o IFrame"
+    },
+    {
+      "id": "estado-preferencias",
+      "from": "estado",
+      "to": "preferencias",
+      "label": "guarda likes",
+      "fromSide": "right",
+      "toSide": "left",
+      "route": "orthogonal-h"
+    },
+    {
+      "id": "estado-remoto",
+      "from": "estado",
+      "to": "remoto",
+      "label": "carga fuentes"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Datos y reglas",
+      "items": [
+        "Local: exige views ≥ likes antes de reproducir.",
+        "Remoto: alterna las fuentes y muestra avisos."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Ciclo de reproducción",
+      "items": [
+        "Solo el video visible permanece activo.",
+        "MP4 local o HTTPS; YouTube usa IFrame."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Almacenamiento",
+      "items": [
+        "Likes por identificador; caché Pixabay: 24 h.",
+        "Sin servidor propio ni base de datos remota."
+      ]
+    }
+  ]
+}
