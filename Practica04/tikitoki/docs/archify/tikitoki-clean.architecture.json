@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Tikitoki · Propuesta de Clean Architecture",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1380,
+      750
+    ]
+  },
+  "components": [
+    {
+      "id": "ui",
+      "type": "frontend",
+      "label": "Interfaz de usuario",
+      "sublabel": "DiscoverScreen · widgets de video",
+      "pos": [
+        40,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "control",
+      "type": "frontend",
+      "label": "Estado de presentación",
+      "sublabel": "DiscoverProvider simplificado",
+      "pos": [
+        530,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "casos",
+      "type": "backend",
+      "label": "Casos de uso",
+      "sublabel": "Cargar videos · alternar like · filtrar",
+      "pos": [
+        1020,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "contratos",
+      "type": "backend",
+      "label": "Contratos del dominio",
+      "sublabel": "VideoRepository · LikesRepository",
+      "pos": [
+        1020,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "adaptadores",
+      "type": "backend",
+      "label": "Adaptadores de datos",
+      "sublabel": "Repositorios local, remoto y preferencias",
+      "pos": [
+        530,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "recursos",
+      "type": "external",
+      "label": "Recursos externos",
+      "sublabel": "HTTP · SharedPreferences · assets",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "composicion",
+      "type": "frontend",
+      "label": "Composición e inyección",
+      "sublabel": "main.dart conecta implementaciones",
+      "pos": [
+        40,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "entidad",
+      "type": "backend",
+      "label": "Entidad del dominio",
+      "sublabel": "VideoPost · independiente de Flutter",
+      "pos": [
+        1020,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "ui-control",
+      "from": "ui",
+      "to": "control",
+      "label": "observa estado"
+    },
+    {
+      "id": "control-casos",
+      "from": "control",
+      "to": "casos",
+      "label": "ejecuta"
+    },
+    {
+      "id": "casos-contratos",
+      "from": "casos",
+      "to": "contratos",
+      "label": "depende del contrato",
+      "labelAt": [
+        1170,
+        243
+      ]
+    },
+    {
+      "id": "adaptadores-contratos",
+      "from": "adaptadores",
+      "to": "contratos",
+      "label": "implementa"
+    },
+    {
+      "id": "adaptadores-recursos",
+      "from": "adaptadores",
+      "to": "recursos",
+      "label": "accede"
+    },
+    {
+      "id": "casos-entidad",
+      "from": "casos",
+      "to": "entidad",
+      "label": "usa entidad",
+      "fromSide": "right",
+      "toSide": "right",
+      "via": [
+        [
+          1340,
+          118
+        ],
+        [
+          1340,
+          618
+        ]
+      ],
+      "labelAt": [
+        1340,
+        470
+      ]
+    },
+    {
+      "id": "composicion-adaptadores",
+      "from": "composicion",
+      "to": "adaptadores",
+      "label": "crea e inyecta"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Regla de dependencias",
+      "items": [
+        "Las flechas indican dependencia del código.",
+        "Los detalles externos dependen del dominio."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Lo que ya existe",
+      "items": [
+        "VideoPost, widgets, provider y repositorio remoto.",
+        "LocalVideoModel adapta mapas a entidades."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Refactor propuesto",
+      "items": [
+        "Agregar contratos y casos de uso al dominio.",
+        "Extraer filtro y persistencia del provider."
+      ]
+    }
+  ]
+}

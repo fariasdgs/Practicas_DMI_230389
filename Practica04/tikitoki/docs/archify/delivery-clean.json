@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/Practica04/tikitoki/docs/archify/tikitoki-clean.architecture.json",
+  "output": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/docs/practica04/clean-architecture.html",
+  "specification": {
+    "sha256": "1f5c2027067d750aae4e3cfc081f67fb12ee292deb3a9e03f82e25cba24d7203",
+    "bytes": 4100
+  },
+  "artifact": {
+    "sha256": "74046210690b3b486500d59e6c25d61d3d58c3368ada40de88013b5d1664d170",
+    "bytes": 805917
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

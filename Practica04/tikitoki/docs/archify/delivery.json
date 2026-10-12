@@ -1,0 +1,17 @@
+{
+  "diagram_type": "architecture",
+  "output": "docs/practica04/index.html",
+  "specification_sha256": "fead4ea4cd959cd41432620381e6ecce71c07d47e57107881a20484bd500c84d",
+  "specification_bytes": 4610,
+  "artifact_sha256": "8aac7c02a18dc5e00860e2ddb00ad413984616f3c4b248da42b9ba4eee9a4788",
+  "artifact_bytes": 808221,
+  "validation": "9/9 showcase, 0 errors, 0 warnings",
+  "browser_evidence": "passed",
+  "visual_review": "passed",
+  "correction_rounds": 2,
+  "visual_review_scope": [
+    "1440x900 light screenshot",
+    "2048x1320 dark screenshot"
+  ],
+  "browser_receipt": "../../../../docs/practica04/index.visual-check.json"
+}
