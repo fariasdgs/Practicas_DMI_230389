@@ -2,8 +2,8 @@
 
 ## Nuevos diagramas
 
-- [Arquitectura actual](../../../../docs/practica04/arquitectura.html), basada en el código local: presentación, estado, datos locales/remotos y reproducción.
-- [Propuesta de Clean Architecture](../../../../docs/practica04/clean-architecture.html), con contratos y casos de uso pendientes de implementar.
+- [Arquitectura actual](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/arquitectura.html), basada en el código local: presentación, estado, datos locales/remotos y reproducción.
+- [Propuesta de Clean Architecture](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/clean-architecture.html), con contratos y casos de uso pendientes de implementar.
 - Fuentes editables: [arquitectura actual](tikitoki-current.architecture.json) y [Clean Architecture](tikitoki-clean.architecture.json).
 - Recibos con hashes SHA-256 y tamaños de especificación y HTML: [arquitectura actual](delivery-current.json) y [Clean Architecture](delivery-clean.json).
 

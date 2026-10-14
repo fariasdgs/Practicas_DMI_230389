@@ -30,8 +30,8 @@ Proyecto de la **Práctica 04: Tikitoki App**, desarrollado por **Al Farias Leyv
 
 ### Diagramas de arquitectura
 
-- [Arquitectura actual de Tikitoki](../../docs/practica04/arquitectura.html): inicio, pantalla, Provider, catálogo local, APIs, persistencia y reproducción.
-- [Propuesta de Clean Architecture](../../docs/practica04/clean-architecture.html): presentación, casos de uso, contratos del dominio, entidades y adaptadores externos.
+- [Arquitectura actual de Tikitoki](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/arquitectura.html): inicio, pantalla, Provider, catálogo local, APIs, persistencia y reproducción.
+- [Propuesta de Clean Architecture](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/clean-architecture.html): presentación, casos de uso, contratos del dominio, entidades y adaptadores externos.
 
 El primer diagrama refleja el código actual. El segundo es una propuesta de refactor: los contratos `VideoRepository` y `LikesRepository` y los casos de uso todavía no están implementados. Actualmente `DiscoverProvider` importa directamente el repositorio remoto y el modelo local, aplica el filtro y guarda los likes. Las flechas del segundo diagrama representan dependencias del código; la inversión de dependencias permite que los adaptadores implementen contratos definidos en el dominio.
 
