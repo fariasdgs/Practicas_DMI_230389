@@ -23,7 +23,7 @@ class _ProgressView extends StatelessWidget {
       child: Column(
         children: const [
           SizedBox(height: 30),
-          Text('Circula progress indicator'),
+          Text('Circular progress indicator'),
           SizedBox(height: 10),
           CircularProgressIndicator(
             strokeWidth: 2,
@@ -47,8 +47,8 @@ class _ControlledProgresIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: Stream.periodic(const Duration(milliseconds: 300), (value) {
-        return (value * 2) / 100; // 0.0, 1.0
-      }).takeWhile((value) => value < 100),
+        return (value + 1) / 50; // 0.0, 1.0
+      }).take(50),
       builder: (context, snapshot) {
         final progressValue = snapshot.data ?? 0;
 

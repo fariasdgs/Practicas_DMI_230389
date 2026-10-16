@@ -21,8 +21,9 @@ const colorList = <Color>[
 
 class AppTheme {
   final int selectedColor;
+  final bool isDarkmode;
 
-  AppTheme({this.selectedColor = 0})
+  AppTheme({this.selectedColor = 0, this.isDarkmode = false})
     : assert(
         selectedColor >= 0,
         'selectedColor must be greater than or equal to 0',
@@ -32,9 +33,18 @@ class AppTheme {
         'selectedColor must be less than ${colorList.length}',
       );
 
+  AppTheme copyWith({int? selectedColor, bool? isDarkmode}) => AppTheme(
+    selectedColor: selectedColor ?? this.selectedColor,
+    isDarkmode: isDarkmode ?? this.isDarkmode,
+  );
+
   ThemeData getTheme() {
-    return ThemeData.light().copyWith(
-      colorScheme: ColorScheme.fromSeed(seedColor: colorList[selectedColor]),
+    return ThemeData(
+      brightness: isDarkmode ? Brightness.dark : Brightness.light,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: colorList[selectedColor],
+        brightness: isDarkmode ? Brightness.dark : Brightness.light,
+      ),
     );
   }
 }

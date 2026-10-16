@@ -16,6 +16,18 @@ class MenuItem {
 
 const appMenuItems = <MenuItem>[
   MenuItem(
+    title: 'Progress Indicators',
+    subTitle: 'Indicadores de progreso circular y lineal',
+    link: '/progress',
+    icon: Icons.refresh_rounded,
+  ),
+  MenuItem(
+    title: 'Tema',
+    subTitle: 'Cambiar colores y modo oscuro',
+    link: '/theme-changer',
+    icon: Icons.palette_outlined,
+  ),
+  MenuItem(
     title: 'Botones',
     subTitle: 'Varios botones en Flutter',
     link: '/buttons',

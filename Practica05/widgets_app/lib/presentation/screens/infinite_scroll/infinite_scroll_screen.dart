@@ -71,8 +71,9 @@ class _InfiniteScrollScreenState extends State<InfiniteScrollScreen> {
 
   void moveScrollToBottom() {
     if (scrollController.position.pixels + 100 <=
-        scrollController.position.maxScrollExtent)
+        scrollController.position.maxScrollExtent) {
       return;
+    }
 
     scrollController.animateTo(
       scrollController.position.pixels + 120,

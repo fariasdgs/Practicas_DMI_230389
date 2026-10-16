@@ -44,47 +44,37 @@ class _UiControlsViewState extends State<_UiControlsView> {
           }),
         ),
 
-        ExpansionTile(
-          title: const Text('Vehículo de transporte'),
-          subtitle: Text('$selectedTransportation'),
-          children: [
-            RadioListTile(
-              title: const Text('By Car'),
-              subtitle: const Text('Viajar por carro'),
-              value: Transportation.car,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.car;
-              }),
-            ),
-            RadioListTile(
-              title: const Text('By Boat'),
-              subtitle: const Text('Viajar por barco'),
-              value: Transportation.boat,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.boat;
-              }),
-            ),
-            RadioListTile(
-              title: const Text('By Plane'),
-              subtitle: const Text('Viajar por avión'),
-              value: Transportation.plane,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.plane;
-              }),
-            ),
-            RadioListTile(
-              title: const Text('By Submarine'),
-              subtitle: const Text('Viajar por submarino'),
-              value: Transportation.submarine,
-              groupValue: selectedTransportation,
-              onChanged: (value) => setState(() {
-                selectedTransportation = Transportation.submarine;
-              }),
-            ),
-          ],
+        RadioGroup<Transportation>(
+          groupValue: selectedTransportation,
+          onChanged: (value) {
+            if (value != null) setState(() => selectedTransportation = value);
+          },
+          child: ExpansionTile(
+            title: const Text('Vehículo de transporte'),
+            subtitle: Text('$selectedTransportation'),
+            children: [
+              RadioListTile(
+                title: const Text('By Car'),
+                subtitle: const Text('Viajar por carro'),
+                value: Transportation.car,
+              ),
+              RadioListTile(
+                title: const Text('By Boat'),
+                subtitle: const Text('Viajar por barco'),
+                value: Transportation.boat,
+              ),
+              RadioListTile(
+                title: const Text('By Plane'),
+                subtitle: const Text('Viajar por avión'),
+                value: Transportation.plane,
+              ),
+              RadioListTile(
+                title: const Text('By Submarine'),
+                subtitle: const Text('Viajar por submarino'),
+                value: Transportation.submarine,
+              ),
+            ],
+          ),
         ),
 
         CheckboxListTile(
