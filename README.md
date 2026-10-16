@@ -25,8 +25,8 @@ Periodo: Septiembre - Diciembre 2026
 - [Práctica 02 · Contador](https://fariasdgs.github.io/Practicas_DMI_230389/practica02/)
 
 - [Práctica 04 · Tikitoki](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/)
-- [Tikitoki · Arquitectura actual](docs/practica04/arquitectura.html)
-- [Tikitoki · Clean Architecture](docs/practica04/clean-architecture.html)
+- [Tikitoki · Arquitectura actual](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/arquitectura.html)
+- [Tikitoki · Clean Architecture](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/clean-architecture.html)
 
 GitHub Pages publica la carpeta `docs/` de `main`. La portada también muestra la arquitectura actual de la práctica 03.
 
