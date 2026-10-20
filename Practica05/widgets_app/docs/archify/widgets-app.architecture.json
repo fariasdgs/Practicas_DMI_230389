@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Widgets App · Arquitectura",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1040,
+      650
+    ],
+    "repository": {
+      "url": "https://github.com/fariasdgs/Practicas_DMI_230389",
+      "revision": "fad7d84cc78fa5435f45ae0670ec469159d0fb9c",
+      "provider": "github"
+    },
+    "views": [
+      {
+        "id": "inicio",
+        "label": "01 · Inicio y navegación",
+        "focus": [
+          "app",
+          "router",
+          "home",
+          "examples"
+        ],
+        "note": "ProviderScope inicia la app; GoRouter conecta el menú con las pantallas."
+      },
+      {
+        "id": "tema",
+        "label": "02 · Tema compartido",
+        "focus": [
+          "app",
+          "theme",
+          "palette"
+        ],
+        "note": "MainApp observa ThemeNotifier; AppTheme produce ThemeData para toda la aplicación."
+      },
+      {
+        "id": "contador",
+        "label": "03 · Estado con Riverpod",
+        "focus": [
+          "home",
+          "counter",
+          "count"
+        ],
+        "note": "El contador inicia en 5 y conserva su valor en memoria."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "app",
+      "type": "frontend",
+      "label": "MainApp",
+      "sublabel": "ProviderScope · MaterialApp.router",
+      "pos": [
+        30,
+        40
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/main.dart"
+        }
+      ]
+    },
+    {
+      "id": "router",
+      "type": "frontend",
+      "label": "GoRouter",
+      "sublabel": "11 rutas · navegación por pantalla",
+      "pos": [
+        390,
+        40
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/config/router/app_router.dart"
+        }
+      ]
+    },
+    {
+      "id": "home",
+      "type": "frontend",
+      "label": "HomeScreen",
+      "sublabel": "Menú principal · 10 ejemplos",
+      "pos": [
+        750,
+        40
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/presentation/screens/home/home_screen.dart"
+        }
+      ]
+    },
+    {
+      "id": "theme",
+      "type": "frontend",
+      "label": "ThemeNotifier",
+      "sublabel": "Color y modo oscuro · Riverpod",
+      "pos": [
+        30,
+        270
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/presentation/providers/theme_provider.dart"
+        }
+      ]
+    },
+    {
+      "id": "examples",
+      "type": "frontend",
+      "label": "Ejemplos de widgets",
+      "sublabel": "Controles · animación · tutorial",
+      "pos": [
+        390,
+        270
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/presentation/screens/screens.dart"
+        }
+      ]
+    },
+    {
+      "id": "counter",
+      "type": "frontend",
+      "label": "CounterScreen",
+      "sublabel": "Incremento y cambio de tema",
+      "pos": [
+        750,
+        270
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/presentation/screens/counter/counter_screen.dart"
+        }
+      ]
+    },
+    {
+      "id": "palette",
+      "type": "frontend",
+      "label": "AppTheme",
+      "sublabel": "9 colores · ThemeData",
+      "pos": [
+        30,
+        500
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/config/theme/app.theme.dart"
+        }
+      ]
+    },
+    {
+      "id": "photos",
+      "type": "external",
+      "label": "picsum.photos",
+      "sublabel": "Fotografías de la lista infinita",
+      "pos": [
+        390,
+        500
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/presentation/screens/infinite_scroll/infinite_scroll_screen.dart"
+        }
+      ]
+    },
+    {
+      "id": "count",
+      "type": "frontend",
+      "label": "counterProvider",
+      "sublabel": "StateProvider<int> · inicial: 5",
+      "pos": [
+        750,
+        500
+      ],
+      "size": [
+        230,
+        84
+      ],
+      "sources": [
+        {
+          "path": "Practica05/widgets_app/lib/presentation/providers/counter_provider.dart"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "routing",
+      "from": "app",
+      "to": "router",
+      "label": "routerConfig"
+    },
+    {
+      "id": "landing",
+      "from": "router",
+      "to": "home",
+      "label": "ruta /"
+    },
+    {
+      "id": "observe",
+      "from": "app",
+      "to": "theme",
+      "label": "ref.watch",
+      "labelAt": [
+        145,
+        197.0
+      ]
+    },
+    {
+      "id": "theme-data",
+      "from": "theme",
+      "to": "palette",
+      "label": "estado AppTheme",
+      "labelAt": [
+        145,
+        427.0
+      ]
+    },
+    {
+      "id": "routes",
+      "from": "router",
+      "to": "examples",
+      "label": "rutas de ejemplos",
+      "labelAt": [
+        505,
+        197.0
+      ]
+    },
+    {
+      "id": "open-counter",
+      "from": "home",
+      "to": "counter",
+      "label": "/counter-river",
+      "labelAt": [
+        865,
+        197.0
+      ]
+    },
+    {
+      "id": "counter-state",
+      "from": "counter",
+      "to": "count",
+      "label": "observa e incrementa",
+      "labelAt": [
+        865,
+        427.0
+      ]
+    },
+    {
+      "id": "remote-images",
+      "from": "examples",
+      "to": "photos",
+      "label": "HTTPS · imágenes",
+      "labelAt": [
+        505,
+        427.0
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Navegación",
+      "items": [
+        "GoRouter conecta el inicio y los ejemplos.",
+        "El menú centraliza títulos, íconos y rutas."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Estado en memoria",
+      "items": [
+        "Riverpod administra contador y tema.",
+        "Sin base de datos ni persistencia local."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Recursos pendientes",
+      "items": [
+        "Tutorial: ícono alternativo sin imágenes.",
+        "Lista infinita: falta jar-loading.gif."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "diagram_type": "architecture",
+  "artifact": {
+    "sha256": "e9d37ca56903d43ff1ff548b02d18b0a8f1acba9f7a582263a548d8846f17211",
+    "bytes": 810706
+  },
+  "specification": {
+    "sha256": "a4a9f3929bc165a0e96c0056a73e32f5c2072e647156d8f8959f1f9619ba5dde",
+    "bytes": 6494
+  },
+  "validation": "9/9 showcase, 0 errors, 0 warnings",
+  "browser_evidence": "skipped",
+  "visual_review": "passed",
+  "correction_rounds": 2,
+  "manual_review": {
+    "browser": "Safari",
+    "scope": "Revisión visual limitada a la ventana disponible; temas claro y oscuro y vista guiada del tema.",
+    "observations": [
+      "Nodos y relaciones sin superposiciones visibles.",
+      "Contraste y jerarquía coherentes en ambos temas.",
+      "Selección de vista resalta los componentes correspondientes."
+    ],
+    "four_viewport_measurements": "not performed",
+    "exports": "not exercised",
+    "first_screen_containment": "not certified"
+  }
+}

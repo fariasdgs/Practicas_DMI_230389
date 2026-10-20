@@ -2,7 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "yes_no_app \u2014 iPhone 17 Pro",
+      "name": "Práctica 05 — Widgets_App",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/Practica05/widgets_app",
+      "program": "${workspaceFolder}/Practica05/widgets_app/lib/main.dart",
+      "flutterMode": "debug",
+      "env": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      }
+    },
+    {
+      "name": "Práctica 04 — Tikitoki",
       "request": "launch",
       "type": "dart",
       "cwd": "${workspaceFolder}/Practica04/tikitoki",
