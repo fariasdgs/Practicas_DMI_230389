@@ -1,6 +1,6 @@
 # Arquitectura interactiva · Widgets App
 
-[Abrir el diagrama](../arquitectura.html)
+[Abrir el diagrama en GitHub Pages](https://fariasdgs.github.io/Practicas_DMI_230389/practica05/) · [HTML local](../arquitectura.html)
 
 Diagrama de tipo `architecture`, generado con Archify y basado en la revisión `fad7d84cc78fa5435f45ae0670ec469159d0fb9c`. Cada uno de los nueve componentes incluye una referencia al código verificada por la herramienta.
 
@@ -45,4 +45,4 @@ node RUTA_ARCHIFY/bin/archify.mjs deliver architecture Practica05/widgets_app/do
 node RUTA_ARCHIFY/bin/archify.mjs visual-check Practica05/widgets_app/docs/arquitectura.html --json
 ```
 
-Si se cambia la revisión del código, hay que revisar también las referencias del modelo. El HTML está preparado para abrirse localmente y todavía no está publicado en GitHub Pages.
+Si se cambia la revisión del código, hay que revisar también las referencias del modelo. La copia de publicación está en `docs/practica05/index.html`, desde la raíz del repositorio. Si regeneras el HTML, actualiza también esa copia para que el visor publicado coincida.

@@ -22,6 +22,8 @@ Periodo: Septiembre - Diciembre 2026
 
 ## Diagramas interactivos · Archify
 
+- [Práctica 05 · Widgets App](https://fariasdgs.github.io/Practicas_DMI_230389/practica05/)
+
 - [Práctica 03 · Yes No App](https://fariasdgs.github.io/Practicas_DMI_230389/practica03/)
 - [Práctica 02 · Contador](https://fariasdgs.github.io/Practicas_DMI_230389/practica02/)
 

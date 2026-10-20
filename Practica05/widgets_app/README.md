@@ -4,16 +4,16 @@ Proyecto de la **Práctica 05: Widgets App**, desarrollado por **Al Farias Leyva
 
 ## Diagrama interactivo del proyecto
 
-[**Abrir la arquitectura interactiva de Widgets App**](docs/arquitectura.html)
+[**Abrir la arquitectura interactiva de Widgets App**](https://fariasdgs.github.io/Practicas_DMI_230389/practica05/)
 
 El diagrama permite explorar el inicio de la aplicación, la navegación con GoRouter, el tema global y el contador con Riverpod. Incluye tres vistas guiadas, búsqueda, zoom, selección de componentes, temas claro y oscuro y exportación de imágenes o SVG.
 
-Descarga o abre `docs/arquitectura.html` en un navegador para utilizar el visor; la vista de archivos de GitHub no ejecuta el HTML. Es un archivo autónomo y no necesita iniciar Flutter. Los enlaces al código apuntan a la revisión documentada del repositorio.
+El enlace principal abre el visor en GitHub Pages. También puedes descargar o abrir [el HTML local](docs/arquitectura.html) en un navegador. Es un archivo autónomo y no necesita iniciar Flutter. Los enlaces al código apuntan a la revisión documentada del repositorio.
 
 - [Fuente editable del diagrama](docs/archify/widgets-app.architecture.json).
 - [Guía, alcance y validación](docs/archify/README.md).
 
-El contenido del proyecto está en español. Los controles fijos del visor y el atributo de idioma del HTML utilizan inglés, según las opciones de Archify. El archivo está preparado para uso local; aún no está publicado en GitHub Pages.
+El contenido del proyecto está en español. Los controles fijos del visor y el atributo de idioma del HTML utilizan inglés, según las opciones de Archify. GitHub Pages sirve el diagrama desde `docs/practica05/index.html` en la rama `main`.
 
 ## Descripción
 
