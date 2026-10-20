@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/Practica05/widgets_app/docs/archify/widgets-app.architecture.json",
+  "output": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/Practica05/widgets_app/docs/arquitectura.html",
+  "specification": {
+    "sha256": "a4a9f3929bc165a0e96c0056a73e32f5c2072e647156d8f8959f1f9619ba5dde",
+    "bytes": 6494
+  },
+  "artifact": {
+    "sha256": "e9d37ca56903d43ff1ff548b02d18b0a8f1acba9f7a582263a548d8846f17211",
+    "bytes": 810706
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  },
+  "evidence": {
+    "verified": true,
+    "repository": "https://github.com/fariasdgs/Practicas_DMI_230389",
+    "revision": "fad7d84cc78fa5435f45ae0670ec469159d0fb9c",
+    "references": 9
+  }
+}
