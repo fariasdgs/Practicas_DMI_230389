@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tikitoki/config/helpers/app_date.dart';
 import 'package:tikitoki/config/theme/app_theme.dart';
 import 'package:tikitoki/presentation/providers/discover_provider.dart';
 import 'package:tikitoki/presentation/screen/discover/discover_screen.dart';
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    season = AppTheme.seasonFor(DateTime.now());
+    season = AppTheme.seasonFor(AppDate.now());
     WidgetsBinding.instance.addObserver(this);
     _scheduleDateCheck();
     final sound = switch (season) {
@@ -78,6 +79,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   void _scheduleDateCheck() {
     dateTimer?.cancel();
+    if (AppDate.isFixed) return;
     final now = DateTime.now();
     final nextDay = DateTime(now.year, now.month, now.day + 1);
     dateTimer = Timer(nextDay.difference(now), _refreshSeason);
@@ -85,7 +87,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   void _refreshSeason() {
     if (!mounted) return;
-    final nextSeason = AppTheme.seasonFor(DateTime.now());
+    final nextSeason = AppTheme.seasonFor(AppDate.now());
     if (nextSeason != season) setState(() => season = nextSeason);
     _scheduleDateCheck();
   }
