@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:widgets_app/config/theme/app_theme.dart';
 import 'package:widgets_app/presentation/providers/theme_provider.dart';
 
 class ThemeChangerScreen extends ConsumerWidget {
@@ -42,23 +41,25 @@ class _ThemeChangerView extends ConsumerWidget {
     final int selectedColor = ref.watch(themeNotifierProvider).selectedColor;
     // final int selectedColor = ref.watch( selectedColorProvider );
 
-    return ListView.builder(
-      itemCount: colors.length,
-      itemBuilder: (context, index) {
-        final Color color = colors[index];
-
-        return RadioListTile(
-          title: Text('Este color', style: TextStyle(color: color)),
-          subtitle: Text('${color.value}'),
-          activeColor: color,
-          value: index,
-          groupValue: selectedColor,
-          onChanged: (value) {
-            // ref.read(selectedColorProvider.notifier).state = index;
-            ref.watch(themeNotifierProvider.notifier).changeColorIndex(index);
-          },
-        );
+    return RadioGroup<int>(
+      groupValue: selectedColor,
+      onChanged: (value) {
+        if (value == null) return;
+        ref.read(themeNotifierProvider.notifier).changeColorIndex(value);
       },
+      child: ListView.builder(
+        itemCount: colors.length,
+        itemBuilder: (context, index) {
+          final Color color = colors[index];
+
+          return RadioListTile<int>(
+            title: Text('Este color', style: TextStyle(color: color)),
+            subtitle: Text('${color.toARGB32()}'),
+            activeColor: color,
+            value: index,
+          );
+        },
+      ),
     );
   }
 }

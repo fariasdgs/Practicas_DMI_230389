@@ -134,7 +134,14 @@ class _Slide extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: AssetImage(imageUrl)),
+            Image(
+              image: AssetImage(imageUrl),
+              errorBuilder: (context, error, stackTrace) => Icon(
+                Icons.restaurant_menu,
+                size: 160,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
             const SizedBox(height: 20),
             Text(title, style: titleStyle),
             const SizedBox(height: 10),
