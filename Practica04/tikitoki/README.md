@@ -135,6 +135,27 @@ Construir una aplicación con Flutter y Dart que permita reproducir recursos mul
 
 ## Tematización automática y validación de videos
 
+### Probar los temas sin cambiar la fecha del dispositivo
+
+En VS Code, abre **Ejecutar y depurar**, selecciona **Tikitoki — San Valentín / Navidad / Halloween / Tech (fecha de prueba)** y presiona **F5**. La configuración **Práctica 04 — Tikitoki** sigue usando la fecha real.
+
+También puedes simular una fecha desde la carpeta `Practica04/tikitoki`:
+
+```bash
+flutter run --dart-define=TIKITOKI_DATE=2026-02-14
+```
+
+| Tema | Valor de `TIKITOKI_DATE` |
+| --- | --- |
+| San Valentín | `2026-02-14` |
+| Halloween | `2026-10-31` |
+| Navidad | `2026-12-25` |
+| Tech | `2026-07-01` |
+
+La fecha se mantiene fija dentro de Tikitoki y afecta al tema, la entrada y el sonido estacional; no modifica el reloj del dispositivo. Usa una fecha válida con formato `AAAA-MM-DD`. Para cambiarla, detén completamente la ejecución y vuelve a iniciarla; hot reload y hot restart no cambian los valores de `dart-define`.
+
+Para conservar las claves de las APIs, combina ambos argumentos: `flutter run --dart-define-from-file=config/api_keys.json --dart-define=TIKITOKI_DATE=2026-12-25`. Para volver al calendario real, ejecuta sin `TIKITOKI_DATE`.
+
 La app usa la **fecha local del dispositivo** para elegir su apariencia. Mantiene Montserrat y texto blanco para conservar la legibilidad sobre los videos.
 
 | Fecha | Tema | Apariencia |

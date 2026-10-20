@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tikitoki/config/helpers/app_date.dart';
 
 enum AppSeason { tech, valentine, halloween, christmas }
 
@@ -15,7 +16,7 @@ class AppTheme {
   };
 
   ThemeData getTheme({DateTime? date}) =>
-      themeFor(seasonFor(date ?? DateTime.now()));
+      themeFor(seasonFor(date ?? AppDate.now()));
 
   ThemeData themeFor(AppSeason season) {
     final (primary, secondary, surface) = switch (season) {

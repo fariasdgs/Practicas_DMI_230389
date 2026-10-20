@@ -22,6 +22,62 @@
       "env": {
         "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
       }
+    },
+    {
+      "name": "Tikitoki — San Valentín (fecha de prueba)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/Practica04/tikitoki",
+      "program": "${workspaceFolder}/Practica04/tikitoki/lib/main.dart",
+      "flutterMode": "debug",
+      "env": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      },
+      "toolArgs": [
+        "--dart-define=TIKITOKI_DATE=2026-02-14"
+      ]
+    },
+    {
+      "name": "Tikitoki — Navidad (fecha de prueba)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/Practica04/tikitoki",
+      "program": "${workspaceFolder}/Practica04/tikitoki/lib/main.dart",
+      "flutterMode": "debug",
+      "env": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      },
+      "toolArgs": [
+        "--dart-define=TIKITOKI_DATE=2026-12-25"
+      ]
+    },
+    {
+      "name": "Tikitoki — Halloween (fecha de prueba)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/Practica04/tikitoki",
+      "program": "${workspaceFolder}/Practica04/tikitoki/lib/main.dart",
+      "flutterMode": "debug",
+      "env": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      },
+      "toolArgs": [
+        "--dart-define=TIKITOKI_DATE=2026-10-31"
+      ]
+    },
+    {
+      "name": "Tikitoki — Tech (fecha de prueba)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/Practica04/tikitoki",
+      "program": "${workspaceFolder}/Practica04/tikitoki/lib/main.dart",
+      "flutterMode": "debug",
+      "env": {
+        "DEVELOPER_DIR": "/Applications/Xcode.app/Contents/Developer"
+      },
+      "toolArgs": [
+        "--dart-define=TIKITOKI_DATE=2026-07-01"
+      ]
     }
   ]
 }
