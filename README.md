@@ -19,6 +19,11 @@ Periodo: Septiembre - Diciembre 2026
 | 3.  | [Yes No App](Practica03/yes_no_app/)                                  | Crear una app que responda preguntas con respuestas automáticas Yes/No/Maybe                                                        | 30          | 🟢 Concluida |
 | 4.  | [Tikitoki App](Practica04/tikitoki/)                                  | El alumno creará una app de reproducción de videos verticales con el uso de Provider y tematización temporal de Halloween y Navidad | 30          | 🟢 Concluida |
 | 5.  | [Widgets App](Practica05/widgets_app/)                                |                                                                                                                                     |             |
+| PDF | [Manual Móvil Integral](ManualDMI/MANUAL_MOVIL_INTEGRAL_230389.pdf)   | Manual de referencia de la asignatura de Desarrollo Móvil Integral                                                                  | —           | Disponible   |
+
+## Links
+
+- [Manual Móvil Integral (PDF)](ManualDMI/MANUAL_MOVIL_INTEGRAL_230389.pdf)
 
 ## Diagramas interactivos · Archify
 
@@ -32,4 +37,3 @@ Periodo: Septiembre - Diciembre 2026
 - [Tikitoki · Clean Architecture](https://fariasdgs.github.io/Practicas_DMI_230389/practica04/clean-architecture.html)
 
 GitHub Pages publica la carpeta `docs/` de `main`. La portada también muestra la arquitectura actual de la práctica 03.
-
