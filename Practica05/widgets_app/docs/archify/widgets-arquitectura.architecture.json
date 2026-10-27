@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Widgets App · Arquitectura",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1360,
+      750
+    ]
+  },
+  "components": [
+    {
+      "id": "inicio",
+      "type": "frontend",
+      "label": "Inicio",
+      "sublabel": "main · ProviderScope · MainApp",
+      "pos": [
+        40,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "router",
+      "type": "frontend",
+      "label": "Navegación",
+      "sublabel": "GoRouter · 11 rutas",
+      "pos": [
+        530,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "menu",
+      "type": "frontend",
+      "label": "Menú de la app",
+      "sublabel": "MenuItem · SideMenu",
+      "pos": [
+        1020,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "local",
+      "type": "frontend",
+      "label": "Estado local",
+      "sublabel": "StatefulWidget · setState",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "pantallas",
+      "type": "frontend",
+      "label": "Pantallas",
+      "sublabel": "HomeScreen · 10 demos de widgets",
+      "pos": [
+        530,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "riverpod",
+      "type": "backend",
+      "label": "Estado global",
+      "sublabel": "counterProvider · ThemeNotifier",
+      "pos": [
+        1020,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "red",
+      "type": "external",
+      "label": "Imágenes en red",
+      "sublabel": "picsum.photos · NetworkImage",
+      "pos": [
+        530,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tema",
+      "type": "frontend",
+      "label": "Tema",
+      "sublabel": "AppTheme · Material 3 · colorList",
+      "pos": [
+        1020,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "inicio-router",
+      "from": "inicio",
+      "to": "router",
+      "label": "routerConfig"
+    },
+    {
+      "id": "menu-router",
+      "from": "menu",
+      "to": "router",
+      "label": "context.push"
+    },
+    {
+      "id": "router-pantallas",
+      "from": "router",
+      "to": "pantallas",
+      "label": "construye",
+      "labelAt": [
+        680,
+        243
+      ]
+    },
+    {
+      "id": "pantallas-local",
+      "from": "pantallas",
+      "to": "local",
+      "label": "setState"
+    },
+    {
+      "id": "pantallas-riverpod",
+      "from": "pantallas",
+      "to": "riverpod",
+      "label": "ref.watch / read"
+    },
+    {
+      "id": "pantallas-red",
+      "from": "pantallas",
+      "to": "red",
+      "label": "HTTPS",
+      "labelAt": [
+        680,
+        493
+      ]
+    },
+    {
+      "id": "riverpod-tema",
+      "from": "riverpod",
+      "to": "tema",
+      "label": "AppTheme",
+      "labelAt": [
+        1170,
+        493
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Capas",
+      "items": [
+        "config: rutas, menú y tema; presentation: pantallas, widgets y providers.",
+        "No hay dominio ni datos propios: cada pantalla demuestra un widget."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Estado",
+      "items": [
+        "Riverpod: contador (5 inicial) y tema (modo oscuro y color).",
+        "MainApp observa el tema y reconstruye MaterialApp.router."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Límites",
+      "items": [
+        "Sin persistencia: el tema y el contador se pierden al cerrar.",
+        "Las imágenes del tutorial no están en el repositorio."
+      ]
+    }
+  ]
+}
