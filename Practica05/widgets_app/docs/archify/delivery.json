@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/Practica05/widgets_app/docs/archify/widgets-modelo.architecture.json",
+  "output": "/Users/farias/UTXJ/10A-DMI/Practicas_DMI_230389/docs/practica05/index.html",
+  "specification": {
+    "sha256": "907bd23e288cebff607fc32e4ec9305a403e335b134e5033eb9a5c1e25249698",
+    "bytes": 4349
+  },
+  "artifact": {
+    "sha256": "37d78d490411e645f0b9421f9d354a93f81ca40ec47f5de983218fc38b5224fe",
+    "bytes": 808110
+  },
+  "validation": {
+    "checksPassed": 9,
+    "checkCount": 9,
+    "compositionProfile": "showcase",
+    "compositionStatus": "pass",
+    "errors": 0,
+    "warnings": 0
+  }
+}

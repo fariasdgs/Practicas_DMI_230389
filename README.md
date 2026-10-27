@@ -18,7 +18,7 @@ Periodo: Septiembre - Diciembre 2026
 | 2.  | [Mi Primer Aplicación Móvil con Flutter](Practica02/hello_world_app/) | Codificar la app móvil en el framework de Flutter manejando Stateless y Stateful Widgets                                            | 20          | 🟢 Concluida |
 | 3.  | [Yes No App](Practica03/yes_no_app/)                                  | Crear una app que responda preguntas con respuestas automáticas Yes/No/Maybe                                                        | 30          | 🟢 Concluida |
 | 4.  | [Tikitoki App](Practica04/tikitoki/)                                  | El alumno creará una app de reproducción de videos verticales con el uso de Provider y tematización temporal de Halloween y Navidad | 30          | 🟢 Concluida |
-| 5.  | [Widgets App](Practica05/widgets_app/)                                |                                                                                                                                     |             |
+| 5.  | [Widgets App](Practica05/widgets_app/)                                | Crear un catálogo de widgets de Flutter con navegación por go_router y estado global (contador y tema) con Riverpod                 | 40          | 🟢 Concluida |
 | PDF | [Manual Móvil Integral](ManualDMI/MANUAL_MOVIL_INTEGRAL_230389.pdf)   | Manual de referencia de la asignatura de Desarrollo Móvil Integral                                                                  | —           | Disponible   |
 
 ## Links

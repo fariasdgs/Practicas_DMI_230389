@@ -1,208 +1,181 @@
-# Widgets App · Componentes de Flutter y Material 3
+# Widgets App · Catálogo de widgets con Flutter
+
+<p align="center">
+  <strong>Explora, cambia el tema y prueba cada widget.</strong><br>
+  Flutter · Material 3 · go_router · Riverpod
+</p>
+
+<p align="center">
+  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/practica05/">
+    <img src="https://img.shields.io/badge/🌐_ABRIR_MODELO_INTERACTIVO-ARCHIFY-6C63FF?style=for-the-badge" alt="Abrir el modelo interactivo de Widgets App con Archify">
+  </a>
+  <a href="https://fariasdgs.github.io/Practicas_DMI_230389/practica05/arquitectura.html">
+    <img src="https://img.shields.io/badge/🏗️_VER_ARQUITECTURA-GITHUB_PAGES-0EA5E9?style=for-the-badge" alt="Ver el diagrama de arquitectura en GitHub Pages">
+  </a>
+</p>
+
+<p align="center">
+  <a href="#capturas-de-la-aplicación">Ver capturas</a> ·
+  <a href="#funcionalidades">Funcionalidades</a> ·
+  <a href="#instalación-y-ejecución">Ejecutar la app</a> ·
+  <a href="#verificación">Verificación</a>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/home.png" alt="Home de Widgets App con las diez opciones del catálogo" width="260">
+</p>
 
 Proyecto de la **Práctica 05: Widgets App**, desarrollado por **Al Farias Leyva · 230389** para la asignatura **Desarrollo Móvil Integral**.
 
-## Diagrama interactivo del proyecto
+## Modelo interactivo del proyecto
 
-[**Abrir la arquitectura interactiva de Widgets App**](https://fariasdgs.github.io/Practicas_DMI_230389/practica05/)
+- [Modelo de la aplicación](https://fariasdgs.github.io/Practicas_DMI_230389/practica05/): recorrido desde el Home y el menú hasta cada grupo de pantallas.
+- [Diagrama de arquitectura](https://fariasdgs.github.io/Practicas_DMI_230389/practica05/arquitectura.html): inicio, navegación, pantallas, estado local, Riverpod, tema e imágenes en red.
 
-El diagrama permite explorar el inicio de la aplicación, la navegación con GoRouter, el tema global y el contador con Riverpod. Incluye tres vistas guiadas, búsqueda, zoom, selección de componentes, temas claro y oscuro y exportación de imágenes o SVG.
+Ambos son archivos HTML autónomos: permiten cambiar entre tema claro y oscuro, ampliar, buscar y exportar. También puedes abrirlos sin conexión: [modelo local](../../docs/practica05/index.html) y [arquitectura local](../../docs/practica05/arquitectura.html). Las especificaciones editables y los recibos de validación están en [docs/archify](docs/archify/).
 
-El enlace principal abre el visor en GitHub Pages. También puedes descargar o abrir [el HTML local](docs/arquitectura.html) en un navegador. Es un archivo autónomo y no necesita iniciar Flutter. Los enlaces al código apuntan a la revisión documentada del repositorio.
+El diagrama de arquitectura refleja el código actual. En el modelo, las flechas siguen el orden del recorrido por los grupos del menú; no representan llamadas entre pantallas.
 
-- [Fuente editable del diagrama](docs/archify/widgets-app.architecture.json).
-- [Guía, alcance y validación](docs/archify/README.md).
+## Capturas de la aplicación
 
-El contenido del proyecto está en español. Los controles fijos del visor y el atributo de idioma del HTML utilizan inglés, según las opciones de Archify. GitHub Pages sirve el diagrama desde `docs/practica05/index.html` en la rama `main`.
+Evidencia de Widgets App ejecutándose en el **simulador de iPhone**. El Home lista las diez pantallas del catálogo con su ícono, título y subtítulo, y cada fila abre su pantalla con `go_router`.
+
+<table>
+  <tr><th align="center">Home</th></tr>
+  <tr>
+    <td align="center" valign="top">
+      <img src="docs/screenshots/home.png" alt="Widgets App: Home con Riverpod Counter, Botones, Tarjetas, Progress Indicators, Snackbars, Animated container, UI Controls, Introducción, InfiniteScroll y Cambiar tema." width="260"><br>
+      <sub>Las diez opciones del catálogo en Material 3.</sub>
+    </td>
+  </tr>
+</table>
 
 ## Descripción
 
-La aplicación reúne ejemplos de widgets de Flutter en un menú principal llamado **Flutter + Material 3**. Cada opción abre una pantalla para explorar botones, tarjetas, indicadores de progreso, diálogos, animaciones, controles de selección y listas con desplazamiento infinito.
+Widgets App es un catálogo de componentes de Flutter. El **Home** lista las pantallas de demostración y el **menú lateral** permite abrirlas desde cualquier punto. Cada pantalla practica un widget o una técnica: botones, tarjetas, indicadores de progreso, diálogos, controles, animaciones, scroll infinito y gestión de estado con Riverpod.
 
-El proyecto también incorpora un tutorial introductorio, un contador administrado con **Riverpod** y un selector que cambia los colores y el modo claro u oscuro de toda la aplicación. La navegación entre pantallas se configura con **GoRouter**.
+La aplicación usa **Material 3**. El color y el modo oscuro se cambian en tiempo real y afectan a toda la app.
 
 ## Objetivo
 
-Construir una aplicación de ejemplos con Flutter y Dart que permita practicar la composición de interfaces, la navegación entre pantallas y la administración del estado, utilizando componentes de Material 3.
+Conocer y reutilizar los widgets más comunes de Flutter, navegar entre pantallas con `go_router` y administrar el estado global con `flutter_riverpod`.
 
 ### Objetivos específicos
 
-- Organizar las pantallas, las rutas, el menú y el tema en archivos separados.
-- Navegar mediante rutas definidas con `GoRouter`.
-- Utilizar `StatelessWidget`, `StatefulWidget` y widgets consumidores de Riverpod.
-- Actualizar controles locales mediante `setState`.
-- Administrar el contador y la configuración del tema con proveedores.
-- Mostrar mensajes temporales, diálogos e indicadores de progreso.
-- Implementar animaciones, páginas deslizables y carga de elementos al desplazarse.
-- Comprobar el comportamiento con el analizador y pruebas de widgets.
+- Navegar por nombre y por ruta con `GoRouter`.
+- Construir un menú a partir de una lista de `MenuItem` y mostrarlo en el Home y en un `NavigationDrawer`.
+- Aplicar los distintos tipos de botones, tarjetas e indicadores de progreso de Material 3.
+- Mostrar `SnackBar`, `AlertDialog` y `showAboutDialog`.
+- Combinar `Switch`, `Radio` y `Checkbox` en listas (`ListTile`).
+- Animar propiedades con `AnimatedContainer` y entradas con `animate_do`.
+- Cargar más elementos al llegar al final de una lista y refrescarla con *pull to refresh*.
+- Administrar un contador y el tema con Riverpod (`StateProvider` y `StateNotifier`).
 
-## Pantallas y funcionalidades
+## Funcionalidades
 
-| Pantalla                     | Ruta             | Comportamiento                                                                     |
-| ---------------------------- | ---------------- | ---------------------------------------------------------------------------------- |
-| Inicio                       | `/`              | Presenta el menú con los diez ejemplos disponibles                                 |
-| Riverpod Counter             | `/counter-river` | Inicia en 5, incrementa el valor y permite alternar el tema global                 |
-| Botones                      | `/buttons`       | Muestra distintas variantes de botones de Material                                 |
-| Tarjetas                     | `/cards`         | Presenta ejemplos de tarjetas y composición de contenido                           |
-| Progress Indicators          | `/progress`      | Muestra progreso circular indeterminado y progreso circular y lineal controlado    |
-| Snackbars y diálogos         | `/snackbars`     | Abre un aviso temporal, un diálogo de confirmación y la información de licencias   |
-| Animated container           | `/animated`      | Cambia de forma animada el tamaño, el color y los bordes de un contenedor          |
-| UI Controls + Tiles          | `/ui-controls`   | Incluye interruptores, selección de transporte y casillas de comidas               |
-| Introducción a la aplicación | `/tutorial`      | Presenta tres páginas con las opciones Salir y Comenzar                            |
-| InfiniteScroll y Pull        | `/infinite`      | Agrega imágenes al acercarse al final y permite actualizar arrastrando hacia abajo |
-| Cambiar tema                 | `/theme-changer` | Permite seleccionar uno de nueve colores y alternar el modo claro u oscuro         |
+| Pantalla | Ruta | Qué muestra |
+| --- | --- | --- |
+| Riverpod Counter | `/counter-river` | Contador inicial en 5 con `StateProvider` y botón para alternar el modo oscuro |
+| Botones | `/buttons` | `Elevated`, `Filled`, `Outlined`, `Text`, `IconButton` y un botón personalizado |
+| Tarjetas | `/cards` | Cuatro estilos de `Card` con distintas elevaciones |
+| Progress Indicators | `/progress` | Indicadores circulares y lineales, generales y controlados |
+| Snackbars y diálogos | `/snackbars` | `SnackBar` con acción, `AlertDialog` y diálogo «Acerca de» |
+| Animated container | `/animated` | Tamaño, color y bordes aleatorios con animación |
+| UI Controls + Tiles | `/ui-controls` | `SwitchListTile`, `RadioListTile` y `CheckboxListTile` |
+| Introducción a la aplicación | `/tutorial` | Tutorial de tres páginas con `PageView` y animaciones |
+| InfiniteScroll y Pull | `/infinite` | Lista que añade imágenes al llegar al final y se refresca al deslizar |
+| Cambiar tema | `/theme-changer` | Selector de nueve colores y modo claro u oscuro |
 
-### Estado y tema global
+Los diez accesos se muestran en el Home y en el menú lateral. El menú separa **Main** (las tres primeras opciones) y **More options** (el resto).
 
-La aplicación inicia dentro de `ProviderScope`. `MainApp` observa `themeNotifierProvider` y aplica el resultado de `AppTheme.getTheme()` a `MaterialApp.router`.
-
-- `counterProvider` conserva el valor del contador durante la ejecución.
-- `themeNotifierProvider` administra el índice del color y el modo oscuro mediante `ThemeNotifier`.
-- `colorListProvider` expone la paleta disponible para la pantalla de selección.
-- El cambio de tema se refleja también al regresar a la pantalla principal.
-
-Estos valores se mantienen en memoria: no se guardan en almacenamiento local y se restablecen al reiniciar la aplicación.
-
-## Tecnologías utilizadas
-
-Las versiones siguientes corresponden a las restricciones declaradas en [pubspec.yaml](pubspec.yaml).
-
-| Tecnología           | Versión declarada | Uso                                                |
-| -------------------- | ----------------- | -------------------------------------------------- |
-| Flutter y Material 3 | SDK de Flutter    | Construcción de la interfaz y componentes visuales |
-| Dart                 | `^3.13.2`         | Lógica, clases y operaciones asíncronas            |
-| `go_router`          | `^18.0.2`         | Navegación y configuración de rutas                |
-| `flutter_riverpod`   | `^3.4.3`          | Administración del estado del contador y del tema  |
-| `animate_do`         | `^5.1.0`          | Animaciones de entrada y del indicador de carga    |
-| `cupertino_icons`    | `^1.0.8`          | Biblioteca de íconos Cupertino                     |
-| `flutter_test`       | SDK de Flutter    | Pruebas de widgets                                 |
-| `flutter_lints`      | `^6.0.0`          | Reglas del analizador                              |
-
-## Estructura principal
+## Organización del proyecto
 
 ```text
 Practica05/widgets_app/
 ├── lib/
-│   ├── main.dart
+│   ├── main.dart                         # ProviderScope y MaterialApp.router
 │   ├── config/
-│   │   ├── menu/menu_items.dart
-│   │   ├── router/app_router.dart
-│   │   └── theme/app.theme.dart
+│   │   ├── menu/menu_items.dart          # Lista de opciones del menú
+│   │   ├── router/app_router.dart        # Rutas de go_router
+│   │   └── theme/app.theme.dart          # AppTheme y colorList
 │   └── presentation/
-│       ├── providers/
-│       │   ├── counter_provider.dart
-│       │   └── theme_provider.dart
-│       ├── screens/
-│       │   ├── animated/
-│       │   ├── app_tutorial/
-│       │   ├── buttons/
-│       │   ├── cards/
-│       │   ├── counter/
-│       │   ├── home/
-│       │   ├── infinite_scroll/
-│       │   ├── progress/
-│       │   ├── snackbar/
-│       │   ├── theme_changer/
-│       │   ├── ui_controls/
-│       │   └── screens.dart
-│       └── widgets/side_menu.dart
+│       ├── providers/                    # counter_provider y theme_provider
+│       ├── screens/                      # Una carpeta por pantalla
+│       └── widgets/side_menu.dart        # NavigationDrawer
 ├── test/widget_test.dart
-├── android/
-├── ios/
-├── linux/
-├── macos/
-├── web/
-├── windows/
-├── pubspec.yaml
+├── docs/archify/                         # Fuente editable de los diagramas
 └── README.md
+
+../../docs/practica05/                    # Diagramas HTML para GitHub Pages
 ```
 
-| Archivo                                                                   | Responsabilidad                                                      |
-| ------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| [main.dart](lib/main.dart)                                                | Inicializa Riverpod y configura el router y el tema de la aplicación |
-| [menu_items.dart](lib/config/menu/menu_items.dart)                        | Define los títulos, descripciones, íconos y enlaces del menú         |
-| [app_router.dart](lib/config/router/app_router.dart)                      | Relaciona las rutas con las pantallas                                |
-| [app.theme.dart](lib/config/theme/app.theme.dart)                         | Define la paleta y construye el tema claro u oscuro                  |
-| [theme_provider.dart](lib/presentation/providers/theme_provider.dart)     | Administra los cambios del tema global                               |
-| [counter_provider.dart](lib/presentation/providers/counter_provider.dart) | Define el estado inicial del contador                                |
-| [screens.dart](lib/presentation/screens/screens.dart)                     | Agrupa las exportaciones de las pantallas                            |
+| Componente | Responsabilidad |
+| --- | --- |
+| `MainApp` | Observa `themeNotifierProvider` y configura `MaterialApp.router` |
+| `appRouter` | Declara las once rutas, cada una con su nombre |
+| `appMenuItems` | Fuente única de títulos, subtítulos, rutas e íconos del menú |
+| `SideMenu` | `NavigationDrawer` que navega con `context.push` |
+| `counterProvider` | Valor del contador, con 5 como estado inicial |
+| `ThemeNotifier` | Alterna el modo oscuro y cambia el color del tema |
+| `AppTheme` | Genera el `ThemeData` Material 3 con color semilla |
 
-El componente `SideMenu` está definido en el proyecto, pero el inicio actual utiliza una lista de opciones y no lo incorpora como menú lateral.
+## Tecnologías
 
-## Requisitos
-
-- Flutter instalado y disponible en la terminal, con Dart compatible con `^3.13.2`.
-- Un editor como Visual Studio Code o Android Studio.
-- Para Android: Android SDK y un emulador o dispositivo configurado.
-- Para iOS: una Mac con Xcode y un simulador o dispositivo configurado.
-- Conexión a internet para descargar las dependencias y mostrar las imágenes remotas.
+| Tecnología | Uso |
+| --- | --- |
+| Flutter y Dart | Interfaz y widgets de Material 3 |
+| `go_router` | Navegación declarativa |
+| `flutter_riverpod` | Estado global del contador y del tema |
+| `animate_do` | Animaciones de entrada del tutorial |
+| Archify | Modelo y arquitectura interactivos en HTML |
 
 ## Instalación y ejecución
 
-Desde la raíz del repositorio:
+Requiere Flutter con Dart compatible con `^3.13.2` y un emulador o dispositivo configurado. Desde la raíz del repositorio:
 
 ```bash
 cd Practica05/widgets_app
 flutter pub get
-```
-
-Abre el emulador o simulador y ejecuta:
-
-```bash
 flutter devices
 flutter run
 ```
 
-Para elegir un dispositivo, sustituye `ID_DEL_DISPOSITIVO` por el identificador mostrado en la lista:
-
-```bash
-flutter run -d ID_DEL_DISPOSITIVO
-```
-
-Durante la ejecución, presiona `r` para aplicar hot reload, `R` para reiniciar la aplicación o `q` para detenerla.
-
-## Recursos gráficos pendientes
-
-El proyecto todavía no incluye la carpeta `assets/images/`. El tutorial referencia `1.png`, `2.png` y `3.png`; si no puede cargarlas, muestra un ícono de restaurante como alternativa.
-
-La pantalla de desplazamiento infinito obtiene imágenes de `picsum.photos` y referencia `assets/images/jar-loading.gif` como imagen de carga. Este GIF falta y puede provocar errores de carga al abrir esa pantalla. Para completar los recursos, agrega los cuatro archivos y registra la carpeta dentro de la sección `flutter` de `pubspec.yaml`:
-
-```yaml
-flutter:
-  uses-material-design: true
-  assets:
-    - assets/images/
-```
-
-Después de agregarlos, ejecuta `flutter pub get` y vuelve a iniciar la aplicación. La lista infinita también necesita acceso a internet para descargar las fotografías.
+Selecciona el dispositivo cuando Flutter lo solicite, o usa `flutter run -d ID_DEL_DISPOSITIVO`.
 
 ## Verificación
-
-Desde la carpeta del proyecto:
 
 ```bash
 flutter analyze
 flutter test
 ```
 
-Las tres pruebas de [widget_test.dart](test/widget_test.dart) comprueban:
+Las pruebas cubren tres casos: el contador pasa de 5 a 6 y el ícono cambia el tema a oscuro, el tutorial abre aunque falten las imágenes, y el cambio de color y de modo se refleja en toda la aplicación.
 
-1. El incremento del contador de 5 a 6 y el cambio al tema oscuro desde esa pantalla.
-2. La apertura del tutorial y el ícono alternativo cuando faltan las imágenes.
-3. El cambio del color y del modo de toda la aplicación, conservando el modo oscuro al regresar al inicio.
+Verificación manual:
 
-Para una revisión manual, abre las opciones del menú, prueba los botones y controles, cambia la forma del contenedor animado y recorre las páginas del tutorial. Una vez agregados los recursos gráficos, verifica también la carga y la actualización de la lista infinita.
+1. Abre el Home y confirma las diez opciones.
+2. Abre el menú lateral desde el ícono de hamburguesa y entra a una pantalla.
+3. En Riverpod Counter, incrementa el valor y alterna el modo oscuro.
+4. En Cambiar tema, elige otro color y comprueba que cambia toda la app.
+5. En InfiniteScroll, llega al final de la lista y desliza hacia abajo para refrescar.
+
+## Alcance y pendientes
+
+- La carpeta `assets/images` no existe y `pubspec.yaml` no declara assets. El tutorial y el indicador de carga usan imágenes de ese directorio; sin ellas se muestran íconos de respaldo (lo cubre una prueba).
+- El scroll infinito carga imágenes de `picsum.photos`, por lo que necesita conexión.
+- El tema y el contador viven en memoria: se reinician al cerrar la app.
+- La captura del Home se tomó antes de conectar el menú lateral, por eso no muestra el ícono de hamburguesa.
 
 ## Datos de la práctica
 
-- **Práctica:** 05 · Widgets App.
 - **Alumno:** Al Farias Leyva.
 - **Matrícula:** 230389.
 - **Asignatura:** Desarrollo Móvil Integral.
 - **Carrera:** Ingeniería en Desarrollo y Gestión de Software.
 - **Docente:** M.T.I. Marco A. Ramírez Hernández.
 - **Periodo:** Septiembre - Diciembre 2026.
+- **Estado:** Concluida.
 
 ---
 
-[Volver al README principal del repositorio](../../README.md)
+[Volver al README principal](../../README.md)

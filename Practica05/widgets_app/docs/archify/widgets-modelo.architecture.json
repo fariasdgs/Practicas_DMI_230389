@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Widgets App · Modelo de la aplicación",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1360,
+      750
+    ]
+  },
+  "components": [
+    {
+      "id": "home",
+      "type": "frontend",
+      "label": "Home",
+      "sublabel": "HomeScreen · ListView.builder",
+      "pos": [
+        40,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "menu",
+      "type": "frontend",
+      "label": "Menú lateral",
+      "sublabel": "NavigationDrawer · 10 opciones",
+      "pos": [
+        530,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "router",
+      "type": "frontend",
+      "label": "GoRouter",
+      "sublabel": "rutas por nombre y por enlace",
+      "pos": [
+        1020,
+        70
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "visual",
+      "type": "frontend",
+      "label": "Componentes visuales",
+      "sublabel": "Botones · Tarjetas · Progress",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "interaccion",
+      "type": "frontend",
+      "label": "Interacción",
+      "sublabel": "Snackbars y diálogos · UI Controls",
+      "pos": [
+        530,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "movimiento",
+      "type": "frontend",
+      "label": "Movimiento y listas",
+      "sublabel": "Animated · InfiniteScroll · Tutorial",
+      "pos": [
+        1020,
+        320
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "riverpod",
+      "type": "backend",
+      "label": "Riverpod",
+      "sublabel": "Contador · Cambiar tema",
+      "pos": [
+        40,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "tema",
+      "type": "frontend",
+      "label": "Tema global",
+      "sublabel": "AppTheme · 9 colores · claro y oscuro",
+      "pos": [
+        530,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    },
+    {
+      "id": "red",
+      "type": "external",
+      "label": "Imágenes en red",
+      "sublabel": "picsum.photos",
+      "pos": [
+        1020,
+        570
+      ],
+      "size": [
+        300,
+        96
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "home-menu",
+      "from": "home",
+      "to": "menu",
+      "label": "abre el drawer"
+    },
+    {
+      "id": "menu-router",
+      "from": "menu",
+      "to": "router",
+      "label": "enlace de la opción"
+    },
+    {
+      "id": "router-movimiento",
+      "from": "router",
+      "to": "movimiento",
+      "label": "/animated /infinite /tutorial",
+      "labelAt": [
+        1170,
+        243
+      ]
+    },
+    {
+      "id": "router-interaccion",
+      "from": "router",
+      "to": "interaccion",
+      "label": "/snackbars /ui-controls"
+    },
+    {
+      "id": "home-visual",
+      "from": "home",
+      "to": "visual",
+      "label": "/buttons /cards /progress",
+      "labelAt": [
+        190,
+        243
+      ]
+    },
+    {
+      "id": "visual-riverpod",
+      "from": "visual",
+      "to": "riverpod",
+      "label": "/counter-river /theme-changer",
+      "labelAt": [
+        190,
+        493
+      ]
+    },
+    {
+      "id": "riverpod-tema",
+      "from": "riverpod",
+      "to": "tema",
+      "label": "actualiza"
+    },
+    {
+      "id": "movimiento-red",
+      "from": "movimiento",
+      "to": "red",
+      "label": "carga imágenes",
+      "labelAt": [
+        1170,
+        493
+      ]
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Recorrido",
+      "items": [
+        "Home y el menú lateral listan las mismas opciones.",
+        "Cada opción abre una pantalla con context.push."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Widgets practicados",
+      "items": [
+        "Botones, tarjetas, indicadores, diálogos y controles.",
+        "AnimatedContainer, scroll infinito, pull to refresh y PageView."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Estado compartido",
+      "items": [
+        "Contador y tema viven en providers de Riverpod.",
+        "Cambiar el color o el modo oscuro afecta toda la app."
+      ]
+    }
+  ]
+}
