@@ -12,7 +12,7 @@ class CustomAppbar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           children: [
-            Icon(Icons.movie_outlined, color: Theme.of(context).primaryColor),
+            Image.asset('assets/images/logo.png', height: 32),
             const SizedBox(width: 5),
             Text('CINEMAPEDIA - 230389', style: titleStyle),
           ],
