@@ -131,9 +131,12 @@ class _Slide extends StatelessWidget {
               const SizedBox(width: 3),
               Text('${movie.voteAverage}', style: textStyles.bodyMedium),
               const Spacer(),
-              Text(
-                DateFormat.yMMMd().format(movie.releaseDate),
-                style: textStyles.bodySmall,
+              Flexible(
+                child: Text(
+                  DateFormat.yMMMd().format(movie.releaseDate),
+                  overflow: TextOverflow.ellipsis,
+                  style: textStyles.bodySmall,
+                ),
               ),
             ],
           ),
