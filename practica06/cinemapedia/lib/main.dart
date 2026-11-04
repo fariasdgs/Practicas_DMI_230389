@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:cinemapedia/config/constants/movie_country.dart';
+import 'package:cinemapedia/presentation/providers/movies/movie_country_provider.dart';
 
 import 'package:cinemapedia/config/router/app_router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -13,13 +16,20 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MainApp()));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final country = ref.watch(movieCountryProvider);
     return MaterialApp.router(
       routerConfig: appRouter,
+      title: 'Cinemapedia',
+      locale: Locale(country.languageCode, country.code),
+      supportedLocales: MovieCountry.values
+          .map((item) => Locale(item.languageCode, item.code))
+          .toList(),
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       debugShowCheckedModeBanner: false,
       theme: AppTheme().getTheme(),
     );

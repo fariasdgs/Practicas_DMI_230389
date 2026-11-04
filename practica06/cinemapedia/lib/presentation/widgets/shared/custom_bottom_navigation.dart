@@ -1,24 +1,36 @@
+import 'package:cinemapedia/presentation/providers/movies/movie_country_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CustomBottomNavigation extends StatefulWidget {
-  const CustomBottomNavigation({super.key});
+class CustomBottomNavigation extends ConsumerWidget {
+  final int selectedIndex;
+  final ValueChanged<int> onDestinationSelected;
+  const CustomBottomNavigation({
+    super.key,
+    required this.selectedIndex,
+    required this.onDestinationSelected,
+  });
 
   @override
-  State<CustomBottomNavigation> createState() => _CustomBottomNavigationState();
-}
-
-class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
-  int selectedIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final country = ref.watch(movieCountryProvider);
     return NavigationBar(
       selectedIndex: selectedIndex,
-      onDestinationSelected: (index) => setState(() => selectedIndex = index),
-      destinations: const [
-        NavigationDestination(icon: Icon(Icons.home_max), label: 'Inicio'),
-        NavigationDestination(icon: Icon(Icons.label_outline), label: 'Categorías'),
-        NavigationDestination(icon: Icon(Icons.favorite_border), label: 'Favoritos'),
+      onDestinationSelected: onDestinationSelected,
+      destinations: [
+        NavigationDestination(
+          icon: const Icon(Icons.home_outlined),
+          selectedIcon: const Icon(Icons.home_rounded),
+          label: country.text('home'),
+        ),
+        NavigationDestination(
+          icon: const Icon(Icons.local_movies_outlined),
+          label: country.text('nowPlaying'),
+        ),
+        NavigationDestination(
+          icon: const Icon(Icons.trending_up_rounded),
+          label: country.text('popular'),
+        ),
       ],
     );
   }

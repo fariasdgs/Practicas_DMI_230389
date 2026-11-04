@@ -1,5 +1,6 @@
 import 'package:cinemapedia/infraestructure/models/moviedb/movie_details.dart';
 import 'package:dio/dio.dart';
+import 'package:cinemapedia/config/constants/movie_country.dart';
 
 import 'package:cinemapedia/config/constants/enviroment.dart';
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
@@ -9,21 +10,54 @@ import 'package:cinemapedia/infraestructure/models/moviedb/moviedb_response.dart
 import 'package:cinemapedia/domain/entities/movie.dart';
 
 class MoviedbDatasource extends MoviesDatasource {
-  final dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://api.themoviedb.org/3',
-      queryParameters: {
-        'api_key': Environment.theMovieDbKey,
-        'language': 'es-MX',
-      },
-    ),
-  );
+  final MovieCountry country;
+  final Dio dio;
+
+  MoviedbDatasource({this.country = MovieCountry.mexico, Dio? client})
+    : dio = client ?? Dio() {
+    dio.options.baseUrl = 'https://api.themoviedb.org/3';
+    dio.options.connectTimeout = const Duration(seconds: 15);
+    dio.options.receiveTimeout = const Duration(seconds: 15);
+    dio.options.queryParameters = {
+      'api_key': Environment.theMovieDbKey,
+      'language': country.language,
+      'region': country.code,
+    };
+  }
+
+  // Certifications are country-specific; never substitute another country's rating.
+  @override
+  Future<String?> getCertification(String movieId) async {
+    final response = await dio.get('/movie/$movieId/release_dates');
+    final results = response.data['results'] as List<dynamic>? ?? [];
+    for (final result in results) {
+      if (result['iso_3166_1'] != country.code) continue;
+      final releases = List<Map<String, dynamic>>.from(
+        result['release_dates'] ?? [],
+      );
+      const preference = [3, 2, 4, 5, 6, 1];
+      int priority(dynamic type) {
+        final index = preference.indexOf(type);
+        return index < 0 ? preference.length : index;
+      }
+
+      releases.sort(
+        (a, b) => priority(a['type']).compareTo(priority(b['type'])),
+      );
+      for (final release in releases) {
+        final certification = (release['certification'] as String? ?? '')
+            .trim();
+        if (certification.isNotEmpty) return certification;
+      }
+    }
+    return null;
+  }
 
   List<Movie> _jsonToMovies(Map<String, dynamic> json) {
     final movieDBResponse = MovieDbResponse.fromJson(json);
 
     final List<Movie> movies = movieDBResponse.results
-        .where((moviedb) => moviedb.posterPath != 'no-poster')
+        .where((moviedb) => moviedb.posterPath.isNotEmpty)
         .map((moviedb) => MovieMapper.movieDBToEntity(moviedb))
         .toList();
 

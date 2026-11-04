@@ -6,15 +6,20 @@ import 'package:cinemapedia/infraestructure/models/moviedb/credits_response.dart
 import 'package:dio/dio.dart';
 
 class ActorMovieDbDatasource extends ActorsDatasource {
-  final dio = Dio(
-    BaseOptions(
-      baseUrl: 'https://api.themoviedb.org/3',
-      queryParameters: {
-        'api_key': Environment.theMovieDbKey,
-        'language': 'es-MX',
-      },
-    ),
-  );
+  final Dio dio;
+
+  ActorMovieDbDatasource({String language = 'es-MX'})
+    : dio = Dio(
+        BaseOptions(
+          baseUrl: 'https://api.themoviedb.org/3',
+          connectTimeout: const Duration(seconds: 15),
+          receiveTimeout: const Duration(seconds: 15),
+          queryParameters: {
+            'api_key': Environment.theMovieDbKey,
+            'language': language,
+          },
+        ),
+      );
 
   @override
   Future<List<Actor>> getActorsByMovie(String movieId) async {

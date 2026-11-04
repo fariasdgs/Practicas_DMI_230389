@@ -5,19 +5,29 @@ class CustomAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final titleStyle = Theme.of(context).textTheme.titleMedium;
-
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          children: [
-            Image.asset('assets/images/logo.png', height: 32),
-            const SizedBox(width: 5),
-            Text('CINEMAPEDIA - 230389', style: titleStyle),
-          ],
+    return Row(
+      children: [
+        Image.asset(
+          'assets/images/logo.png',
+          height: 32,
+          semanticLabel: 'Logo Cinemapedia',
         ),
-      ),
+        const SizedBox(width: 8),
+        const Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'CINEMAPEDIA',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
+              ),
+              Text('230389', style: TextStyle(fontSize: 10)),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
