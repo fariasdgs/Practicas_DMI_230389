@@ -13,3 +13,10 @@ final movieInfoProvider = FutureProvider.autoDispose.family((
 final movieCertificationProvider = FutureProvider.family((ref, String movieId) {
   return ref.watch(movieRepositoryProvider).getCertification(movieId);
 });
+
+final movieTrailerProvider = FutureProvider.autoDispose.family((
+  ref,
+  String movieId,
+) {
+  return ref.watch(movieRepositoryProvider).getTrailer(movieId);
+});

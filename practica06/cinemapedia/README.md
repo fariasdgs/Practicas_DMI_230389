@@ -25,7 +25,7 @@ flutter run
 
 ## Países e idiomas
 
-La bandera de la barra y el selector del menú cambian el mismo estado global:
+La bandera junto al botón de búsqueda cambia el país y el idioma de toda la interfaz:
 
 | Bandera | País | Consulta TMDB | Continente |
 | --- | --- | --- | --- |
@@ -39,7 +39,7 @@ La bandera de la barra y el selector del menú cambian el mismo estado global:
 
 México es la selección inicial. Cambiar país reinicia las listas y la paginación, y actualiza títulos, sinopsis, géneros del detalle, textos de la interfaz, controles de Flutter y clasificaciones. Una respuesta pendiente del país anterior no se agrega al catálogo nuevo. La selección dura durante la sesión.
 
-`language` solicita las traducciones disponibles; `region` selecciona el mercado de consulta y sus estrenos. No es un filtro por país de producción, y algunos catálogos pueden compartir películas. Si TMDB no tiene una traducción, puede devolver el título original.
+`language` solicita las traducciones disponibles; `region` selecciona el mercado de consulta y sus estrenos. El carrusel y la primera sección, «Películas del país», consultan `/discover/movie` con `with_origin_country` para recomendar películas originarias del país seleccionado, ordenadas por popularidad. Las demás secciones mantienen sus consultas de cartelera, estrenos y popularidad regional. Una coproducción puede aparecer en varios países. Si TMDB no tiene una traducción, puede devolver el título original.
 
 ## Estrellas y clasificación
 
@@ -50,7 +50,7 @@ El carrusel, las tarjetas y el detalle muestran el título localizado, cinco est
 - Si falta una clasificación local, se muestra «Sin clasificación» en el idioma elegido. Si falla la consulta, se muestra «No disponible» y se puede tocar para reintentar.
 - Las consultas de clasificación se comparten entre carrusel, listas y detalle para evitar solicitudes duplicadas del mismo país y película.
 
-Referencias oficiales: [idiomas de TMDB](https://developer.themoviedb.org/docs/languages), [estrenos por región](https://developer.themoviedb.org/reference/movie-now-playing-list) y [clasificaciones por película y país](https://developer.themoviedb.org/reference/movie-release-dates).
+Referencias oficiales: [idiomas de TMDB](https://developer.themoviedb.org/docs/languages), [películas por país de origen](https://developer.themoviedb.org/reference/discover-movie), [estrenos por región](https://developer.themoviedb.org/reference/movie-now-playing-list) y [clasificaciones por película y país](https://developer.themoviedb.org/reference/movie-release-dates).
 
 ## Verificación
 

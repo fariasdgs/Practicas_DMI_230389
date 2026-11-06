@@ -3,6 +3,7 @@ import 'package:cinemapedia/domain/entities/actor.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/domain/repositories/actors_repository.dart';
 import 'package:cinemapedia/domain/repositories/movies_repository.dart';
+import 'package:cinemapedia/domain/entities/movie_trailer.dart';
 
 Movie sampleMovie(int id, {String title = 'Película de prueba'}) => Movie(
   adult: false,
@@ -41,6 +42,8 @@ class FakeMoviesRepository extends MoviesRepository {
   }
 
   @override
+  Future<List<Movie>> getMoviesByCountry({int page = 1}) => _get(page);
+  @override
   Future<List<Movie>> getNowPlaying({int page = 1}) => _get(page);
   @override
   Future<List<Movie>> getPopular({int page = 1}) => _get(page);
@@ -52,6 +55,12 @@ class FakeMoviesRepository extends MoviesRepository {
   Future<Movie> getMovieById(String id) async => movies.first;
   @override
   Future<List<Movie>> searchMovies(String query) async => movies;
+  @override
+  Future<MovieTrailer?> getTrailer(String movieId) async => const MovieTrailer(
+    videoId: 'abcdefghijk',
+    title: 'Tráiler de prueba',
+    language: 'es',
+  );
   @override
   Future<String?> getCertification(String movieId) async =>
       country == MovieCountry.mexico

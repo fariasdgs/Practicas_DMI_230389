@@ -28,6 +28,14 @@ void main() {
             onRequest: (options, handler) {
               expect(options.queryParameters['language'], country.language);
               expect(options.queryParameters['region'], country.code);
+              if (options.path == '/discover/movie') {
+                expect(
+                  options.queryParameters['with_origin_country'],
+                  country.code,
+                );
+                expect(options.queryParameters['include_adult'], isFalse);
+                expect(options.queryParameters['sort_by'], 'popularity.desc');
+              }
               if (options.path.endsWith('/release_dates')) {
                 handler.resolve(
                   Response(
@@ -68,6 +76,7 @@ void main() {
           ),
         );
         final source = MoviedbDatasource(country: country, client: client);
+        expect(await source.getMoviesByCountry(), isEmpty);
         expect(await source.getNowPlaying(), isEmpty);
         expect(await source.getPopular(), isEmpty);
         expect(await source.getUpcoming(), isEmpty);
@@ -129,6 +138,7 @@ void main() {
       );
       addTearDown(subscription.close);
       await container.read(nowPlayingMoviesProvider.notifier).initialLoad;
+      await container.read(countryMoviesProvider.notifier).initialLoad;
       expect(container.read(moviesSlideshowProvider), hasLength(3));
       expect(
         (await container.read(movieInfoProvider('1').future)).title,
@@ -138,6 +148,11 @@ void main() {
       container.read(movieCountryProvider.notifier).state =
           MovieCountry.germany;
       await container.read(nowPlayingMoviesProvider.notifier).initialLoad;
+      await container.read(countryMoviesProvider.notifier).initialLoad;
+      expect(
+        container.read(moviesSlideshowProvider).first.title,
+        startsWith('DE'),
+      );
       expect(
         container.read(nowPlayingMoviesProvider).movies.first.title,
         startsWith('DE'),

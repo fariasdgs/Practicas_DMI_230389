@@ -12,8 +12,6 @@ class ActorMovieDbDatasource extends ActorsDatasource {
     : dio = Dio(
         BaseOptions(
           baseUrl: 'https://api.themoviedb.org/3',
-          connectTimeout: const Duration(seconds: 15),
-          receiveTimeout: const Duration(seconds: 15),
           queryParameters: {
             'api_key': Environment.theMovieDbKey,
             'language': language,

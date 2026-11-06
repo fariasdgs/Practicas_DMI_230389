@@ -1,10 +1,15 @@
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/entities/movie_trailer.dart';
 import 'package:cinemapedia/domain/repositories/movies_repository.dart';
 
 class MovieRepositoryImpl extends MoviesRepository {
   final MoviesDatasource datasource;
   MovieRepositoryImpl(this.datasource);
+
+  @override
+  Future<List<Movie>> getMoviesByCountry({int page = 1}) =>
+      datasource.getMoviesByCountry(page: page);
 
   @override
   Future<List<Movie>> getNowPlaying({int page = 1}) {
@@ -25,6 +30,10 @@ class MovieRepositoryImpl extends MoviesRepository {
   Future<List<Movie>> getUpcoming({int page = 1}) {
     return datasource.getUpcoming(page: page);
   }
+
+  @override
+  Future<MovieTrailer?> getTrailer(String movieId) =>
+      datasource.getTrailer(movieId);
 
   @override
   Future<String?> getCertification(String movieId) =>

@@ -8,6 +8,7 @@ import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:cinemapedia/infraestructure/mappers/movie_mapper.dart';
 import 'package:cinemapedia/infraestructure/models/moviedb/moviedb_response.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/domain/entities/movie_trailer.dart';
 
 class MoviedbDatasource extends MoviesDatasource {
   final MovieCountry country;
@@ -23,6 +24,50 @@ class MoviedbDatasource extends MoviesDatasource {
       'language': country.language,
       'region': country.code,
     };
+  }
+
+  @override
+  Future<MovieTrailer?> getTrailer(String movieId) async {
+    Future<MovieTrailer?> findTrailer(String language) async {
+      final response = await dio.get(
+        '/movie/$movieId/videos',
+        queryParameters: {'language': language},
+      );
+      final videos =
+          List<Map<String, dynamic>>.from(response.data['results'] ?? [])
+              .where(
+                (video) =>
+                    video['site'] == 'YouTube' &&
+                    video['type'] == 'Trailer' &&
+                    RegExp(r'^[A-Za-z0-9_-]{11}$')
+                        .hasMatch(video['key'] as String? ?? ''),
+              )
+              .toList();
+      videos.sort((a, b) {
+        final official = (b['official'] == true ? 1 : 0).compareTo(
+          a['official'] == true ? 1 : 0,
+        );
+        if (official != 0) return official;
+        final first =
+            DateTime.tryParse(a['published_at'] as String? ?? '') ??
+            DateTime(1970);
+        final second =
+            DateTime.tryParse(b['published_at'] as String? ?? '') ??
+            DateTime(1970);
+        return second.compareTo(first);
+      });
+      if (videos.isEmpty) return null;
+      final video = videos.first;
+      return MovieTrailer(
+        videoId: video['key'],
+        title: video['name'] as String? ?? '',
+        language: video['iso_639_1'] as String? ?? language.split('-').first,
+      );
+    }
+
+    final local = await findTrailer(country.language);
+    if (local != null || country.languageCode == 'en') return local;
+    return findTrailer('en-US');
   }
 
   // Certifications are country-specific; never substitute another country's rating.
@@ -62,6 +107,21 @@ class MoviedbDatasource extends MoviesDatasource {
         .toList();
 
     return movies;
+  }
+
+  @override
+  Future<List<Movie>> getMoviesByCountry({int page = 1}) async {
+    final response = await dio.get(
+      '/discover/movie',
+      queryParameters: {
+        'page': page,
+        'with_origin_country': country.code,
+        'sort_by': 'popularity.desc',
+        'include_adult': false,
+        'include_video': false,
+      },
+    );
+    return _jsonToMovies(response.data);
   }
 
   @override

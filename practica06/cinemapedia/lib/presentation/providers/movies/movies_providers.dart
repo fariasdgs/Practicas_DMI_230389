@@ -2,6 +2,13 @@ import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/movies/movies_repository_provider.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
+final countryMoviesProvider =
+    StateNotifierProvider<MoviesNotifier, MovieListState>((ref) {
+      return MoviesNotifier(
+        fetchMoreMovies: ref.watch(movieRepositoryProvider).getMoviesByCountry,
+      );
+    });
+
 final nowPlayingMoviesProvider =
     StateNotifierProvider<MoviesNotifier, MovieListState>((ref) {
       return MoviesNotifier(

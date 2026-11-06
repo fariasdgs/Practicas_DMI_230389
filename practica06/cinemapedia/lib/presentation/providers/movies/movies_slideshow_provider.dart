@@ -4,9 +4,9 @@ import 'package:cinemapedia/domain/entities/movie.dart';
 import 'movies_providers.dart';
 
 final moviesSlideshowProvider = Provider<List<Movie>>((ref) {
-  final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider).movies;
+  final countryMovies = ref.watch(countryMoviesProvider).movies;
 
-  if (nowPlayingMovies.isEmpty) return [];
+  if (countryMovies.isEmpty) return [];
 
-  return nowPlayingMovies.take(6).toList();
+  return countryMovies.take(6).toList();
 });
