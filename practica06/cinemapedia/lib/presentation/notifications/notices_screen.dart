@@ -29,7 +29,7 @@ class NoticesScreen extends StatelessWidget {
     }
 
     return ListenableBuilder(
-      listenable: service,
+      listenable: service.changes,
       builder: (context, _) => Scaffold(
         appBar: AppBar(title: const Text('Notificaciones')),
         body: BlocBuilder<NoticesBloc, List<CinemaNotice>>(

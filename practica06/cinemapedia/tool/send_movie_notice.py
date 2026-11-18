@@ -14,6 +14,7 @@ def main():
     parser.add_argument("movie_id", type=int)
     parser.add_argument("title")
     parser.add_argument("body")
+    parser.add_argument("--image", help="HTTPS URL ending in .jpg, .jpeg, .png or .gif")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     if not re.fullmatch(r"[a-z][a-z0-9-]*", args.project) or args.movie_id < 1:
@@ -32,6 +33,17 @@ def main():
             "data": {"movieId": str(args.movie_id)},
         },
     }
+    if args.image:
+        if not args.image.startswith("https://") or not re.search(
+            r"\.(jpe?g|png|gif)(?:\?|$)", args.image, re.IGNORECASE
+        ):
+            parser.error("Image must be an HTTPS URL with an image extension")
+        payload["message"]["data"]["image"] = args.image
+        payload["message"]["android"] = {"notification": {"image": args.image}}
+        payload["message"]["apns"] = {
+            "payload": {"aps": {"mutable-content": 1}},
+            "fcm_options": {"image": args.image},
+        }
     request = urllib.request.Request(
         f"https://fcm.googleapis.com/v1/projects/{args.project}/messages:send",
         data=json.dumps(payload).encode(),
@@ -39,7 +51,7 @@ def main():
     )
     try:
         with urllib.request.urlopen(request, timeout=15) as response:
-            print(json.load(response)["name"])
+            print(json.load(response).get("name", "FCM accepted the request"))
     except urllib.error.HTTPError as error:
         raise SystemExit(f"FCM replied with HTTP {error.code}") from None
 
