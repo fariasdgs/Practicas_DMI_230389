@@ -1,16 +1,18 @@
-# Prácticas de la Asignatura de Desarrollo Móvil Integral
+# Cinemapedia · Desarrollo Móvil Integral
 
-## Ingeniería en Desarrollo y Gestión de Software
+Proyecto académico para explorar películas, consultar su ficha y guardar favoritas. Integra un catálogo regional de TMDB, gestión de cuentas y notificaciones en una app Flutter.
 
-### Docente: M.T.I. Marco A. Ramírez Hernández
+| Datos de la entrega |                                                             |
+| ------------------- | ----------------------------------------------------------- |
+| **Alumno**          | Al Farias Leyva                                             |
+| **Matrícula**       | 230389                                                      |
+| **Docente**         | M.T.I. Marco A. Ramírez Hernández                           |
+| **Programa**        | Ingeniería en Desarrollo y Gestión de Software              |
+| **Asignatura**      | Desarrollo Móvil Integral                                   |
+| **Periodo**         | Septiembre–diciembre de 2026                                |
+| **Alcance**         | Integración de los contenidos del curso hasta la sección 26 |
 
-## Alumno: Al Farias Leyva
-
-Periodo: Septiembre - Diciembre 2026
-
----
-
-## Tabla de Prácticas de la Materia
+## Prácticas y proyecto de la asignatura
 
 | No. | Nombre                                                                | Descripción                                                                                                                         | Potenciador | Estatus      |
 | --- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------ |
@@ -19,11 +21,24 @@ Periodo: Septiembre - Diciembre 2026
 | 3.  | [Yes No App](Practica03/yes_no_app/)                                  | Crear una app que responda preguntas con respuestas automáticas Yes/No/Maybe                                                        | 30          | 🟢 Concluida |
 | 4.  | [Tikitoki App](Practica04/tikitoki/)                                  | El alumno creará una app de reproducción de videos verticales con el uso de Provider y tematización temporal de Halloween y Navidad | 30          | 🟢 Concluida |
 | 5.  | [Widgets App](Practica05/widgets_app/)                                | Crear un catálogo de widgets de Flutter con navegación por go_router y estado global (contador y tema) con Riverpod                 | 40          | 🟢 Concluida |
+| Proyecto integrador | [Cinemapedia](practica06/cinemapedia/) | Catálogo regional, favoritos, tráileres, notificaciones y autenticación. Contenidos hasta la sección 26. | — | Verificado en simulador |
 | PDF | [Manual Móvil Integral](ManualDMI/MANUAL_MOVIL_INTEGRAL_230389.pdf)   | Manual de referencia de la asignatura de Desarrollo Móvil Integral                                                                  | —           | Disponible   |
 
-## Links
+## Ejecutar Cinemapedia
 
-- [Manual Móvil Integral (PDF)](ManualDMI/MANUAL_MOVIL_INTEGRAL_230389.pdf)
+1. Abre el simulador de iOS desde Xcode.
+2. En `practica06/cinemapedia/.env`, configura `THE_MOVIEDB_KEY` con tu clave de TMDB.
+3. Desde la raíz del repositorio, ejecuta:
+
+   ```sh
+   cd practica06/cinemapedia
+   flutter pub get
+   flutter run
+   ```
+
+**Mi cuenta** requiere que la API local esté en ejecución. Para verificar el envío de notificaciones push reales, hace falta configurar Firebase para la app y APNs en iOS. El aviso local se puede probar en el simulador desde **Menú → Notificaciones**. [Configuración técnica de Cinemapedia](practica06/cinemapedia/README.md)
+
+La versión se compiló para el simulador de iOS. Se verificaron el aviso local y el flujo de autenticación del backend con PostgreSQL. El análisis de Flutter y las 22 pruebas pasaron.
 
 ## Diagramas interactivos · Archify
 

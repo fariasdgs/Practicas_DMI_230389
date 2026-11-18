@@ -1,0 +1,109 @@
+# Cinemapedia · Práctica 06 · 230389
+
+Aplicación Flutter con TMDB, Riverpod y GoRouter.
+
+## Ejecutar
+
+En esta carpeta, configura `.env` con `THE_MOVIEDB_KEY=tu_clave_de_tmdb` y ejecuta:
+
+```sh
+flutter pub get
+flutter run
+```
+
+## Navegación y gestos
+
+- Menú hamburguesa: inicio, en cines, próximos estrenos, populares, mejor calificadas y países.
+- Logo propio en la barra y el menú; se conserva la configuración existente de icono y splash.
+- Deslizar horizontalmente: recorrer el carrusel o una lista.
+- Flechas: avanzar o retroceder. Doble toque: principio o final de las películas cargadas.
+- Doble toque en la mitad izquierda/derecha del carrusel: película anterior/siguiente.
+- Tocar una película: abrir el detalle.
+- Botón de flecha hacia arriba o Inicio: volver al principio de la pantalla.
+- Deslizar hacia abajo desde el inicio: recargar las cuatro secciones.
+- Las listas cargan más películas al acercarse al final; los errores permiten reintentar.
+
+## Países e idiomas
+
+La bandera junto al botón de búsqueda cambia el país y el idioma de toda la interfaz:
+
+| Bandera | País | Consulta TMDB | Continente |
+| --- | --- | --- | --- |
+| 🇲🇽 | México | `es-MX`, región `MX` | América del Norte |
+| 🇺🇸 | Estados Unidos | `en-US`, región `US` | América del Norte |
+| 🇩🇪 | Alemania | `de-DE`, región `DE` | Europa |
+| 🇧🇷 | Brasil | `pt-BR`, región `BR` | América del Sur |
+| 🇯🇵 | Japón | `ja-JP`, región `JP` | Asia |
+| 🇿🇦 | Sudáfrica | `en-ZA`, región `ZA` | África |
+| 🇦🇺 | Australia | `en-AU`, región `AU` | Oceanía |
+
+México es la selección inicial. Cambiar país reinicia las listas y la paginación, y actualiza títulos, sinopsis, géneros del detalle, textos de la interfaz, controles de Flutter y clasificaciones. Una respuesta pendiente del país anterior no se agrega al catálogo nuevo. La selección dura durante la sesión.
+
+`language` solicita las traducciones disponibles; `region` selecciona el mercado de consulta y sus estrenos. El carrusel y la primera sección, «Películas del país», consultan `/discover/movie` con `with_origin_country` para recomendar películas originarias del país seleccionado, ordenadas por popularidad. Las demás secciones mantienen sus consultas de cartelera, estrenos y popularidad regional. Una coproducción puede aparecer en varios países. Si TMDB no tiene una traducción, puede devolver el título original.
+
+## Estrellas y clasificación
+
+El carrusel, las tarjetas y el detalle muestran el título localizado, cinco estrellas y la clasificación del país seleccionado.
+
+- Las estrellas convierten la puntuación **global de TMDB** de 0–10 a 0–5; no representan votos separados por país. Mantén pulsado o pasa el cursor por la puntuación para consultar la nota original y el número de votos.
+- Las clasificaciones se obtienen de `/movie/{id}/release_dates`, exclusivamente del código de país seleccionado. Se prioriza el estreno en cines, después el limitado y las demás modalidades.
+- Si falta una clasificación local, se muestra «Sin clasificación» en el idioma elegido. Si falla la consulta, se muestra «No disponible» y se puede tocar para reintentar.
+- Las consultas de clasificación se comparten entre carrusel, listas y detalle para evitar solicitudes duplicadas del mismo país y película.
+
+Referencias oficiales: [idiomas de TMDB](https://developer.themoviedb.org/docs/languages), [películas por país de origen](https://developer.themoviedb.org/reference/discover-movie), [estrenos por región](https://developer.themoviedb.org/reference/movie-now-playing-list) y [clasificaciones por película y país](https://developer.themoviedb.org/reference/movie-release-dates).
+
+## Verificación
+
+```sh
+flutter analyze
+flutter test
+```
+
+Las pruebas usan repositorios y respuestas de API simulados; no necesitan tu clave ni acceso a TMDB. Cubren idiomas y regiones, clasificaciones locales, cambio de cachés, catálogos pequeños o vacíos, errores, paginación, navegación, gestos y pantallas pequeñas con texto ampliado.
+
+## Notificaciones (secciones 21–24)
+
+En iOS y Android, abre **Menú → Notificaciones → Probar notificación local**.
+Acepta el permiso del sistema. El aviso aparece en el historial de la sesión.
+Al tocar un aviso con el dato `movieId` se abre la película.
+
+Para habilitar push, registra el identificador de tu app en tu proyecto Firebase
+y agrega a `.env` los valores de la plataforma que vas a ejecutar:
+`FCM_PROJECT_ID`, `FCM_APP_ID`, `FCM_API_KEY` y `FCM_SENDER_ID`.
+En iOS, el destino físico debe estar firmado por tu equipo y Firebase debe
+tener configurada la clave de APNs. Consulta la
+[configuración oficial](https://firebase.google.com/docs/cloud-messaging/flutter/get-started).
+El botón de prueba local funciona en Simulator sin usar FCM.
+
+Para enviar desde una máquina autorizada, configura las credenciales de
+aplicación de Google Cloud con permisos de envío a tu proyecto. En el menú de
+notificaciones, copia el identificador de prueba y cárgalo en la variable
+`CINEMA_FCM_DEVICE_TOKEN` del proceso que ejecuta el script:
+
+```sh
+python3 tool/send_movie_notice.py MI_PROYECTO 550 'Nueva recomendación' 'Abre la película' --dry-run
+```
+
+Quita `--dry-run` para enviar el aviso. Usa `--image https://ejemplo.com/poster.jpg` para adjuntar una imagen a los avisos remotos compatibles. En iOS firma también el destino `NotificationService` con tu equipo. Las credenciales de envío se mantienen
+fuera de Flutter y del repositorio.
+
+## Cuenta y servidor local (secciones 19–20 y 25–26)
+
+El menú **Mi cuenta** permite registrarte con el formulario Cubit/Formz,
+iniciar sesión con JWT y cerrar sesión. El catálogo sigue disponible
+durante toda la sesión. La sesión de cuenta se conserva en memoria.
+
+Para levantar NestJS y PostgreSQL, copia `backend/.env.example` a
+`backend/.env`, asigna una contraseña de base de datos y un secreto JWT
+aleatorios (por ejemplo, con `openssl rand -hex 32` para cada uno).
+Desde `backend/` ejecuta `docker compose up --build`.
+Desde el simulador iOS se usa `http://127.0.0.1:3000` por defecto.
+Puedes cambiar la URL con `CINEMA_API_URL` en el `.env` de Flutter.
+Para Web, sirve frontend y API con un mismo origen o configura un
+proxy del mismo origen para acceder al servidor.
+
+Rutas de la API:
+
+- `POST /auth/register` con `name`, `email` y `password`.
+- `POST /auth/login` con `email` y `password`.
+- `GET /auth/me` con `Authorization: Bearer <JWT>`.
