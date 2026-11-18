@@ -52,6 +52,14 @@ class CinemaDrawer extends ConsumerWidget {
                   if (currentIndex != index) context.go('/home/$index');
                 },
               ),
+            ListTile(
+              leading: const Icon(Icons.notifications_outlined),
+              title: const Text('Notificaciones'),
+              onTap: () {
+                Navigator.of(context).pop();
+                context.push('/notificaciones');
+              },
+            ),
             const Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

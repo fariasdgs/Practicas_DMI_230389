@@ -1,3 +1,5 @@
+import 'presentation/notifications/notifications.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:cinemapedia/config/constants/movie_country.dart';
@@ -44,6 +46,8 @@ class MainApp extends ConsumerWidget {
     final country = ref.watch(movieCountryProvider);
     return MaterialApp.router(
       routerConfig: appRouter,
+      builder: (_, child) =>
+          NotificationScope(router: appRouter, child: child!),
       locale: Locale(country.languageCode, country.code),
       supportedLocales: MovieCountry.values
           .map((item) => Locale(item.languageCode, item.code))
