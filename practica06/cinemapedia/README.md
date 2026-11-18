@@ -73,7 +73,7 @@ y agrega a `.env` los valores de la plataforma que vas a ejecutar:
 En iOS, el destino físico debe estar firmado por tu equipo y Firebase debe
 tener configurada la clave de APNs. Consulta la
 [configuración oficial](https://firebase.google.com/docs/cloud-messaging/flutter/get-started).
-Puedes inyectar un aviso local de prueba desde Simulator sin usar FCM.
+El botón de prueba local funciona en Simulator sin usar FCM.
 
 Para enviar desde una máquina autorizada, configura las credenciales de
 aplicación de Google Cloud con permisos de envío a tu proyecto. En el menú de
@@ -84,5 +84,26 @@ notificaciones, copia el identificador de prueba y cárgalo en la variable
 python3 tool/send_movie_notice.py MI_PROYECTO 550 'Nueva recomendación' 'Abre la película' --dry-run
 ```
 
-Quita `--dry-run` para enviar el aviso. Las credenciales de envío se mantienen
+Quita `--dry-run` para enviar el aviso. Usa `--image https://ejemplo.com/poster.jpg` para adjuntar una imagen a los avisos remotos compatibles. En iOS firma también el destino `NotificationService` con tu equipo. Las credenciales de envío se mantienen
 fuera de Flutter y del repositorio.
+
+## Cuenta y servidor local (secciones 19–20 y 25–26)
+
+El menú **Mi cuenta** permite registrarte con el formulario Cubit/Formz,
+iniciar sesión con JWT y cerrar sesión. El catálogo sigue disponible
+durante toda la sesión. La sesión de cuenta se conserva en memoria.
+
+Para levantar NestJS y PostgreSQL, copia `backend/.env.example` a
+`backend/.env`, asigna una contraseña de base de datos y un secreto JWT
+aleatorios (por ejemplo, con `openssl rand -hex 32` para cada uno).
+Desde `backend/` ejecuta `docker compose up --build`.
+Desde el simulador iOS se usa `http://127.0.0.1:3000` por defecto.
+Puedes cambiar la URL con `CINEMA_API_URL` en el `.env` de Flutter.
+Para Web, sirve frontend y API con un mismo origen o configura un
+proxy del mismo origen para acceder al servidor.
+
+Rutas de la API:
+
+- `POST /auth/register` con `name`, `email` y `password`.
+- `POST /auth/login` con `email` y `password`.
+- `GET /auth/me` con `Authorization: Bearer <JWT>`.

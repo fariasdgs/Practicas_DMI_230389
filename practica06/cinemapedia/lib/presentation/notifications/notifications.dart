@@ -79,7 +79,8 @@ class NoticesBloc extends Bloc<NoticeEvent, List<CinemaNotice>> {
   }
 }
 
-class CinemaNotifications extends ChangeNotifier {
+class CinemaNotifications {
+  final changes = ValueNotifier<int>(0);
   final inbox = NoticesBloc();
   final _local = FlutterLocalNotificationsPlugin();
   final List<StreamSubscription<RemoteMessage>> _subscriptions = [];
@@ -129,7 +130,7 @@ class CinemaNotifications extends ChangeNotifier {
     );
     if (inbox.isClosed) return;
     available = true;
-    notifyListeners();
+    changes.value++;
     final launch = await _local.getNotificationAppLaunchDetails();
     if (launch?.didNotificationLaunchApp ?? false) {
       initialNotice = decode(launch?.notificationResponse?.payload);
@@ -147,7 +148,7 @@ class CinemaNotifications extends ChangeNotifier {
     if (inbox.isClosed) return;
     FirebaseMessaging.onBackgroundMessage(cinemaBackgroundMessage);
     final messaging = _messaging = FirebaseMessaging.instance;
-    notifyListeners();
+    changes.value++;
     _subscriptions.add(
       FirebaseMessaging.onMessage.listen((message) {
         final notice = CinemaNotice.remote(message);
@@ -236,13 +237,12 @@ class CinemaNotifications extends ChangeNotifier {
     payload: jsonEncode(notice.toJson()),
   );
 
-  @override
   void dispose() {
     for (final subscription in _subscriptions) {
       unawaited(subscription.cancel());
     }
     unawaited(inbox.close());
-    super.dispose();
+    changes.dispose();
   }
 }
 

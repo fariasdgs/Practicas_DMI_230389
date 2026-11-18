@@ -1,3 +1,4 @@
+import '../../presentation/account/account_screen.dart';
 import '../../presentation/notifications/notices_screen.dart';
 import '../../presentation/notifications/notifications.dart';
 
@@ -41,6 +42,7 @@ final appRouter = GoRouter(
             : null,
       ),
     ),
+    GoRoute(path: '/cuenta', builder: (_, _) => const AccountScreen()),
     GoRoute(path: '/', redirect: (_, _) => '/home/0'),
   ],
 );

@@ -60,6 +60,14 @@ class CinemaDrawer extends ConsumerWidget {
                 context.push('/notificaciones');
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.person_outline),
+              title: const Text('Mi cuenta'),
+              onTap: () {
+                Navigator.of(context).pop();
+                context.push('/cuenta');
+              },
+            ),
             const Divider(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
