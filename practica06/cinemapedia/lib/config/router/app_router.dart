@@ -1,3 +1,6 @@
+import '../../presentation/notifications/notices_screen.dart';
+import '../../presentation/notifications/notifications.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:flutter/widgets.dart';
 
@@ -30,6 +33,14 @@ final appRouter = GoRouter(
       ],
     ),
 
+    GoRoute(
+      path: '/notificaciones',
+      builder: (_, state) => NoticesScreen(
+        selected: state.extra is CinemaNotice
+            ? state.extra as CinemaNotice
+            : null,
+      ),
+    ),
     GoRoute(path: '/', redirect: (_, _) => '/home/0'),
   ],
 );

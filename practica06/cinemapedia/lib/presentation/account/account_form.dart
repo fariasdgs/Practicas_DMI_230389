@@ -4,7 +4,7 @@ import 'package:formz/formz.dart';
 
 class EmailInput extends FormzInput<String, String> {
   const EmailInput.pure() : super.pure('');
-  const EmailInput.dirty(String value) : super.dirty(value);
+  const EmailInput.dirty(super.value) : super.dirty();
 
   @override
   String? validator(String value) =>
@@ -15,7 +15,7 @@ class EmailInput extends FormzInput<String, String> {
 
 class PasswordInput extends FormzInput<String, String> {
   const PasswordInput.pure() : super.pure('');
-  const PasswordInput.dirty(String value) : super.dirty(value);
+  const PasswordInput.dirty(super.value) : super.dirty();
 
   @override
   String? validator(String value) =>

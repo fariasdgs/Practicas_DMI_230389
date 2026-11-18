@@ -60,3 +60,29 @@ flutter test
 ```
 
 Las pruebas usan repositorios y respuestas de API simulados; no necesitan tu clave ni acceso a TMDB. Cubren idiomas y regiones, clasificaciones locales, cambio de cachés, catálogos pequeños o vacíos, errores, paginación, navegación, gestos y pantallas pequeñas con texto ampliado.
+
+## Notificaciones (secciones 21–24)
+
+En iOS y Android, abre **Menú → Notificaciones → Probar notificación local**.
+Acepta el permiso del sistema. El aviso aparece en el historial de la sesión.
+Al tocar un aviso con el dato `movieId` se abre la película.
+
+Para habilitar push, registra el identificador de tu app en tu proyecto Firebase
+y agrega a `.env` los valores de la plataforma que vas a ejecutar:
+`FCM_PROJECT_ID`, `FCM_APP_ID`, `FCM_API_KEY` y `FCM_SENDER_ID`.
+En iOS, el destino físico debe estar firmado por tu equipo y Firebase debe
+tener configurada la clave de APNs. Consulta la
+[configuración oficial](https://firebase.google.com/docs/cloud-messaging/flutter/get-started).
+Puedes inyectar un aviso local de prueba desde Simulator sin usar FCM.
+
+Para enviar desde una máquina autorizada, configura las credenciales de
+aplicación de Google Cloud con permisos de envío a tu proyecto. En el menú de
+notificaciones, copia el identificador de prueba y cárgalo en la variable
+`CINEMA_FCM_DEVICE_TOKEN` del proceso que ejecuta el script:
+
+```sh
+python3 tool/send_movie_notice.py MI_PROYECTO 550 'Nueva recomendación' 'Abre la película' --dry-run
+```
+
+Quita `--dry-run` para enviar el aviso. Las credenciales de envío se mantienen
+fuera de Flutter y del repositorio.
